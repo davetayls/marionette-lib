@@ -1,0 +1,26 @@
+{
+  "name": "marionette_lib",
+  "version": "0.0.0",
+  "description": "marionette-lib ==============",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "grunt-amd-wrap": "~1.0.1",
+    "grunt-contrib-coffee": "~0.10.1",
+    "load-grunt-config": "~0.10.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/davetayls/marionette_lib.git"
+  },
+  "author": "davetayls",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/davetayls/marionette_lib/issues"
+  },
+  "homepage": "https://github.com/davetayls/marionette_lib"
+}
