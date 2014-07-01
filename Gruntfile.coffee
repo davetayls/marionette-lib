@@ -3,6 +3,8 @@ module.exports = (grunt) ->
 
   require('load-grunt-config') grunt,
     config:
+      clean: ['amd']
+
       amdwrap:
         dist:
           expand: true
@@ -25,4 +27,10 @@ module.exports = (grunt) ->
             ext: '.js'
           ]
 
-  grunt.registerTask 'default', ['coffee', 'amdwrap']
+      watch:
+        dist:
+          files: ['src/**/*.coffee']
+          spawn: true
+          tasks: ['default']
+
+  grunt.registerTask 'default', ['clean', 'coffee', 'amdwrap']

@@ -1,7 +1,6 @@
 
 'use strict'
 
-Q = require 'q'
 Marionette = require 'marionette'
 
 class List extends Marionette.CompositeView

@@ -5,7 +5,7 @@ var Layout, Marionette,
 
 Marionette = require('marionette');
 
-module.exports = Layout = (function(_super) {
+Layout = (function(_super) {
   __extends(Layout, _super);
 
   function Layout() {
@@ -19,5 +19,7 @@ module.exports = Layout = (function(_super) {
   return Layout;
 
 })(Marionette.Layout);
+
+module.exports = Layout;
 
 });
