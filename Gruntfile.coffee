@@ -27,10 +27,20 @@ module.exports = (grunt) ->
             ext: '.js'
           ]
 
+      copy:
+        dist:
+          expand: true
+          cwd: 'src'
+          dest: 'amd'
+          src: [
+            '**/*.hbs'
+            '**/*.styl'
+          ]
+
       watch:
         dist:
           files: ['src/**/*.coffee']
           spawn: true
           tasks: ['default']
 
-  grunt.registerTask 'default', ['clean', 'coffee', 'amdwrap']
+  grunt.registerTask 'default', ['clean', 'coffee', 'amdwrap', 'copy']

@@ -1,7 +1,7 @@
 define(function (require, exports, module) {'use strict';
 var Marionette, _close, _show;
 
-Marionette = require('marionette');
+Marionette = require('backbone.marionette');
 
 Marionette.Region.prototype.animateOut = function(cb) {
   if (this.currentView && this.currentView.animateOut) {
@@ -24,7 +24,7 @@ Marionette.Region.prototype.show = function(view, immediate) {
     _show.call(this, view);
     return console.log('showing', view);
   } else {
-    return this.animateOut().done((function(_this) {
+    return this.animateOut((function(_this) {
       return function() {
         _this._nextView = null;
         _show.call(_this, view);

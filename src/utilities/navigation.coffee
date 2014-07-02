@@ -3,7 +3,7 @@ _ = require 'underscore'
 Backbone = require 'backbone'
 
 API =
-  navigate: (route, options = {}) ->
+  to: (route, options = {}) ->
     Backbone.history.navigate route, options
 
   getCurrentRoute: ->

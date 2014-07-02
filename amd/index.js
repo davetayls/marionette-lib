@@ -1,7 +1,20 @@
 define(function (require, exports, module) {require('./_config/index');
 
+exports.components = {
+  loading: {
+    LoadingController: require('./components/loading/LoadingController')
+  }
+};
+
 exports.controllers = {
-  App: require('./controllers/App')
+  Api: require('./controllers/Api'),
+  App: require('./controllers/App'),
+  Base: require('./controllers/Base'),
+  Component: require('./controllers/Component')
+};
+
+exports.entities = {
+  Base: require('./entities/Base')
 };
 
 exports.routers = {

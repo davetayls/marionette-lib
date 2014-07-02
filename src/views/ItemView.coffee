@@ -1,7 +1,7 @@
 
 'use strict'
 
-Marionette = require 'marionette'
+Marionette = require 'backbone.marionette'
 
 module.exports = class ItemView extends Marionette.ItemView
   className: -> @name

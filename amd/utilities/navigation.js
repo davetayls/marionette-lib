@@ -5,7 +5,7 @@ _ = require('underscore');
 Backbone = require('backbone');
 
 API = {
-  navigate: function(route, options) {
+  to: function(route, options) {
     if (options == null) {
       options = {};
     }

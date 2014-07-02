@@ -1,11 +1,10 @@
 'use strict'
 
-Marionette = require 'marionette'
 _ = require 'underscore'
-
+BaseController = require './Base'
 app = require 'app'
 
-class module.exports extends Marionette.Controller
+class module.exports extends BaseController
   constructor: (options = {}) ->
     @region = options.region or app.request "default:region"
     @_instance_id = _.uniqueId("controller")
