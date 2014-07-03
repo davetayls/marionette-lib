@@ -27,10 +27,10 @@
   <title>{{app_title}}</title>
 
   {{#each headSection.scripts}}
-    <script src="this"></script>
+    <script src="{{this}}"></script>
   {{/each}}
   {{#each headSection.stylesheets}}
-  <link rel="stylesheet" href="this"/>
+  <link rel="stylesheet" href="{{this}}"/>
   {{/each}}
 
   <script>

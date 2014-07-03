@@ -1,5 +1,6 @@
 
 require './_config/index'
+require './handlebars/index'
 
 exports.components =
   loading:

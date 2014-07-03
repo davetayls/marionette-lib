@@ -6,6 +6,8 @@ Backbone = require('backbone');
 
 require('backbone.dualstorage');
 
+window.Store.prototype.sep = '__';
+
 Entity = (function(_super) {
   __extends(Entity, _super);
 

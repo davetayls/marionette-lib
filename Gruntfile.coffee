@@ -11,6 +11,7 @@ module.exports = (grunt) ->
           cwd: 'amd'
           src: [
             '**/*.js'
+            '!modernizr/**/*'
           ]
           dest: 'amd'
 
@@ -43,4 +44,6 @@ module.exports = (grunt) ->
           spawn: true
           tasks: ['default']
 
-  grunt.registerTask 'default', ['clean', 'coffee', 'amdwrap', 'copy']
+  grunt.registerTask 'default', ['build']
+  grunt.registerTask 'build', ['clean', 'coffee', 'amdwrap', 'copy']
+

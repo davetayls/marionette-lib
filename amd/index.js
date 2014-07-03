@@ -1,5 +1,7 @@
 define(function (require, exports, module) {require('./_config/index');
 
+require('./handlebars/index');
+
 exports.components = {
   loading: {
     LoadingController: require('./components/loading/LoadingController')

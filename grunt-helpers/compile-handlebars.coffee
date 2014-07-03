@@ -1,5 +1,6 @@
 
 _ = require 'underscore'
+path = require 'path'
 
 module.exports = (templateData) ->
   index_dev:
@@ -8,20 +9,20 @@ module.exports = (templateData) ->
       development: true
       platform: 'www'
     }, templateData
-    output: '<%= yeoman.www %>/index.html'
+    output: '<%= cfg.www %>/index.html'
 
   index_ios:
-    template: '<%= yeoman.src %>/index.hbs'
+    template: '<%= cfg.src %>/index.hbs'
     templateData: _.defaults {
       development: false
       platform: 'ios'
     }, templateData
-    output: '<%= yeoman.app %>/merges/ios/index.html'
+    output: 'merges/ios/index.html'
 
   index_android:
-    template: '<%= yeoman.src %>/index.hbs'
+    template: '<%= cfg.src %>/index.hbs'
     templateData: _.defaults {
       development: false
       platform: 'android'
     }, templateData
-    output: '<%= yeoman.app %>/merges/android/index.html'
+    output: 'merges/android/index.html'
