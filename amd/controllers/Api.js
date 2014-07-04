@@ -13,6 +13,29 @@ ApiController = (function(_super) {
     return ApiController.__super__.constructor.apply(this, arguments);
   }
 
+  ApiController.prototype.all = function(options, cb) {
+    var all;
+    if (options == null) {
+      options = {};
+    }
+    cb = cb || _.reduceRight(arguments, function(m, arg) {
+      return m || arg;
+    });
+    all = new this.Entity.Collection();
+    return all.fetch({
+      success: (function(_this) {
+        return function() {
+          return cb.call(_this, all);
+        };
+      })(this),
+      error: (function(_this) {
+        return function(model, err) {
+          return cb.call(_this, err);
+        };
+      })(this)
+    });
+  };
+
   ApiController.prototype.byId = function(id, cb) {
     var entity, properties;
     properties = {};
