@@ -4,9 +4,15 @@ i18n = require('i18n');
 
 Handlebars = require('handlebars');
 
-Handlebars.registerHelper("t", function(i18n_key) {
+Handlebars.registerHelper("t", function(i18n_key, options) {
   var result;
-  result = i18n.t(i18n_key);
+  if (options.hash.lang) {
+    result = i18n.t(i18n_key, {
+      lng: options.hash.lang
+    });
+  } else {
+    result = i18n.t(i18n_key);
+  }
   return new Handlebars.SafeString(result);
 });
 

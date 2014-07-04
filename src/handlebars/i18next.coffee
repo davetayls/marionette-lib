@@ -2,8 +2,11 @@
 i18n = require 'i18n'
 Handlebars = require 'handlebars'
 
-Handlebars.registerHelper "t", (i18n_key) ->
-  result = i18n.t(i18n_key)
+Handlebars.registerHelper "t", (i18n_key, options) ->
+  if options.hash.lang
+    result = i18n.t(i18n_key, { lng: options.hash.lang })
+  else
+    result = i18n.t(i18n_key)
   new Handlebars.SafeString(result)
 
 Handlebars.registerHelper "tr", (context, options) ->
