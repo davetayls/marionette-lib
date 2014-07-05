@@ -33,7 +33,7 @@ module.exports = (libs) ->
 
         'handlebars/handlebars.js'
 
-        'i18next/i18next.js'
+        'i18next/i18next.amd.js'
 
         'jquery/dist/jquery.js'
 
@@ -49,6 +49,7 @@ module.exports = (libs) ->
         'requirejs-text/text.js'
 
         'snapjs/snap.js'
+        'snapjs/snap.css'
         'soundmanager/script/soundmanager2.js'
         'soundmanager/swf/**/*'
         'spin.js/spin.js'
