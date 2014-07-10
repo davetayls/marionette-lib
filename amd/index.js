@@ -1,4 +1,4 @@
-define(function (require, exports, module) {require('./_config/index');
+define(function (require, exports, module) {require('./config/index');
 
 require('./handlebars/index');
 

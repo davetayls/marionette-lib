@@ -20,12 +20,20 @@ Marionette.Region.prototype.show = function(view, immediate) {
   }
   this._nextView = view;
   if (immediate) {
+    if (this.$el && this.$el[0]) {
+      this.$el[0].scrollTop = 0;
+      this.$el[0].scrollLeft = 0;
+    }
     this._nextView = null;
     _show.call(this, view);
     return console.log('showing', view);
   } else {
     return this.animateOut((function(_this) {
       return function() {
+        if (_this.$el && _this.$el[0]) {
+          _this.$el[0].scrollTop = 0;
+          _this.$el[0].scrollLeft = 0;
+        }
         _this._nextView = null;
         _show.call(_this, view);
         return console.log('showing', view);

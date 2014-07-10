@@ -1,13 +1,17 @@
 
 i18n = require 'i18n'
+_ = require 'underscore'
 Handlebars = require 'handlebars'
 
 Handlebars.registerHelper "t", (i18n_key, options) ->
-  if options.hash.lang
-    result = i18n.t(i18n_key, { lng: options.hash.lang })
-  else
-    result = i18n.t(i18n_key)
-  new Handlebars.SafeString(result)
+  opts = {}
+  _.extend opts, options.hash
+  result = i18n.t(i18n_key, opts)
+  attrs = [ "data-t=\"#{i18n_key}\"" ]
+  _.each opts, (val, key) ->
+    if _.isString val or _.isFinite val
+      attrs.push "data-#{key}=\"#{val}\""
+  "<span #{attrs.join(' ')}>#{new Handlebars.SafeString(result)}</span>"
 
 Handlebars.registerHelper "tr", (context, options) ->
   opts = i18n.functions.extend(options.hash, context)

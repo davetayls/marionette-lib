@@ -13,11 +13,17 @@ _show = Marionette.Region.prototype.show
 Marionette.Region.prototype.show = (view, immediate = false) ->
   @_nextView = view
   if immediate
+    if @$el and @$el[0]
+      @$el[0].scrollTop = 0
+      @$el[0].scrollLeft = 0
     @_nextView = null
     _show.call(@, view)
     console.log 'showing', view
   else
     @animateOut =>
+      if @$el and @$el[0]
+        @$el[0].scrollTop = 0
+        @$el[0].scrollLeft = 0
       @_nextView = null
       _show.call(@, view)
       console.log 'showing', view

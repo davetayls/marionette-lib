@@ -1,5 +1,5 @@
 
-require './_config/index'
+require './config/index'
 require './handlebars/index'
 
 exports.components =
