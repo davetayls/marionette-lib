@@ -2,6 +2,8 @@
 require './config/index'
 require './handlebars/index'
 
+exports.behaviors = require './behaviors/index'
+
 exports.components =
   loading:
     LoadingController: require './components/loading/LoadingController'
