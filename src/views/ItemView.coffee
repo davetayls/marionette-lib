@@ -5,5 +5,5 @@ Marionette = require 'backbone.marionette'
 
 module.exports = class ItemView extends Marionette.ItemView
   className: -> @name
-  behaviours: ->
+  behaviors: ->
     Modifiers: {}

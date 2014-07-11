@@ -16,6 +16,12 @@ List = (function(_super) {
     return this.name;
   };
 
+  List.prototype.behaviors = function() {
+    return {
+      Modifiers: {}
+    };
+  };
+
   List.prototype.animateOut = function(cb) {
     return cb();
   };

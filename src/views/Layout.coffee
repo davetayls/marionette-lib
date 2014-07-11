@@ -5,7 +5,7 @@ Marionette = require 'backbone.marionette'
 
 class Layout extends Marionette.LayoutView
   className: -> @name
-  behaviours: ->
+  behaviors: ->
     Modifiers: {}
 
 module.exports = Layout

@@ -1,10 +1,12 @@
 
-Marionette = require 'marionette'
+Marionette = require 'backbone.marionette'
 
 class ModifiersBehavior extends Marionette.Behavior
-  modified: (modifier, add = true) ->
-    unless @name then throw new Error('A name is required on this View');
+  onModified: (modifier, add = true) ->
+    unless @view.name then throw new Error('A name is required on this View');
     if add
-      @$el.addClass "#{name}--#{modifier}"
+      @$el.addClass "#{@view.name}--#{modifier}"
     else
-      @$el.removeClass "#{name}--#{modifier}"
+      @$el.removeClass "#{@view.name}--#{modifier}"
+
+module.exports = ModifiersBehavior

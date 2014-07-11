@@ -1,6 +1,16 @@
-define(function (require, exports, module) {require('./config/index');
+define(function (require, exports, module) {var Marionette;
+
+Marionette = require('backbone.marionette');
+
+require('./config/index');
 
 require('./handlebars/index');
+
+exports.behaviors = require('./behaviors/index');
+
+Marionette.Behaviors.behaviorsLookup = function() {
+  return exports.behaviors;
+};
 
 exports.components = {
   loading: {

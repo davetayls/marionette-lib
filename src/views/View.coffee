@@ -4,7 +4,7 @@ Marionette = require 'backbone.marionette'
 
 class View extends Marionette.View
   className: -> @name
-  behaviours: ->
+  behaviors: ->
     Modifiers: {}
 
 module.exports = View

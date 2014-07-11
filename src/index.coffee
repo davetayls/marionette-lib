@@ -1,8 +1,11 @@
 
+Marionette = require 'backbone.marionette'
+
 require './config/index'
 require './handlebars/index'
 
 exports.behaviors = require './behaviors/index'
+Marionette.Behaviors.behaviorsLookup = -> exports.behaviors
 
 exports.components =
   loading:

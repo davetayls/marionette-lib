@@ -16,6 +16,12 @@ module.exports = ItemView = (function(_super) {
     return this.name;
   };
 
+  ItemView.prototype.behaviors = function() {
+    return {
+      Modifiers: {}
+    };
+  };
+
   return ItemView;
 
 })(Marionette.ItemView);

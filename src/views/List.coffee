@@ -5,7 +5,7 @@ Marionette = require 'backbone.marionette'
 
 class List extends Marionette.CompositeView
   className: -> @name
-  behaviours: ->
+  behaviors: ->
     Modifiers: {}
   animateOut: (cb) -> cb()
 

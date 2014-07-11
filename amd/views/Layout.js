@@ -16,6 +16,12 @@ Layout = (function(_super) {
     return this.name;
   };
 
+  Layout.prototype.behaviors = function() {
+    return {
+      Modifiers: {}
+    };
+  };
+
   return Layout;
 
 })(Marionette.LayoutView);

@@ -12,6 +12,16 @@ View = (function(_super) {
     return View.__super__.constructor.apply(this, arguments);
   }
 
+  View.prototype.className = function() {
+    return this.name;
+  };
+
+  View.prototype.behaviors = function() {
+    return {
+      Modifiers: {}
+    };
+  };
+
   return View;
 
 })(Marionette.View);
