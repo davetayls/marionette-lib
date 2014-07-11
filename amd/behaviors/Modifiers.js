@@ -11,18 +11,40 @@ ModifiersBehavior = (function(_super) {
     return ModifiersBehavior.__super__.constructor.apply(this, arguments);
   }
 
-  ModifiersBehavior.prototype.onModified = function(modifier, add) {
-    if (add == null) {
-      add = true;
+  ModifiersBehavior.prototype.addModifier = function(modifier) {
+    this.$el.addClass("" + this.view.name + "--" + modifier);
+    return true;
+  };
+
+  ModifiersBehavior.prototype.removeModifier = function(modifier) {
+    this.$el.removeClass("" + this.view.name + "--" + modifier);
+    return false;
+  };
+
+  ModifiersBehavior.prototype.toggleModifier = function(modifier) {
+    if (this.$el.hasClass("" + this.view.name + "--" + modifier)) {
+      return this.removeModifier(modifier);
+    } else {
+      return this.addModifier(modifier);
     }
+  };
+
+  ModifiersBehavior.prototype.onModified = function(modifier, _arg) {
+    var remove, state, toggle, _ref;
+    _ref = _arg != null ? _arg : {}, remove = _ref.remove, toggle = _ref.toggle;
     if (!this.view.name) {
       throw new Error('A name is required on this View');
     }
-    if (add) {
-      return this.$el.addClass("" + this.view.name + "--" + modifier);
+    if (remove) {
+      state = this.removeModifier(modifier);
+    } else if (toggle) {
+      state = this.toggleModifier(modifier);
     } else {
-      return this.$el.removeClass("" + this.view.name + "--" + modifier);
+      state = this.addModifier(modifier);
     }
+    return this.view.triggerMethod("modified:" + modifier, {
+      on: state
+    });
   };
 
   return ModifiersBehavior;
