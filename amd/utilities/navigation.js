@@ -20,9 +20,9 @@ API = {
       return frag;
     }
   },
-  startHistory: function() {
+  startHistory: function(options) {
     if (Backbone.history) {
-      return Backbone.history.start();
+      return Backbone.history.start(options);
     }
   }
 };

@@ -10,8 +10,8 @@ API =
     frag = Backbone.history.fragment
     if _.isEmpty(frag) then null else frag
 
-  startHistory: ->
+  startHistory: (options) ->
     if Backbone.history
-      Backbone.history.start()
+      Backbone.history.start(options)
 
 module.exports = API
