@@ -23,6 +23,8 @@ exports.controllers =
 exports.routers =
   App: require './routers/App'
 
+exports.stickit = require './stickit/index'
+
 exports.whenFetched = require './utilities/whenFetched'
 exports.navigation = require './utilities/navigation'
 exports.registry = require './utilities/registry'
