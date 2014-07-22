@@ -1,5 +1,5 @@
 define(function (require, exports, module) {'use strict';
-var BaseController, app, _,
+var AppController, BaseController, app, _,
   __hasProp = {}.hasOwnProperty,
   __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
 
@@ -9,29 +9,18 @@ BaseController = require('./Base');
 
 app = require('app');
 
-module.exports = (function(_super) {
-  __extends(exports, _super);
+AppController = (function(_super) {
+  __extends(AppController, _super);
 
-  function exports(options) {
+  function AppController(options) {
     if (options == null) {
       options = {};
     }
-    this.region = options.region || app.request("default:region");
-    this._instance_id = _.uniqueId("controller");
-    app.execute("register:instance", this, this._instance_id);
-    if (this.background) {
-      app.execute('blur:background');
-    }
-    exports.__super__.constructor.apply(this, arguments);
+    this.region = this.region || options.region || app.request("default:region");
+    AppController.__super__.constructor.apply(this, arguments);
   }
 
-  exports.prototype.close = function() {
-    console.log('closing', this);
-    app.execute("unregister:instance", this, this._instance_id);
-    return exports.__super__.close.apply(this, arguments);
-  };
-
-  exports.prototype.show = function(view, options) {
+  AppController.prototype.show = function(view, options) {
     var _ref;
     if (options == null) {
       options = {};
@@ -45,21 +34,25 @@ module.exports = (function(_super) {
     if (!view) {
       throw new Error("getMainView() did not return a view instance or " + (view != null ? (_ref = view.constructor) != null ? _ref.name : void 0 : void 0) + " is not a view instance");
     }
-    this._setMainView(view);
+    this.setMainView(view);
     return this._manageView(view, options);
   };
 
-  exports.prototype._setMainView = function(view) {
+  AppController.prototype.getMainView = function() {
+    return this._mainView;
+  };
+
+  AppController.prototype.setMainView = function(view) {
     if (this._mainView) {
       return;
     }
     this._mainView = view;
     if (view) {
-      return this.listenTo(view, "close", this.close);
+      return this.listenTo(view, "destroy", this.destroy);
     }
   };
 
-  exports.prototype._manageView = function(view, options) {
+  AppController.prototype._manageView = function(view, options) {
     if (options.loading || options.fetch) {
       if (_.isBoolean(options.loading)) {
         options.loading = {};
@@ -74,8 +67,10 @@ module.exports = (function(_super) {
     }
   };
 
-  return exports;
+  return AppController;
 
 })(BaseController);
+
+module.exports = AppController;
 
 });

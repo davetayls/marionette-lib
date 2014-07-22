@@ -17,8 +17,8 @@ exports.controllers =
   Base: require './controllers/Base'
   Component: require './controllers/Component'
 
-exports.entities =
-  Base: require './entities/Base'
+#exports.entities =
+#  Base: require './entities/Base'
 
 exports.routers =
   App: require './routers/App'

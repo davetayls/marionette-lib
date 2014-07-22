@@ -72,6 +72,7 @@ class LoadingController extends ComponentController
 
       ## show the real view unless we've set debug in the loading options
       @show realView unless config.debug
+
   getEntities: (view) ->
     ## return the entities manually set during configuration, or just pull
     ## off the model and collection from the view (if they exist)

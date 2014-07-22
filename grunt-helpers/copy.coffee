@@ -22,14 +22,40 @@ module.exports = (libs) ->
         'async/lib/async.js'
 
         'backbone/backbone.js'
+        'backbone-pageable/lib/backbone-pageable.js'
         'backbone.babysitter/lib/backbone.babysitter.js'
         'backbone.dualstorage/backbone.dualstorage.amd.js'
         'backbone.marionette/lib/core/backbone.marionette.js'
+        'backbone.stickit/backbone.stickit.js'
+        'backbone.validation/dist/backbone-validation-amd.js'
         'backbone.wreqr/lib/backbone.wreqr.js'
+        'backgrid/lib/backgrid.css'
+        'backgrid/lib/backgrid.js'
+        'backgrid-filter/backgrid-filter.css'
+        'backgrid-filter/backgrid-filter.js'
+        'backgrid-paginator/backgrid-paginator.css'
+        'backgrid-paginator/backgrid-paginator.js'
+
+        'bootstrap/dist/css/bootstrap.css'
+        'bootstrap/dist/fonts/*.*'
+        'bootstrap/dist/js/bootstrap.js'
+        'bootstrap-datepicker/css/datepicker.css'
+        'bootstrap-datepicker/less/datepicker.less'
+        'bootstrap-datepicker/js/**/*.js'
+
+        'bootstrap-timepicker/css/*.css'
+        'bootstrap-timepicker/js/*.css'
+        'bootstrap-timepicker/less/*.css'
 
         'cordova_proxies/amd/**/*'
 
+        'd3/d3.js'
+
+        'dropzone/**/*'
+
         'fastclick/lib/*.js'
+
+        'gmaps/gmaps.js'
 
         'handlebars/handlebars.js'
 
