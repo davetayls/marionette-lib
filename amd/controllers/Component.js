@@ -11,6 +11,10 @@ ComponentController = (function(_super) {
     return ComponentController.__super__.constructor.apply(this, arguments);
   }
 
+  ComponentController.prototype.show = function() {
+    throw new Error('You should not @show directly, use @setMainView with components and @show from the apps controller.');
+  };
+
   return ComponentController;
 
 })(AppController);
