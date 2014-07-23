@@ -7,9 +7,7 @@ require './handlebars/index'
 exports.behaviors = require './behaviors/index'
 Marionette.Behaviors.behaviorsLookup = -> exports.behaviors
 
-exports.components =
-  loading:
-    LoadingController: require './components/loading/LoadingController'
+exports.components = require './components/index'
 
 exports.controllers =
   Api: require './controllers/Api'

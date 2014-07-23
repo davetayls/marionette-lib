@@ -5,7 +5,7 @@ var ItemView, Marionette,
 
 Marionette = require('backbone.marionette');
 
-module.exports = ItemView = (function(_super) {
+ItemView = (function(_super) {
   __extends(ItemView, _super);
 
   function ItemView() {
@@ -25,5 +25,7 @@ module.exports = ItemView = (function(_super) {
   return ItemView;
 
 })(Marionette.ItemView);
+
+module.exports = ItemView;
 
 });

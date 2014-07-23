@@ -12,11 +12,7 @@ Marionette.Behaviors.behaviorsLookup = function() {
   return exports.behaviors;
 };
 
-exports.components = {
-  loading: {
-    LoadingController: require('./components/loading/LoadingController')
-  }
-};
+exports.components = require('./components/index');
 
 exports.controllers = {
   Api: require('./controllers/Api'),

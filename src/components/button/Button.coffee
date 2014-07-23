@@ -1,4 +1,3 @@
-
 'use strict'
 
 ItemView = require '../../views/ItemView'
