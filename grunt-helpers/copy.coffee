@@ -23,6 +23,7 @@ module.exports = (libs) ->
 
         'backbone/backbone.js'
         'backbone-pageable/lib/backbone-pageable.js'
+        'backbone.paginator/lib/backbone.paginator.js'
         'backbone.babysitter/lib/backbone.babysitter.js'
         'backbone.dualstorage/backbone.dualstorage.amd.js'
         'backbone.marionette/lib/core/backbone.marionette.js'
