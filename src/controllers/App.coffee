@@ -6,6 +6,7 @@ app = require 'app'
 
 class AppController extends BaseController
   constructor: (options = {}) ->
+    @_managedRegions = []
     @region = @region or options.region or app.request "default:region"
     super
 
@@ -24,6 +25,9 @@ class AppController extends BaseController
     @setMainView view
     @_manageView view, options
 
+    view: view
+    options: options
+
   getMainView: -> @_mainView
 
   setMainView: (view) ->
@@ -39,6 +43,10 @@ class AppController extends BaseController
       @listenTo view, "destroy", @destroy
 
   _manageView: (view, options) ->
+    if view isnt @_mainView and options.region
+      unless _.contains @_managedRegions, options.region
+        @_managedRegions.push options.region
+
     if options.loading or options.fetch
       if _.isBoolean(options.loading) then options.loading = {}
       _.defaults options.loading,
@@ -49,5 +57,10 @@ class AppController extends BaseController
     else
       options.region.show view, options.immediate
 
+  destroy: ->
+    _.invoke @_managedRegions, 'animateEmpty'
+    @_managedRegions = null
+    super
 
 module.exports = AppController
+

@@ -16,6 +16,7 @@ AppController = (function(_super) {
     if (options == null) {
       options = {};
     }
+    this._managedRegions = [];
     this.region = this.region || options.region || app.request("default:region");
     AppController.__super__.constructor.apply(this, arguments);
   }
@@ -35,7 +36,11 @@ AppController = (function(_super) {
       throw new Error("getMainView() did not return a view instance or " + (view != null ? (_ref = view.constructor) != null ? _ref.name : void 0 : void 0) + " is not a view instance");
     }
     this.setMainView(view);
-    return this._manageView(view, options);
+    this._manageView(view, options);
+    return {
+      view: view,
+      options: options
+    };
   };
 
   AppController.prototype.getMainView = function() {
@@ -53,6 +58,11 @@ AppController = (function(_super) {
   };
 
   AppController.prototype._manageView = function(view, options) {
+    if (view !== this._mainView && options.region) {
+      if (!_.contains(this._managedRegions, options.region)) {
+        this._managedRegions.push(options.region);
+      }
+    }
     if (options.loading || options.fetch) {
       if (_.isBoolean(options.loading)) {
         options.loading = {};
@@ -65,6 +75,12 @@ AppController = (function(_super) {
     } else {
       return options.region.show(view, options.immediate);
     }
+  };
+
+  AppController.prototype.destroy = function() {
+    _.invoke(this._managedRegions, 'animateEmpty');
+    this._managedRegions = null;
+    return AppController.__super__.destroy.apply(this, arguments);
   };
 
   return AppController;
