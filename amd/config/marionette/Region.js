@@ -34,12 +34,14 @@ Marionette.Region.prototype.animateOut = function(cb) {
  */
 
 Marionette.Region.prototype.animateEmpty = function(options, cb) {
-  return this.animateOut(function() {
-    this.empty();
-    if (_.isFunction(cb)) {
-      return cb.call(this);
-    }
-  });
+  return this.animateOut((function(_this) {
+    return function() {
+      _this.empty();
+      if (_.isFunction(cb)) {
+        return cb.call(_this);
+      }
+    };
+  })(this));
 };
 
 

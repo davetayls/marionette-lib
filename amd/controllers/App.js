@@ -31,7 +31,11 @@ AppController = (function(_super) {
       immediate: false,
       region: this.region
     });
-    view = view.getMainView ? view.getMainView() : view;
+    if (view.getMainView) {
+      options.controller = view;
+      options.monitorReadyState = view.getOption('monitorReadyState');
+      view = view.getMainView();
+    }
     if (!view) {
       throw new Error("getMainView() did not return a view instance or " + (view != null ? (_ref = view.constructor) != null ? _ref.name : void 0 : void 0) + " is not a view instance");
     }
@@ -57,19 +61,19 @@ AppController = (function(_super) {
     }
   };
 
+  AppController.prototype._manageRegion = function(region) {
+    return this._managedRegions.push(region);
+  };
+
   AppController.prototype._manageView = function(view, options) {
-    if (view !== this._mainView && options.region) {
-      if (!_.contains(this._managedRegions, options.region)) {
-        this._managedRegions.push(options.region);
-      }
-    }
-    if (options.loading || options.fetch) {
+    if (options.loading) {
       if (_.isBoolean(options.loading)) {
         options.loading = {};
       }
       _.defaults(options.loading, {
         loadingHeader: _.result(this, 'loadingHeader'),
-        loadingBody: _.result(this, 'loadingBody')
+        loadingBody: _.result(this, 'loadingBody'),
+        monitorReadyState: options.monitorReadyState
       });
       return app.execute("show:loading", view, options);
     } else {

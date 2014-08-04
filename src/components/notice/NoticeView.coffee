@@ -66,5 +66,4 @@ class NoticeView extends ItemView
   onButtonClicked: -> @trigger 'button:clicked'
 
 
-
-
+module.exports = NoticeView

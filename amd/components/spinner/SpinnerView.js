@@ -52,7 +52,7 @@ SpinnerView = (function(_super) {
         _this.loadingSpinner = new Spin(_this.spinOptions);
         return _this.loadingSpinner.spin(_this.$el[0]);
       };
-    })(this), this.loadingDelay);
+    })(this), this.getOption('loadingDelay'));
   };
 
   SpinnerView.prototype.stop = function() {

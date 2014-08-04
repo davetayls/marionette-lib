@@ -37,7 +37,7 @@ class SpinnerView extends View
       @loadingSpinner = new Spin(@spinOptions)
       @loadingSpinner.spin(@$el[0])
 
-    , @loadingDelay
+    , @getOption('loadingDelay')
 
   stop: ->
     clearTimeout(@loadingTimeout) if @loadingTimeout

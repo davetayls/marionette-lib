@@ -12,13 +12,17 @@ class AppController extends BaseController
 
   show: (view, options = {}) ->
     _.defaults options,
-      loading: false
-      immediate: false
+      loading: false   # do not show loading by default
+      immediate: false # disable transition between views
       region: @region
 
     ## allow us to pass in a controller instance instead of a view
     ## if controller instance, set view to the mainView of the controller
-    view = if view.getMainView then view.getMainView() else view
+    if view.getMainView
+      options.controller = view
+      options.monitorReadyState = view.getOption('monitorReadyState')
+      view = view.getMainView()
+
     if not view
       throw new Error("getMainView() did not return a view instance or #{view?.constructor?.name} is not a view instance")
 
@@ -42,16 +46,17 @@ class AppController extends BaseController
     if view
       @listenTo view, "destroy", @destroy
 
-  _manageView: (view, options) ->
-    if view isnt @_mainView and options.region
-      unless _.contains @_managedRegions, options.region
-        @_managedRegions.push options.region
+  _manageRegion: (region) ->
+    # Cleanup other regions when this controller is destroyed
+    @_managedRegions.push region
 
-    if options.loading or options.fetch
+  _manageView: (view, options) ->
+    if options.loading
       if _.isBoolean(options.loading) then options.loading = {}
       _.defaults options.loading,
         loadingHeader: _.result @, 'loadingHeader'
         loadingBody: _.result @, 'loadingBody'
+        monitorReadyState: options.monitorReadyState
       ## show the loading view
       app.execute "show:loading", view, options
     else

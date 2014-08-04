@@ -102,4 +102,6 @@ NoticeView = (function(_super) {
 
 })(ItemView);
 
+module.exports = NoticeView;
+
 });

@@ -24,7 +24,7 @@ Marionette.Region.prototype.animateOut = (cb) ->
   is available
 ###
 Marionette.Region::animateEmpty = (options, cb) ->
-    @animateOut ->
+    @animateOut =>
       @empty()
       cb.call(@) if _.isFunction(cb)
 

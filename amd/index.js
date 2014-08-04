@@ -34,6 +34,7 @@ exports.navigation = require('./utilities/navigation');
 exports.registry = require('./utilities/registry');
 
 exports.views = {
+  View: require('./views/View'),
   ItemView: require('./views/ItemView'),
   Layout: require('./views/Layout'),
   List: require('./views/List')
