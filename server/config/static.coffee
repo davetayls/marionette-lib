@@ -16,6 +16,3 @@ Static.getComponentTemplate = (tmplPath) ->
 if process.env.NODE_ENV is 'production'
   Static.getComponentTemplate = _.memoize Static.getComponentTemplate
 
-Static::getComponentTemplate = ->
-  tmplPath = join(__dirname, @name, 'template.hbs')
-  Static.getComponentTemplate(tmplPath)
