@@ -85,7 +85,7 @@ LoadingController = (function(_super) {
   LoadingController.prototype.showError = function(realView, loadingView) {
     var def;
     if (realView) {
-      realView.close();
+      realView.destroy();
     }
     switch (this.options.loadingType) {
       case 'spinner':

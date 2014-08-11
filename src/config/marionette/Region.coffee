@@ -12,7 +12,7 @@ Marionette = require 'backbone.marionette'
 ###
 Marionette.Region.prototype.animateOut = (cb) ->
   if @currentView and @currentView.animateOut
-    console.log 'animating out', @currentView
+    console.log 'animating out', @currentView, @el
     @triggerMethod 'before:animating:out'
     @currentView.animateOut(cb)
   else if _.isFunction cb then cb.call(@)
@@ -53,6 +53,13 @@ Marionette.Region::getEl = (el) ->
   with the option to disable animations
 ###
 _show = Marionette.Region.prototype.show
+_getName = (view) ->
+  if view
+    if view.name then view.name
+    else
+      view.constructor.name
+  else
+    'no view'
 Marionette.Region.prototype.show = (view, immediate = false) ->
   @_nextView = view
   if immediate
@@ -61,7 +68,7 @@ Marionette.Region.prototype.show = (view, immediate = false) ->
       @$el[0].scrollLeft = 0
     @_nextView = null
     _show.call(@, view)
-    console.log 'showing', view
+    console.log 'showing', _getName(view), view, @el
   else
     @animateOut =>
       if @$el and @$el[0]
@@ -69,7 +76,7 @@ Marionette.Region.prototype.show = (view, immediate = false) ->
         @$el[0].scrollLeft = 0
       @_nextView = null
       _show.call(@, view)
-      console.log 'showing', view
+      console.log 'showing', _getName(view), view, @el
 
 
 ###
@@ -79,7 +86,7 @@ Marionette.Region.prototype.show = (view, immediate = false) ->
 ###
 _close = Marionette.Region.prototype.close
 Marionette.Region.prototype.close = ->
-  console.log 'closing', @currentView if @currentView
+  console.log 'closing', (@currentView if @currentView), @el
   _close.apply(@, arguments)
 
 

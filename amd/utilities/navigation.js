@@ -5,6 +5,7 @@ _ = require('underscore');
 Backbone = require('backbone');
 
 API = {
+  historyIsStarted: false,
   to: function(route, options) {
     if (options == null) {
       options = {};
@@ -22,7 +23,8 @@ API = {
   },
   startHistory: function(options) {
     if (Backbone.history) {
-      return Backbone.history.start(options);
+      Backbone.history.start(options);
+      return API.historyIsStarted = true;
     }
   }
 };

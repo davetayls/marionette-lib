@@ -1,5 +1,5 @@
 define(function (require, exports, module) {'use strict';
-var Backbone, Marionette, _, _close, _getEl, _show;
+var Backbone, Marionette, _, _close, _getEl, _getName, _show;
 
 _ = require('underscore');
 
@@ -17,7 +17,7 @@ Marionette = require('backbone.marionette');
 
 Marionette.Region.prototype.animateOut = function(cb) {
   if (this.currentView && this.currentView.animateOut) {
-    console.log('animating out', this.currentView);
+    console.log('animating out', this.currentView, this.el);
     this.triggerMethod('before:animating:out');
     return this.currentView.animateOut(cb);
   } else if (_.isFunction(cb)) {
@@ -84,6 +84,18 @@ Marionette.Region.prototype.getEl = function(el) {
 
 _show = Marionette.Region.prototype.show;
 
+_getName = function(view) {
+  if (view) {
+    if (view.name) {
+      return view.name;
+    } else {
+      return view.constructor.name;
+    }
+  } else {
+    return 'no view';
+  }
+};
+
 Marionette.Region.prototype.show = function(view, immediate) {
   if (immediate == null) {
     immediate = false;
@@ -96,7 +108,7 @@ Marionette.Region.prototype.show = function(view, immediate) {
     }
     this._nextView = null;
     _show.call(this, view);
-    return console.log('showing', view);
+    return console.log('showing', _getName(view), view, this.el);
   } else {
     return this.animateOut((function(_this) {
       return function() {
@@ -106,7 +118,7 @@ Marionette.Region.prototype.show = function(view, immediate) {
         }
         _this._nextView = null;
         _show.call(_this, view);
-        return console.log('showing', view);
+        return console.log('showing', _getName(view), view, _this.el);
       };
     })(this));
   }
@@ -122,9 +134,7 @@ Marionette.Region.prototype.show = function(view, immediate) {
 _close = Marionette.Region.prototype.close;
 
 Marionette.Region.prototype.close = function() {
-  if (this.currentView) {
-    console.log('closing', this.currentView);
-  }
+  console.log('closing', (this.currentView ? this.currentView : void 0), this.el);
   return _close.apply(this, arguments);
 };
 

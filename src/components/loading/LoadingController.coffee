@@ -59,7 +59,7 @@ class LoadingController extends AppController
       whenFetched @entities, _viewReady
 
   showError: (realView, loadingView) ->
-    realView.close() if realView
+    realView.destroy() if realView
     switch @options.loadingType
       when 'spinner'
         loadingView.stop()
