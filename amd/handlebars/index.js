@@ -1,5 +1,5 @@
 define(function (require, exports, module) {require('./i18next');
 
-require('./components');
+exports.components = require('./components');
 
 });

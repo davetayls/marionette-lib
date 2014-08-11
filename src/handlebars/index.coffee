@@ -1,3 +1,3 @@
 
 require './i18next'
-require './components'
+exports.components = require './components'

@@ -2,7 +2,6 @@
 Marionette = require 'backbone.marionette'
 
 require './config/index'
-require './handlebars/index'
 
 exports.behaviors = require './behaviors/index'
 Marionette.Behaviors.behaviorsLookup = -> exports.behaviors
@@ -18,6 +17,8 @@ exports.controllers =
 
 #exports.entities =
 #  Base: require './entities/Base'
+
+exports.handlebars = require './handlebars/index'
 
 exports.routers =
   App: require './routers/App'

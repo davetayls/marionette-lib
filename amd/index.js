@@ -4,8 +4,6 @@ Marionette = require('backbone.marionette');
 
 require('./config/index');
 
-require('./handlebars/index');
-
 exports.behaviors = require('./behaviors/index');
 
 Marionette.Behaviors.behaviorsLookup = function() {
@@ -21,6 +19,8 @@ exports.controllers = {
   Component: require('./controllers/Component'),
   Static: require('./controllers/Static')
 };
+
+exports.handlebars = require('./handlebars/index');
 
 exports.routers = {
   App: require('./routers/App')
