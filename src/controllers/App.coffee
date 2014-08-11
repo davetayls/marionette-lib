@@ -46,7 +46,7 @@ class AppController extends BaseController
     if view
       @listenTo view, "destroy", @destroy
 
-  _manageRegion: (region) ->
+  manageRegion: (region) ->
     # Cleanup other regions when this controller is destroyed
     @_managedRegions.push region
 

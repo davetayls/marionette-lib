@@ -61,7 +61,7 @@ AppController = (function(_super) {
     }
   };
 
-  AppController.prototype._manageRegion = function(region) {
+  AppController.prototype.manageRegion = function(region) {
     return this._managedRegions.push(region);
   };
 
