@@ -1,6 +1,5 @@
 
 fs = require 'fs'
-join = require('path').join
 hbs = require 'hbs'
 Handlebars = hbs.handlebars
 

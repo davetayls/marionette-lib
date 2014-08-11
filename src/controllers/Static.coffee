@@ -41,7 +41,10 @@ class StaticController
     _.defaults context, hash
 
   getComponentTemplate: ->
-    throw new Error('There is no template on this static controller')
+    if _.isFunction @template
+      @template()
+    else
+      throw new Error('There is no template on this static controller')
 
   getAttributes: ->
     attributes = _.result @, 'attributes'

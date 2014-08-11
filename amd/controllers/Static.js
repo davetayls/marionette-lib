@@ -64,7 +64,11 @@ StaticController = (function() {
   };
 
   StaticController.prototype.getComponentTemplate = function() {
-    throw new Error('There is no template on this static controller');
+    if (_.isFunction(this.template)) {
+      return this.template();
+    } else {
+      throw new Error('There is no template on this static controller');
+    }
   };
 
   StaticController.prototype.getAttributes = function() {
