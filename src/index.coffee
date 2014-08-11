@@ -14,6 +14,7 @@ exports.controllers =
   App: require './controllers/App'
   Base: require './controllers/Base'
   Component: require './controllers/Component'
+  Static: require './controllers/Static'
 
 #exports.entities =
 #  Base: require './entities/Base'

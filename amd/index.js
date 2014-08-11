@@ -18,7 +18,8 @@ exports.controllers = {
   Api: require('./controllers/Api'),
   App: require('./controllers/App'),
   Base: require('./controllers/Base'),
-  Component: require('./controllers/Component')
+  Component: require('./controllers/Component'),
+  Static: require('./controllers/Static')
 };
 
 exports.routers = {
