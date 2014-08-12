@@ -21,6 +21,21 @@ BaseController = (function(_super) {
     return BaseController.__super__.destroy.apply(this, arguments);
   };
 
+  BaseController.prototype.proxyEvents = function(instance, prefix) {
+    return this.listenTo(instance, "all", (function(_this) {
+      return function() {
+        var args, rootEvent;
+        args = Array.prototype.slice.call(arguments);
+        rootEvent = args[0];
+        if (prefix) {
+          args[0] = prefix + ":" + rootEvent;
+        }
+        args.push(instance);
+        _this.triggerMethod.apply(_this, args);
+      };
+    })(this));
+  };
+
   return BaseController;
 
 })(Marionette.Controller);
