@@ -1,4 +1,5 @@
 
+_ = require 'underscore'
 fs = require 'fs'
 hbs = require 'hbs'
 Handlebars = hbs.handlebars
