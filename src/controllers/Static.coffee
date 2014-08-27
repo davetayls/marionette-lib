@@ -74,13 +74,14 @@ class StaticController
       className: @className(options.hash)
 
   renderOuterHtml: (context, { className } = {}) ->
+    tagName = _.result(@, 'tagName')
     [
-      "<#{_.result(@, 'tagName')}"
+      "<#{tagName}"
       @getAttributes()
       " class=\"#{className}\""
       ">\n"
       @renderContentTemplate(context)
-      "</#{@tagName}>"
+      "</#{tagName}>"
     ].join('')
 
   renderContentTemplate: (context) ->

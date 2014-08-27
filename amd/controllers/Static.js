@@ -114,9 +114,10 @@ StaticController = (function() {
   };
 
   StaticController.prototype.renderOuterHtml = function(context, _arg) {
-    var className;
+    var className, tagName;
     className = (_arg != null ? _arg : {}).className;
-    return ["<" + (_.result(this, 'tagName')), this.getAttributes(), " class=\"" + className + "\"", ">\n", this.renderContentTemplate(context), "</" + this.tagName + ">"].join('');
+    tagName = _.result(this, 'tagName');
+    return ["<" + tagName, this.getAttributes(), " class=\"" + className + "\"", ">\n", this.renderContentTemplate(context), "</" + tagName + ">"].join('');
   };
 
   StaticController.prototype.renderContentTemplate = function(context) {
