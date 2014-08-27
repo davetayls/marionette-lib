@@ -75,7 +75,7 @@ class StaticController
 
   renderOuterHtml: (context, { className } = {}) ->
     [
-      "<#{_.result(@tagName)}"
+      "<#{_.result(@, 'tagName')}"
       @getAttributes()
       " class=\"#{className}\""
       ">\n"

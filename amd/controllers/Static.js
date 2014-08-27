@@ -116,7 +116,7 @@ StaticController = (function() {
   StaticController.prototype.renderOuterHtml = function(context, _arg) {
     var className;
     className = (_arg != null ? _arg : {}).className;
-    return ["<" + (_.result(this.tagName)), this.getAttributes(), " class=\"" + className + "\"", ">\n", this.renderContentTemplate(context), "</" + this.tagName + ">"].join('');
+    return ["<" + (_.result(this, 'tagName')), this.getAttributes(), " class=\"" + className + "\"", ">\n", this.renderContentTemplate(context), "</" + this.tagName + ">"].join('');
   };
 
   StaticController.prototype.renderContentTemplate = function(context) {
