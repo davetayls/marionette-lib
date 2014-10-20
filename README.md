@@ -1,7 +1,15 @@
 marionette_lib
 ==============
 
-A reusable library for Marionette apps.
+A lightweight reusable library for Marionette apps.
+
+ - [Behaviors](#behaviors)
+ - [Components](#components)
+ - [Config](#config)
+ - [Controllers](#controllers)
+ - [Entities](#entities)
+ - [Utilities](#utilities)
+ - [Views](#views)
 
 ## Behaviors
 
@@ -46,3 +54,53 @@ You can also use the Marionette method form:
 onModifiedShown: (state) ->
   console.log(state.on) # true/false
 ```
+
+## Components
+
+## Config
+
+## Controllers
+
+### Base Controller
+
+### App Controller
+
+### Component Controller
+
+### Static Controller
+
+## Entities
+
+## Handlebars
+
+## Routers
+
+## Utilities
+
+### Navigation
+
+This encapsulates navigation helpers on the `marionette_lib.navigation` 
+namespace.
+
+ - `.getCurrentRoute()` return the current url fragment
+ - `.startHistory(options)` start backbone history and set a flag to say it 
+ has started
+ - `.to(route, options)` set the url fragment without triggering navigation 
+ unless specified in the options
+ 
+### Registry
+
+Keep a registry of all controllers instantiated within the app so you can see
+if any are not being cleaned up.
+
+```coffeescript
+class MyThing
+  constructor: ->
+    @_instance_id = _.uniqueId('thing')
+    marionette_lib.registry.register(@, @_instance_id)
+    super
+  destroy: ->
+    marionette_lib.registry.unregister(@, @_instance_id)
+```
+
+## Views
