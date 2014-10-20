@@ -37,6 +37,9 @@ KNOWN_LIBS = [
   'codemirror/mode/**/*.*'
   'codemirror/theme/*.css'
 
+  'cropper/dist/cropper.css'
+  'cropper/dist/cropper.js'
+
   'cordova_proxies/amd/**/*'
 
   'd3/d3.js'
