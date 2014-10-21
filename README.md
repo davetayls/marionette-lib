@@ -1,8 +1,10 @@
 marionette_lib
 ==============
 
-A lightweight reusable library for Marionette apps.
+An opinionated structure for building Marionette apps highly based on the 
+excellent [Backbone Rails Series](http://backbonerails.com/).
 
+ - [Project Structure](#project-structure)
  - [Behaviors](#behaviors)
  - [Components](#components)
  - [Config](#config)
@@ -10,6 +12,34 @@ A lightweight reusable library for Marionette apps.
  - [Entities](#entities)
  - [Utilities](#utilities)
  - [Views](#views)
+ 
+## Project Structure
+
+This is the usual project structure for apps that use this library.
+
+    - /apps
+      |- /section_name
+         |- /edit
+            |- Edit.coffee
+            |- EditController.coffee
+         |- /list
+            |- List.coffee -- if needed
+            |- item.hbs -- if needed
+            |- list.hbs -- if needed
+            |- ListController.coffee
+         |- /show
+            |- view.hbs -- template if needed
+            |- View.coffee
+            |- ShowController.coffee
+         |- app.coffee
+         |- index.styl
+    - /behaviors
+    - /components
+    - /config
+    - /entities
+    - app.coffee
+    - main.coffee
+    - main_config.coffee
 
 ## Behaviors
 
@@ -63,7 +93,63 @@ onModifiedShown: (state) ->
 
 ### Base Controller
 
+The base controller makes sure that all controllers register themselves in 
+the app registry so we can keep track of what has or hasn't been cleaned up 
+properly.
+
 ### App Controller
+
+The app controller is used for managing portions of the app like a listing or
+ showing an item.
+ 
+#### ListController
+
+Here is a simple example of how you might write a `ListController.coffee`.
+
+```coffeescript
+List = require './List'
+
+class PeopleListController extends marionette_lib.controllers.App
+  initialize: ->
+    @people = new Person.Collection()
+    @list = new List(collection: @people)
+    @people.fetch()
+    @show @list,
+      loading: true
+```
+
+If you needed a layout with regions then the controller would manage what 
+goes in to the regions.
+
+```coffeescript
+Layout = require './Layout'
+List = require './List'
+Stats = require('components').Stats
+
+class PeopleListController extends marionette_lib.controllers.App
+  initialize: ->
+    @people = new Person.Collection()
+    @layout = new Layout()
+    @list = new List(collection: @people)
+    
+    # an example component controller
+    @peopleStats = new Stats(collection: @people)
+    
+    # once the layout is shown we want to show the sub views
+    @layout.on 'show', =>
+      @show @list, 
+        region: @layout.listRegion
+        loading: true
+      @show @peopleStats, 
+        region: @layout.statsRegion
+        loading: true
+    
+    # fetch the data
+    @people.fetch()
+    
+    # show the layout
+    @show @layout
+```
 
 ### Component Controller
 
