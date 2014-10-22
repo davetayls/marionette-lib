@@ -155,6 +155,65 @@ class PeopleListController extends marionette_lib.controllers.App
 
 ### Static Controller
 
+The Static Controller is useful to be able to render static html from a 
+backbone view template.
+
+Say we wanted to render a button like so:
+
+```html
+<button type="button" class="btn">button</button>
+```
+
+Here is a very simple template which you would use in a static page.
+
+```handlebars
+{{{c 'btn' text="button"}}}
+```
+
+And here is the controller. It will always set the name of the controller as 
+a class on the rendered tag.
+
+```coffeescript
+class BtnStaticController extends marionette_lib.controllers.Static
+  name: 'btn'
+  tagName: 'button'
+  attributes:
+    type: 'button'
+```
+
+You can specify `attributes` and `contextProperties` to pass information 
+through to the rendered html.
+
+Defaults can be set for attributes and properties.
+
+```coffeescript
+class BtnStaticController extends marionette_lib.controllers.Static
+  name: 'btn'
+  tagName: 'button'
+  attributes:
+    type: 'button'
+  contextProperties:
+    name: 'Unknown'
+```
+
+Then in your page you can use them:
+
+```handlebars
+{{{c 'btn' type="submit" name="Bob"}}}
+```
+
+And the underlying template would look like:
+
+```handlebars
+Hello {{name}}
+```
+
+To render
+
+```html
+<button type="submit" class="btn">Hello Bob</button>
+```
+
 ## Entities
 
 ## Handlebars

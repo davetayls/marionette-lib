@@ -7,6 +7,8 @@ class StaticController
     @options = options
     @model = options.model
 
+  attributes: [] # attributes which get rendered
+  contextProperties: []
   tagName: 'section'
   cloneContext: true
 
@@ -35,10 +37,16 @@ class StaticController
     else
       context = {}
     context._regions ?= []
-    context
+    return context
+
+  getChildContext: -> @model
 
   mixinHash: (context, hash = {}) ->
-    _.defaults context, hash
+    contextProps = _.result(@, 'contextProperties')
+    if _.isObject(contextProps)
+      propertyKeys = _.keys(contextProps)
+      properties = _.pick hash, propertyKeys
+      _.extend(context, contextProps, properties)
 
   getComponentTemplate: ->
     if _.isFunction @template
@@ -46,12 +54,14 @@ class StaticController
     else
       throw new Error('There is no template on this static controller')
 
-  getAttributes: ->
+  getAttributes: (hash) ->
     attributes = _.result @, 'attributes'
     if attributes
       attributes = _.omit attributes, 'class'
       attr = _.map(attributes or {}, (val, key) ->
-        if _.isString val or _.isFinite val
+        if _.isString hash[key] or _.isFinite hash[key]
+          "#{key}=\"#{hash[key]}\""
+        else if _.isString val or _.isFinite val
           "#{key}=\"#{val}\""
         else ''
       )
@@ -62,22 +72,23 @@ class StaticController
 
   getInnerBody: (context, fn) ->
     if _.isFunction fn
-      context.__body__ = fn(context)
-    else
-      delete context.__body__
+      fn(context)
 
   render: (options = {}) ->
     @context = @getContext()
+    @context.className = @className(options.hash)
+    @context.attributes = @getAttributes(options.hash)
+    @context.__body__ = @getInnerBody(@getChildContext(), options.fn)
     @mixinHash(@context, options.hash)
-    @getInnerBody(@context, options.fn)
     @renderOuterHtml @context,
-      className: @className(options.hash)
+      className: @context.className
+      attributes: @context.attributes
 
-  renderOuterHtml: (context, { className } = {}) ->
+  renderOuterHtml: (context, { className, attributes } = {}) ->
     tagName = _.result(@, 'tagName')
     [
       "<#{tagName}"
-      @getAttributes()
+      attributes
       " class=\"#{className}\""
       ">\n"
       @renderContentTemplate(context)

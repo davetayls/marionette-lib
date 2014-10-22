@@ -13,6 +13,10 @@ StaticController = (function() {
     this.model = options.model;
   }
 
+  StaticController.prototype.attributes = [];
+
+  StaticController.prototype.contextProperties = [];
+
   StaticController.prototype.tagName = 'section';
 
   StaticController.prototype.cloneContext = true;
@@ -56,11 +60,21 @@ StaticController = (function() {
     return context;
   };
 
+  StaticController.prototype.getChildContext = function() {
+    return this.model;
+  };
+
   StaticController.prototype.mixinHash = function(context, hash) {
+    var contextProps, properties, propertyKeys;
     if (hash == null) {
       hash = {};
     }
-    return _.defaults(context, hash);
+    contextProps = _.result(this, 'contextProperties');
+    if (_.isObject(contextProps)) {
+      propertyKeys = _.keys(contextProps);
+      properties = _.pick(hash, propertyKeys);
+      return _.extend(context, contextProps, properties);
+    }
   };
 
   StaticController.prototype.getComponentTemplate = function() {
@@ -71,13 +85,15 @@ StaticController = (function() {
     }
   };
 
-  StaticController.prototype.getAttributes = function() {
+  StaticController.prototype.getAttributes = function(hash) {
     var attr, attributes;
     attributes = _.result(this, 'attributes');
     if (attributes) {
       attributes = _.omit(attributes, 'class');
       attr = _.map(attributes || {}, function(val, key) {
-        if (_.isString(val || _.isFinite(val))) {
+        if (_.isString(hash[key] || _.isFinite(hash[key]))) {
+          return "" + key + "=\"" + hash[key] + "\"";
+        } else if (_.isString(val || _.isFinite(val))) {
           return "" + key + "=\"" + val + "\"";
         } else {
           return '';
@@ -95,9 +111,7 @@ StaticController = (function() {
 
   StaticController.prototype.getInnerBody = function(context, fn) {
     if (_.isFunction(fn)) {
-      return context.__body__ = fn(context);
-    } else {
-      return delete context.__body__;
+      return fn(context);
     }
   };
 
@@ -106,18 +120,21 @@ StaticController = (function() {
       options = {};
     }
     this.context = this.getContext();
+    this.context.className = this.className(options.hash);
+    this.context.attributes = this.getAttributes(options.hash);
+    this.context.__body__ = this.getInnerBody(this.getChildContext(), options.fn);
     this.mixinHash(this.context, options.hash);
-    this.getInnerBody(this.context, options.fn);
     return this.renderOuterHtml(this.context, {
-      className: this.className(options.hash)
+      className: this.context.className,
+      attributes: this.context.attributes
     });
   };
 
   StaticController.prototype.renderOuterHtml = function(context, _arg) {
-    var className, tagName;
-    className = (_arg != null ? _arg : {}).className;
+    var attributes, className, tagName, _ref;
+    _ref = _arg != null ? _arg : {}, className = _ref.className, attributes = _ref.attributes;
     tagName = _.result(this, 'tagName');
-    return ["<" + tagName, this.getAttributes(), " class=\"" + className + "\"", ">\n", this.renderContentTemplate(context), "</" + tagName + ">"].join('');
+    return ["<" + tagName, attributes, " class=\"" + className + "\"", ">\n", this.renderContentTemplate(context), "</" + tagName + ">"].join('');
   };
 
   StaticController.prototype.renderContentTemplate = function(context) {
