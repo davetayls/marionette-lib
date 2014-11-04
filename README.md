@@ -4,6 +4,10 @@ marionette_lib
 An opinionated structure for building Marionette apps highly based on the 
 excellent [Backbone Rails Series](http://backbonerails.com/).
 
+This library is all about the UI so it doesn't alter your models and
+collections.
+
+ - [Configuration](#configuration)
  - [Project Structure](#project-structure)
  - [Behaviors](#behaviors)
  - [Components](#components)
@@ -12,6 +16,19 @@ excellent [Backbone Rails Series](http://backbonerails.com/).
  - [Entities](#entities)
  - [Utilities](#utilities)
  - [Views](#views)
+
+## Configuration
+
+You need to run the configure method to tell this library about your app.
+Here is an example of the configuration options.
+
+```coffeescript
+marionette_lib = require 'marionette_lib'
+marionette_lib.configure {
+  app: myApp
+  handlebars: require('handlebars')
+}
+```
  
 ## Project Structure
 

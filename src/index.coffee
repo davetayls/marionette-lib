@@ -1,8 +1,8 @@
 
 Marionette = require 'backbone.marionette'
 
-require './config/index'
-
+exports.config = require './config/index'
+exports.configure = (options) -> exports.config.configure(options)
 exports.behaviors = require './behaviors/index'
 Marionette.Behaviors.behaviorsLookup = -> exports.behaviors
 
@@ -14,9 +14,6 @@ exports.controllers =
   Base: require './controllers/Base'
   Component: require './controllers/Component'
   Static: require './controllers/Static'
-
-#exports.entities =
-#  Base: require './entities/Base'
 
 exports.handlebars = require './handlebars/index'
 
