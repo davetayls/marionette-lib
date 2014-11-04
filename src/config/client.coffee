@@ -9,7 +9,7 @@ class MarionetteLibConfiguration
   configure: (options = {}) ->
     @app = options.app
     @handlebars = options.handlebars
-    @components_dir = options.components_dir
+    @componentsPath = options.componentsPath
 
     sync(app) if app
 

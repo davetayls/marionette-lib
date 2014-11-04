@@ -1,7 +1,7 @@
 
 Marionette = require 'backbone.marionette'
 
-exports.config = require './config/index'
+exports.config = require './config/client'
 exports.configure = (options) -> exports.config.configure(options)
 exports.behaviors = require './behaviors/index'
 Marionette.Behaviors.behaviorsLookup = -> exports.behaviors

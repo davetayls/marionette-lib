@@ -2,7 +2,7 @@ define(function (require, exports, module) {var Marionette;
 
 Marionette = require('backbone.marionette');
 
-exports.config = require('./config/index');
+exports.config = require('./config/client');
 
 exports.configure = function(options) {
   return exports.config.configure(options);

@@ -19,6 +19,7 @@ MarionetteLibConfiguration = (function() {
     }
     this.app = options.app;
     this.handlebars = options.handlebars;
+    this.componentsPath = options.componentsPath;
     if (app) {
       return sync(app);
     }
