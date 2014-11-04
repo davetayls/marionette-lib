@@ -1,5 +1,5 @@
 
-hbs = require './middleware/hbs'
+hbs = require '../middleware/hbs'
 
 class MarionetteLibConfiguration
 
