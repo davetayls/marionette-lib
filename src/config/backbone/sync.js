@@ -1,4 +1,4 @@
-var $, Backbone, _, _sync;
+var $, Backbone, _;
 
 $ = require('jquery');
 
@@ -6,10 +6,9 @@ Backbone = require('backbone');
 
 _ = require('underscore');
 
-_sync = Backbone.sync;
-
 module.exports = function(app) {
-  var addFetchPromise, beforeSend, complete;
+  var addFetchPromise, beforeSend, complete, _sync;
+  _sync = Backbone.sync;
   Backbone.sync = function(method, entity, options) {
     if (options == null) {
       options = {};
