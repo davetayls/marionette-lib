@@ -26,7 +26,8 @@
     "karma-requirejs": "^0.2.2",
     "karma-phantomjs-launcher": "^0.1.4",
     "karma-sinon-chai": "^0.2.0",
-    "karma-coverage": "^0.2.6"
+    "karma-coverage": "^0.2.6",
+    "grunt-bump": "0.0.16"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
