@@ -26,5 +26,3 @@ ComponentController = (function(_super) {
 })(AppController);
 
 module.exports = ComponentController;
-
-//# sourceMappingURL=Component.js.map

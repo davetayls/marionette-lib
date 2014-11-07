@@ -13,5 +13,3 @@ exports.controllers = {
 exports.middleware = {
   hbs: require('./middleware/hbs/index')
 };
-
-//# sourceMappingURL=index.js.map

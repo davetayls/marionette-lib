@@ -36,6 +36,4 @@ API = {
 
 module.exports = API;
 
-//# sourceMappingURL=registry.js.map
-
 });

@@ -30,6 +30,4 @@ Handlebars.registerHelper("tr", function(context, options) {
   return new Handlebars.SafeString(result);
 });
 
-//# sourceMappingURL=i18next.js.map
-
 });

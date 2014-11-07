@@ -29,5 +29,3 @@ Handlebars.registerHelper("tr", function(context, options) {
   result = i18n.t(opts.key, opts);
   return new Handlebars.SafeString(result);
 });
-
-//# sourceMappingURL=i18next.js.map

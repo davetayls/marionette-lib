@@ -104,6 +104,4 @@ NoticeView = (function(_super) {
 
 module.exports = NoticeView;
 
-//# sourceMappingURL=NoticeView.js.map
-
 });

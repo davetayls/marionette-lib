@@ -30,5 +30,3 @@ API = {
 };
 
 module.exports = API;
-
-//# sourceMappingURL=navigation.js.map

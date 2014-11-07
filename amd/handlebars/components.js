@@ -73,6 +73,4 @@ module.exports = function(components) {
   });
 };
 
-//# sourceMappingURL=components.js.map
-
 });

@@ -28,5 +28,3 @@ Static.getComponentTemplate = function(tmplPath) {
 if (process.env.NODE_ENV === 'production') {
   Static.getComponentTemplate = _.memoize(Static.getComponentTemplate);
 }
-
-//# sourceMappingURL=static.js.map

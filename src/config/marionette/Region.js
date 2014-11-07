@@ -137,5 +137,3 @@ Marionette.Region.prototype.close = function() {
   console.log('closing', (this.currentView ? this.currentView : void 0), this.el);
   return _close.apply(this, arguments);
 };
-
-//# sourceMappingURL=Region.js.map

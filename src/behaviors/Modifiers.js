@@ -52,5 +52,3 @@ ModifiersBehavior = (function(_super) {
 })(Marionette.Behavior);
 
 module.exports = ModifiersBehavior;
-
-//# sourceMappingURL=Modifiers.js.map

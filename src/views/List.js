@@ -31,5 +31,3 @@ List = (function(_super) {
 })(Marionette.CompositeView);
 
 module.exports = List;
-
-//# sourceMappingURL=List.js.map

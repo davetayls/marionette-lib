@@ -41,5 +41,3 @@ BaseController = (function(_super) {
 })(Marionette.Controller);
 
 module.exports = BaseController;
-
-//# sourceMappingURL=Base.js.map

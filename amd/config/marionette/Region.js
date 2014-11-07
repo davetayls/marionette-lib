@@ -138,6 +138,4 @@ Marionette.Region.prototype.close = function() {
   return _close.apply(this, arguments);
 };
 
-//# sourceMappingURL=Region.js.map
-
 });

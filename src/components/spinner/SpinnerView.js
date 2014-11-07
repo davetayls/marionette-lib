@@ -70,5 +70,3 @@ SpinnerView = (function(_super) {
 })(View);
 
 module.exports = SpinnerView;
-
-//# sourceMappingURL=SpinnerView.js.map

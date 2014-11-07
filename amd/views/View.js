@@ -28,6 +28,4 @@ View = (function(_super) {
 
 module.exports = View;
 
-//# sourceMappingURL=View.js.map
-
 });

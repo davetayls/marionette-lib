@@ -34,6 +34,4 @@ Entity.Collection = EntityCollection;
 
 module.exports = Entity;
 
-//# sourceMappingURL=Base.js.map
-
 });

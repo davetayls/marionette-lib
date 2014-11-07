@@ -32,6 +32,4 @@ List = (function(_super) {
 
 module.exports = List;
 
-//# sourceMappingURL=List.js.map
-
 });

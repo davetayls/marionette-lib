@@ -107,6 +107,4 @@ RouterController.ActionPolicy = ActionPolicy;
 
 module.exports = RouterController;
 
-//# sourceMappingURL=RouterController.js.map
-
 });

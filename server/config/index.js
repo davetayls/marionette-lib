@@ -25,5 +25,3 @@ MarionetteLibConfiguration = (function() {
 })();
 
 module.exports = new MarionetteLibConfiguration();
-
-//# sourceMappingURL=index.js.map

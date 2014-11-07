@@ -33,5 +33,3 @@ EntityCollection = (function(_super) {
 Entity.Collection = EntityCollection;
 
 module.exports = Entity;
-
-//# sourceMappingURL=Base.js.map

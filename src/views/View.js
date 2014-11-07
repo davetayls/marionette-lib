@@ -27,5 +27,3 @@ View = (function(_super) {
 })(Marionette.View);
 
 module.exports = View;
-
-//# sourceMappingURL=View.js.map

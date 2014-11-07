@@ -24,5 +24,3 @@ LayoutView.prototype._buildRegions = function(regions) {
   this._ensureElement();
   return _buildRegions.apply(this, arguments);
 };
-
-//# sourceMappingURL=LayoutView.js.map

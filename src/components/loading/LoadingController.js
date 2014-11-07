@@ -127,5 +127,3 @@ LoadingController = (function(_super) {
 })(AppController);
 
 module.exports = LoadingController;
-
-//# sourceMappingURL=LoadingController.js.map

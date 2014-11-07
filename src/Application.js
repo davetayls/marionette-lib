@@ -21,5 +21,3 @@ App = (function(_super) {
 })(Marionette.Application);
 
 module.exports = App;
-
-//# sourceMappingURL=Application.js.map

@@ -31,5 +31,3 @@ AlertComponent = (function(_super) {
 })(ItemView);
 
 module.exports = AlertComponent;
-
-//# sourceMappingURL=Alert.js.map

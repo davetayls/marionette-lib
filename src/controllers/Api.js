@@ -57,5 +57,3 @@ ApiController = (function(_super) {
 })(BaseController);
 
 module.exports = ApiController;
-
-//# sourceMappingURL=Api.js.map

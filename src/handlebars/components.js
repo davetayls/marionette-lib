@@ -72,5 +72,3 @@ module.exports = function(components) {
     return ['<div', attributes, '>', content, "</div>"].join('');
   });
 };
-
-//# sourceMappingURL=components.js.map

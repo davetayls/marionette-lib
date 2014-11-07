@@ -11,5 +11,3 @@ module.exports = {
     return mdown.makeHtml(val);
   }
 };
-
-//# sourceMappingURL=mdown.js.map

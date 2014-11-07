@@ -154,5 +154,3 @@ StaticController = (function() {
 _.extend(StaticController.prototype, Backbone.Events);
 
 module.exports = StaticController;
-
-//# sourceMappingURL=Static.js.map

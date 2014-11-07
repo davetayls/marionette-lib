@@ -36,5 +36,3 @@ ItemView = (function(_super) {
 })(Marionette.ItemView);
 
 module.exports = ItemView;
-
-//# sourceMappingURL=ItemView.js.map

@@ -66,6 +66,4 @@ module.exports = function(app) {
   };
 };
 
-//# sourceMappingURL=sync.js.map
-
 });

@@ -27,5 +27,3 @@ Layout = (function(_super) {
 })(Marionette.LayoutView);
 
 module.exports = Layout;
-
-//# sourceMappingURL=Layout.js.map

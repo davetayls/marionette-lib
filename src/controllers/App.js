@@ -92,5 +92,3 @@ AppController = (function(_super) {
 })(BaseController);
 
 module.exports = AppController;
-
-//# sourceMappingURL=App.js.map

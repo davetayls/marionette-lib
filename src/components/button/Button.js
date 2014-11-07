@@ -67,5 +67,3 @@ HomeButton = (function(_super) {
 module.exports = Button;
 
 Button.Home = HomeButton;
-
-//# sourceMappingURL=Button.js.map

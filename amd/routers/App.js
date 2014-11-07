@@ -18,6 +18,4 @@ AppRouter = (function(_super) {
 
 module.exports = AppRouter;
 
-//# sourceMappingURL=App.js.map
-
 });

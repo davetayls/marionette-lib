@@ -17,5 +17,3 @@ AppRouter = (function(_super) {
 })(Marionette.AppRouter);
 
 module.exports = AppRouter;
-
-//# sourceMappingURL=App.js.map

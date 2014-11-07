@@ -16,6 +16,4 @@ _.extend(Marionette.View.prototype, {
   }
 });
 
-//# sourceMappingURL=View.js.map
-
 });

@@ -25,5 +25,3 @@ module.exports = function(entities, callback) {
     throw new Error('Nothing is being fetched');
   }
 };
-
-//# sourceMappingURL=whenFetched.js.map
