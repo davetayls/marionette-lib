@@ -42,4 +42,6 @@ BaseController = (function(_super) {
 
 module.exports = BaseController;
 
+//# sourceMappingURL=Base.js.map
+
 });

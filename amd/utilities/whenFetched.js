@@ -26,4 +26,6 @@ module.exports = function(entities, callback) {
   }
 };
 
+//# sourceMappingURL=whenFetched.js.map
+
 });

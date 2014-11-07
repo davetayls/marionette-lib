@@ -68,4 +68,6 @@ module.exports = Button;
 
 Button.Home = HomeButton;
 
+//# sourceMappingURL=Button.js.map
+
 });

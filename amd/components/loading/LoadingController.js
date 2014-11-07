@@ -128,4 +128,6 @@ LoadingController = (function(_super) {
 
 module.exports = LoadingController;
 
+//# sourceMappingURL=LoadingController.js.map
+
 });

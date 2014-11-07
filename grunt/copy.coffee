@@ -5,6 +5,7 @@ module.exports =
     cwd: 'src'
     dest: 'amd'
     src: [
+      '**/*.map'
       '**/*.hbs'
       '**/*.styl'
     ]

@@ -32,4 +32,6 @@ AlertComponent = (function(_super) {
 
 module.exports = AlertComponent;
 
+//# sourceMappingURL=Alert.js.map
+
 });

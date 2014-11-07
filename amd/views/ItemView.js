@@ -37,4 +37,6 @@ ItemView = (function(_super) {
 
 module.exports = ItemView;
 
+//# sourceMappingURL=ItemView.js.map
+
 });

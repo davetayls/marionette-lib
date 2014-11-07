@@ -45,4 +45,6 @@ exports.views = {
   List: require('./views/List')
 };
 
+//# sourceMappingURL=client.js.map
+
 });

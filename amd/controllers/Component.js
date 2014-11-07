@@ -27,4 +27,6 @@ ComponentController = (function(_super) {
 
 module.exports = ComponentController;
 
+//# sourceMappingURL=Component.js.map
+
 });

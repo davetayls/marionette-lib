@@ -53,4 +53,6 @@ ModifiersBehavior = (function(_super) {
 
 module.exports = ModifiersBehavior;
 
+//# sourceMappingURL=Modifiers.js.map
+
 });

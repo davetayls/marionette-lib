@@ -25,4 +25,6 @@ LayoutView.prototype._buildRegions = function(regions) {
   return _buildRegions.apply(this, arguments);
 };
 
+//# sourceMappingURL=LayoutView.js.map
+
 });

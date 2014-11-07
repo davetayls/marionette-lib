@@ -53,4 +53,6 @@ app.reqres.setHandler("reset:registry", function() {
 
 module.exports = API;
 
+//# sourceMappingURL=registry.js.map
+
 });

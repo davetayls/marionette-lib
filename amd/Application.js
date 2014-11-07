@@ -22,4 +22,6 @@ App = (function(_super) {
 
 module.exports = App;
 
+//# sourceMappingURL=Application.js.map
+
 });

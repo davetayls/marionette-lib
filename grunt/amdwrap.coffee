@@ -2,7 +2,7 @@
 module.exports =
   dist:
     expand: true
-    cwd: 'amd'
+    cwd: 'src'
     src: [
       '**/*.js'
       '!modernizr/**/*'
