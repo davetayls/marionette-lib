@@ -1,7 +1,7 @@
 
 module.exports =
   options:
-    sourceMap: true
+    sourceMap: false
     bare: true
 
   server:
