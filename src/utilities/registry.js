@@ -1,23 +1,22 @@
-var API, app, _;
+var API, _;
 
 _ = require('underscore');
 
-app = require('app');
-
 API = {
+  _registry: {},
   register: function(instance, id) {
-    if (app._registry == null) {
-      app._registry = {};
+    if (API._registry == null) {
+      API._registry = {};
     }
-    return app._registry[id] = instance;
+    return API._registry[id] = instance;
   },
   unregister: function(instance, id) {
-    return delete app._registry[id];
+    return delete API._registry[id];
   },
   resetRegistry: function() {
     var controller, key, oldCount, ret, _ref;
     oldCount = this.getRegistrySize();
-    _ref = app._registry;
+    _ref = API._registry;
     for (key in _ref) {
       controller = _ref[key];
       controller.region.close();
@@ -31,25 +30,9 @@ API = {
     return ret;
   },
   getRegistrySize: function() {
-    return _.size(app._registry);
+    return _.size(API._registry);
   }
 };
-
-app.commands.setHandler("register:instance", function(instance, id) {
-  if (app.environment === "development") {
-    return API.register(instance, id);
-  }
-});
-
-app.commands.setHandler("unregister:instance", function(instance, id) {
-  if (app.environment === "development") {
-    return API.unregister(instance, id);
-  }
-});
-
-app.reqres.setHandler("reset:registry", function() {
-  return API.resetRegistry();
-});
 
 module.exports = API;
 

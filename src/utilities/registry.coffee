@@ -1,19 +1,19 @@
 
 _ = require 'underscore'
-app = require 'app'
 
 API =
+  _registry: {}
 
   register: (instance, id) ->
-    app._registry ?= {}
-    app._registry[id] = instance
+    API._registry ?= {}
+    API._registry[id] = instance
 
   unregister: (instance, id) ->
-    delete app._registry[id]
+    delete API._registry[id]
 
   resetRegistry: ->
     oldCount = @getRegistrySize()
-    for key, controller of app._registry
+    for key, controller of API._registry
       controller.region.close()
 
     ret =
@@ -25,15 +25,15 @@ API =
     ret
 
   getRegistrySize: ->
-    _.size(app._registry)
+    _.size(API._registry)
 
-app.commands.setHandler "register:instance", (instance, id) ->
-  API.register instance, id if app.environment is "development"
-
-app.commands.setHandler "unregister:instance", (instance, id) ->
-  API.unregister instance, id if app.environment is "development"
-
-app.reqres.setHandler "reset:registry", ->
-  API.resetRegistry()
+#app.commands.setHandler "register:instance", (instance, id) ->
+#  API.register instance, id if app.environment is "development"
+#
+#app.commands.setHandler "unregister:instance", (instance, id) ->
+#  API.unregister instance, id if app.environment is "development"
+#
+#app.reqres.setHandler "reset:registry", ->
+#  API.resetRegistry()
 
 module.exports = API

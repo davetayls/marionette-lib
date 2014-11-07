@@ -14,6 +14,7 @@ collections.
  - [Config](#config)
  - [Controllers](#controllers)
  - [Entities](#entities)
+ - [Routers](#routers)
  - [Utilities](#utilities)
  - [Views](#views)
 
@@ -237,6 +238,27 @@ To render
 
 ## Routers
 
+### App Router
+
+The app router allows you to manage the routes along with controlling
+the access to them. Here is an example of how this might be used.
+
+```coffeescript
+class SectionRouter extends marionette_lib.routers.App
+  appRoutes:
+    'secure': 'secure'
+    'open': 'open'
+
+router = new SectionRouter
+  controller: {
+    onAuthorizeRoute: (name, options) ->
+      if name is 'secureSection' and @controller.isAuthorized()
+        options.authorized = true
+      else
+        options.authorized = false
+  }
+```
+
 ## Utilities
 
 ### Navigation
@@ -266,3 +288,7 @@ class MyThing
 ```
 
 ## Views
+
+## Development
+
+To make a release

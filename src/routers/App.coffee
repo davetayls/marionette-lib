@@ -1,6 +1,8 @@
+'use strict'
 
-  'use strict'
+Marionette = require 'backbone.marionette'
 
-  Marionette = require 'backbone.marionette'
-  module.exports = Marionette.AppRouter.extend()
+class AppRouter extends Marionette.AppRouter
+
+module.exports = AppRouter
 
