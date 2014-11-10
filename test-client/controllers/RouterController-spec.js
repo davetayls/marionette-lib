@@ -14,11 +14,12 @@ define(function(require){
       it('should not run method if not authorized', function(){
         var fooFn = sinon.spy();
         var ctrl = new RouterController({
-          authorizeAction: function(fnName, actionFn){
+          authorizeAnAction: function(fnName, actionFn){
             expect(fnName).to.equal('foo');
             expect(actionFn).to.equal(fooFn);
             return false;
           },
+          actionUnauthorized: function(){},
           actions: {
             foo: fooFn
           }
@@ -55,6 +56,7 @@ define(function(require){
               }
             }
           }),
+          actionUnauthorized: function(){},
           actions: {
             foo: {
               fn: fooFn
@@ -74,6 +76,7 @@ define(function(require){
         var fooFn = sinon.spy();
         var barFn = sinon.spy();
         var ctrl = new RouterController({
+          actionUnauthorized: function(){},
           actions: {
             foo: {
               policy: new RouterController.ActionPolicy({
@@ -97,6 +100,20 @@ define(function(require){
         expect(fooFn).not.been.called;
         expect(barFn).have.been.called;
 
+      });
+
+      it('should throw an error if an action is not authorized', function(){
+        var fooFn = sinon.spy()
+        var ctrl = new RouterController({
+          defaultPolicy: new RouterController.ActionPolicy({
+            isAuthorized: function(){ return false; }
+          }),
+          actions: {
+            foo: fooFn
+          }
+        });
+        function fn(){ ctrl.foo(); }
+        expect(fn).to.throw()
       });
     });
 

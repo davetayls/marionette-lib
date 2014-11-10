@@ -6,8 +6,14 @@ class RouterController extends BaseController
   initialize: ({ actions }) ->
     if actions then @_setupActions(actions)
 
-  authorizeAction: (actionName, actionConfig) ->
+  authorizeAnAction: (actionName, actionConfig) ->
     @_getActionPolicy(actionConfig).isAuthorized(actionName, actionConfig)
+
+  actionUnauthorized: (actionName, actionConfig) ->
+    err = new Error("#{actionName} was unauthorized")
+    err.actionName = actionName
+    err.actionConfig = actionConfig
+    throw err
 
   defaultPolicy: -> new ActionPolicy()
 
@@ -33,8 +39,10 @@ class RouterController extends BaseController
     _fn = @_getActionFunction(actionConfig)
     if _.isFunction(_fn)
       @[actionName] = =>
-        if @getOption('authorizeAction').call(@, actionName, actionConfig)
+        if @getOption('authorizeAnAction').call(@, actionName, actionConfig)
           return _fn.apply(@, arguments)
+        else
+          @getOption('actionUnauthorized').call(@, actionName, actionConfig)
     else
       throw new Error('Proxying through an authorize method requires a function')
 
