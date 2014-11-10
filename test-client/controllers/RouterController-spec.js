@@ -114,6 +114,31 @@ define(function(require){
         });
         function fn(){ ctrl.foo(); }
         expect(fn).to.throw()
+        expect(fooFn).not.been.called
+      });
+
+      it('should allow handling individual unauthorized action', function(){
+        var fooFn = sinon.spy()
+        var unAuthCalled = false;
+        var ctrl = new RouterController({
+          defaultPolicy: new RouterController.ActionPolicy({
+            isAuthorized: function(){ return false; }
+          }),
+          actions: {
+            foo: {
+              fn: fooFn,
+              unauthorized: function(actionName, actionConfig){
+                expect(actionName).to.equal('foo')
+                expect(actionConfig).to.be.a('object')
+                unAuthCalled = true;
+              }
+            }
+          }
+        });
+        function fn(){ ctrl.foo(); }
+        expect(fn).not.to.throw()
+        expect(fooFn).not.been.called
+        expect(unAuthCalled).to.be.true
       });
     });
 
