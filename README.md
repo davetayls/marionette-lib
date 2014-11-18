@@ -171,6 +171,40 @@ class PeopleListController extends marionette_lib.controllers.App
 
 ### Component Controller
 
+### Router Controller
+
+The router controller allows you to manage the routes along with controlling
+the access to them. Here is an example of how this might be used.
+
+```coffeescript
+loggedInPolicy = new marionette_lib.controllers.Router.ActionPolicy({
+  isAuthorized: (actionName, actionConfig) ->
+    return userIsLoggedIn
+})
+router = new marionette_lib.controllers.Router
+  defaultPolicy: loggedInPolicy
+  actionUnauthorized: (actionName, actionConfig) ->
+    doSomethingWhenUnauthorized()
+  # these actions whill be available on the object
+  # ie router.onlywhenLoggedIn()
+  actions: {
+    onlyWhenLoggedIn: (name, options) ->
+      # this will only be called if loggedInPolicy
+      # is authorized
+    customPolicy: {
+      fn: ->
+        doSomething()
+      policy: new marionette_lib.controllers.Router.ActionPolicy({
+        isAuthorized: (actionName, actionConfig) ->
+          return checkCustomState()
+      })
+      unauthorized: (actionName, actionConfig) ->
+        # this will override the main actionUnauthorized method
+        doSomethingWhenUnauthorized()
+    }
+  }
+```
+
 ### Static Controller
 
 The Static Controller is useful to be able to render static html from a 
@@ -238,26 +272,6 @@ To render
 
 ## Routers
 
-### App Router
-
-The app router allows you to manage the routes along with controlling
-the access to them. Here is an example of how this might be used.
-
-```coffeescript
-class SectionRouter extends marionette_lib.routers.App
-  appRoutes:
-    'secure': 'secure'
-    'open': 'open'
-
-router = new SectionRouter
-  controller: {
-    onAuthorizeRoute: (name, options) ->
-      if name is 'secureSection' and @controller.isAuthorized()
-        options.authorized = true
-      else
-        options.authorized = false
-  }
-```
 
 ## Utilities
 
