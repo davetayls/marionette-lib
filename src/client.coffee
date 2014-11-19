@@ -13,6 +13,7 @@ exports.controllers =
   App: require './controllers/App'
   Base: require './controllers/Base'
   Component: require './controllers/Component'
+  Router: require './controllers/RouterController'
   Static: require './controllers/Static'
 
 exports.handlebars = require './handlebars/index'

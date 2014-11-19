@@ -1,26 +1,20 @@
 
 app = require 'app'
-i18n = require 'i18n'
 AppController = require '../../controllers/App'
-
-NoticeView = require '../notice/NoticeView'
 SpinnerView = require '../spinner/SpinnerView'
-
 whenFetched = require '../../utilities/whenFetched'
 
 
 class LoadingController extends AppController
   initialize: ({ view } = {}) ->
     _.defaults @options,
-      loadingType: "notice"
-      loadingHeader: i18n.t('default_loading_header')
-      loadingBody: i18n.t('default_loading_body')
+      loadingType: "spinner"
       debug: false
-
     @entities = @getOption('entities') or @getEntities(view)
     @loadingView = @getLoadingView()
     @show @loadingView if @loadingView
-    @monitorReadyState view, @loadingView
+    unless @options.debug
+      @monitorReadyState view, @loadingView
 
   getLoadingView: ->
     switch @options.loadingType
@@ -30,15 +24,6 @@ class LoadingController extends AppController
       when 'spinner'
         loadingView = new SpinnerView()
         loadingView.start()
-
-      when "notice"
-        loadingView = new NoticeView()
-        loadingView.set
-          header: @options.loadingHeader
-          body: @options.loadingBody
-          canDismiss: true
-          buttons: []
-          loading: true
 
       else
         throw new Error("Invalid loadingType")
@@ -63,14 +48,6 @@ class LoadingController extends AppController
     switch @options.loadingType
       when 'spinner'
         loadingView.stop()
-
-      when 'notice'
-        def =
-          header: i18n.t('no_server_header')
-          body: i18n.t('no_server_header')
-          canDismiss: true
-          loading: false
-        loadingView.set def
       else
         throw new Error('No error handline on loading type')
 
@@ -84,7 +61,7 @@ class LoadingController extends AppController
         when "opacity"
           @region.currentView.$el.removeAttr "style"
 
-        when 'spinner' or 'notice'
+        when 'spinner'
           if @region.currentView isnt loadingView and @region._nextView isnt loadingView
             return realView.destroy()
 

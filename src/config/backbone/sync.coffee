@@ -3,9 +3,8 @@ $ = require 'jquery'
 Backbone = require 'backbone'
 _ = require 'underscore'
 
-_sync = Backbone.sync
-
 module.exports = (app) ->
+  _sync = Backbone.sync
   Backbone.sync = (method, entity, options = {}) ->
     _.defaults options,
       beforeSend: _.bind(beforeSend, entity)

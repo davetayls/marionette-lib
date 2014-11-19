@@ -55,7 +55,10 @@ class StaticController
       throw new Error('There is no template on this static controller')
 
   getAttributes: (hash) ->
-    attributes = _.result @, 'attributes'
+    if _.isFunction(@attributes)
+      attributes = @attributes(hash)
+    else
+      attributes = @attributes
     if attributes
       attributes = _.omit attributes, 'class'
       attr = _.map(attributes or {}, (val, key) ->
@@ -76,10 +79,10 @@ class StaticController
 
   render: (options = {}) ->
     @context = @getContext()
-    @context.className = @className(options.hash)
-    @context.attributes = @getAttributes(options.hash)
-    @context.__body__ = @getInnerBody(@getChildContext(), options.fn)
     @mixinHash(@context, options.hash)
+    @context.className = @className(options.hash)
+    @context.__body__ = @getInnerBody(@getChildContext(), options.fn)
+    @context.attributes = @getAttributes(options.hash)
     @renderOuterHtml @context,
       className: @context.className
       attributes: @context.attributes

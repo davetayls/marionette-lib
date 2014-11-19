@@ -87,7 +87,11 @@ StaticController = (function() {
 
   StaticController.prototype.getAttributes = function(hash) {
     var attr, attributes;
-    attributes = _.result(this, 'attributes');
+    if (_.isFunction(this.attributes)) {
+      attributes = this.attributes(hash);
+    } else {
+      attributes = this.attributes;
+    }
     if (attributes) {
       attributes = _.omit(attributes, 'class');
       attr = _.map(attributes || {}, function(val, key) {
@@ -120,10 +124,10 @@ StaticController = (function() {
       options = {};
     }
     this.context = this.getContext();
-    this.context.className = this.className(options.hash);
-    this.context.attributes = this.getAttributes(options.hash);
-    this.context.__body__ = this.getInnerBody(this.getChildContext(), options.fn);
     this.mixinHash(this.context, options.hash);
+    this.context.className = this.className(options.hash);
+    this.context.__body__ = this.getInnerBody(this.getChildContext(), options.fn);
+    this.context.attributes = this.getAttributes(options.hash);
     return this.renderOuterHtml(this.context, {
       className: this.context.className,
       attributes: this.context.attributes
