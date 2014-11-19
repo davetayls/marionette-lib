@@ -305,4 +305,4 @@ class MyThing
 
 ## Development
 
-To make a release
+To make a release run `grunt release`

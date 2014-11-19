@@ -14,9 +14,9 @@ define(function(require){
       it('should not run method if not authorized', function(){
         var fooFn = sinon.spy();
         var ctrl = new RouterController({
-          authorizeAnAction: function(fnName, actionFn){
+          authorizeAnAction: function(fnName, actionConfig){
             expect(fnName).to.equal('foo');
-            expect(actionFn).to.equal(fooFn);
+            expect(actionConfig.fn).to.equal(fooFn);
             return false;
           },
           actionUnauthorized: function(){},

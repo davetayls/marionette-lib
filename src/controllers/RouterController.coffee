@@ -21,6 +21,12 @@ class RouterController extends BaseController
     _.each actions, (config, key) =>
       @addAction(key, config)
 
+  _getActionConfig: (actionConfig = {}) ->
+    if _.isFunction(actionConfig)
+      return { fn: actionConfig }
+    else
+      return actionConfig
+
   _getActionFunction: (actionConfig = {}) ->
     return actionConfig if _.isFunction(actionConfig)
     return actionConfig.fn
@@ -36,6 +42,7 @@ class RouterController extends BaseController
       return actionConfig.policy
 
   addAction: (actionName, actionConfig) ->
+    actionConfig = @_getActionConfig(actionConfig)
     _fn = @_getActionFunction(actionConfig)
     if _.isFunction(_fn)
       @[actionName] = =>
