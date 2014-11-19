@@ -11,6 +11,7 @@ class RouterController extends BaseController
 
   actionUnauthorized: (actionName, actionConfig) ->
     err = new Error("#{actionName} was unauthorized")
+    err.name = 'ActionUnauthorized'
     err.actionName = actionName
     err.actionConfig = actionConfig
     throw err

@@ -28,6 +28,7 @@ RouterController = (function(_super) {
   RouterController.prototype.actionUnauthorized = function(actionName, actionConfig) {
     var err;
     err = new Error("" + actionName + " was unauthorized");
+    err.name = 'ActionUnauthorized';
     err.actionName = actionName;
     err.actionConfig = actionConfig;
     throw err;
