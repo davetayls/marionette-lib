@@ -34,6 +34,14 @@ RouterController = (function(_super) {
     throw err;
   };
 
+  RouterController.prototype.callActionUnauthorized = function(actionName, actionConfig) {
+    if (_.isFunction(actionConfig.unauthorized)) {
+      return actionConfig.unauthorized.call(this, actionName, actionConfig);
+    } else {
+      return this.getOption('actionUnauthorized').call(this, actionName, actionConfig);
+    }
+  };
+
   RouterController.prototype.defaultPolicy = function() {
     return new ActionPolicy();
   };
@@ -93,14 +101,21 @@ RouterController = (function(_super) {
     if (_.isFunction(_fn)) {
       return this[actionName] = (function(_this) {
         return function() {
+          var error;
           if (_this.getOption('authorizeAnAction').call(_this, actionName, actionConfig)) {
-            return _fn.apply(_this, arguments);
-          } else {
-            if (_.isFunction(actionConfig.unauthorized)) {
-              return actionConfig.unauthorized.call(_this, actionName, actionConfig);
-            } else {
-              return _this.getOption('actionUnauthorized').call(_this, actionName, actionConfig);
+            try {
+              return _fn.apply(_this, arguments);
+            } catch (_error) {
+              error = _error;
+              if (error.name === 'ActionUnauthorized') {
+                actionConfig.internalActionError = error;
+                return _this.callActionUnauthorized(actionName, actionConfig);
+              } else {
+                throw error;
+              }
             }
+          } else {
+            return _this.callActionUnauthorized(actionName, actionConfig);
           }
         };
       })(this);

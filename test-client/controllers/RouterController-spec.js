@@ -140,6 +140,41 @@ define(function(require){
         expect(fooFn).not.been.called
         expect(unAuthCalled).to.be.true
       });
+
+      it('should pass unauthorized catch for child actions', function(){
+        var fooFn = sinon.spy()
+        var childFn = sinon.spy()
+        var unAuthCalled = false;
+        var ctrl = new RouterController({
+          actions: {
+            child: {
+              policy: new RouterController.ActionPolicy({
+                isAuthorized: function(){ return false; }
+              }),
+              fn: childFn
+            },
+            foo: {
+              fn: function(){
+                fooFn()
+                this.child()
+              },
+              unauthorized: function(actionName, actionConfig){
+                expect(actionName).to.equal('foo')
+                expect(actionConfig).to.be.a('object')
+                expect(actionConfig.internalActionError).to.be.a('object')
+                expect(actionConfig.internalActionError.name).to.equal('ActionUnauthorized')
+                expect(actionConfig.internalActionError.actionName).to.equal('child')
+                unAuthCalled = true;
+              }
+            }
+          }
+        });
+        function fn(){ ctrl.foo(); }
+        expect(fn).not.to.throw()
+        expect(childFn).not.been.called
+        expect(fooFn).been.called
+        expect(unAuthCalled).to.be.true
+      });
     });
 
   });
