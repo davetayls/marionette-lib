@@ -32,6 +32,28 @@ define(function(require){
         parentView.trigger('show');
         expect(shown).equal(true);
       });
+      it('should show the view straight away', function(){
+        var shown = false;
+        var parentView = new Marionette.LayoutView({
+          regions: {
+            myRegion: '.region'
+          }
+        });
+        parentView.template = function(){ return '<div class="region"></div>'; };
+        var childView = new Marionette.ItemView();
+        childView.template = function(){ return '<h1>hello</h1>'; };
+        childView.onShow = function(){
+          shown = true;
+        };
+        parentView.render();
+        parentView.trigger('show');
+        parentView.myRegion.showWithView(parentView, childView, {
+          immediate: true
+        });
+        expect(shown).equal(true);
+        //expect(function() { parentView.myRegion._ensureElement(); }).not.throw();
+        //expect(shown).equal(true);
+      });
     });
 
   });

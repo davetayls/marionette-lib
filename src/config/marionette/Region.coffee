@@ -88,8 +88,12 @@ Marionette.Region.prototype.showWithView = (waitForView, viewToShow, options = {
     immediate: false
     waitForEvent: 'show'
   })
-  getEl = @getEl()
-  if getEl.length
+  if _.isString(this.el)
+    $el = @getEl(this.el)
+  else
+    $el = @$el
+
+  if $el.length
     @show(viewToShow, options.immediate)
   else
     @listenToOnce waitForView, options.waitForEvent, =>
