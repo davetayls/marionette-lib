@@ -38,7 +38,7 @@ Marionette.Region::animateEmpty = (options, cb) ->
 _getEl = Marionette.Region::getEl
 Marionette.Region::getEl = (el) ->
   if _.isString el
-    parentEl = _.result @options, 'parentEl'
+    parentEl = _.result(@options, 'parentEl')
     if parentEl
       $el = Backbone.$(parentEl).find(el)
       if $el.length then $el else return
@@ -78,6 +78,23 @@ Marionette.Region.prototype.show = (view, immediate = false) ->
       _show.call(@, view)
       console.log 'showing', _getName(view), view, @el
 
+###
+  This will show the view immediately if #getEl returns an element
+  otherwise it will wait for the show event to fire on waitForView
+  before showing the view
+###
+Marionette.Region.prototype.showWithView = (waitForView, viewToShow, options = {}) ->
+  _.defaults(options, {
+    immediate: false
+    waitForEvent: 'show'
+  })
+  getEl = @getEl()
+  if getEl.length
+    @show(viewToShow, options.immediate)
+  else
+    @listenToOnce waitForView, options.waitForEvent, =>
+      @show(viewToShow, options.immediate)
+  return
 
 ###
   Close
