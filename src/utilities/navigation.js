@@ -1,32 +1,27 @@
-var API, Backbone, _;
-
-_ = require('underscore');
-
-Backbone = require('backbone');
-
-API = {
-  historyIsStarted: false,
-  to: function(route, options) {
-    if (options == null) {
-      options = {};
-    }
+/// <reference path="../../typings/tsd.d.ts" />
+var _ = require('underscore');
+var Backbone = require('backbone');
+exports.historyIsStarted = false;
+function to(route, options) {
+    if (options === void 0) { options = {}; }
     return Backbone.history.navigate(route, options);
-  },
-  getCurrentRoute: function() {
-    var frag;
-    frag = Backbone.history.fragment;
+}
+exports.to = to;
+function getCurrentRoute() {
+    var frag = Backbone.history.getFragment();
     if (_.isEmpty(frag)) {
-      return null;
-    } else {
-      return frag;
+        return null;
     }
-  },
-  startHistory: function(options) {
+    else {
+        return frag;
+    }
+}
+exports.getCurrentRoute = getCurrentRoute;
+function startHistory(options) {
     if (Backbone.history) {
-      Backbone.history.start(options);
-      return API.historyIsStarted = true;
+        Backbone.history.start(options);
+        exports.historyIsStarted = true;
     }
-  }
-};
-
-module.exports = API;
+}
+exports.startHistory = startHistory;
+//# sourceMappingURL=navigation.js.map

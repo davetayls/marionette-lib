@@ -31,6 +31,9 @@
     },
     "showdown/showdown.d.ts": {
       "commit": "20e56f1f30cb6b9249df06184fc04ba9c3c63340"
+    },
+    "q/Q.d.ts": {
+      "commit": "20e56f1f30cb6b9249df06184fc04ba9c3c63340"
     }
   }
 }

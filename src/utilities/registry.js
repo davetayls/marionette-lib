@@ -1,37 +1,32 @@
-var API, _;
-
-_ = require('underscore');
-
-API = {
-  _registry: {},
-  register: function(instance, id) {
-    if (API._registry == null) {
-      API._registry = {};
+/// <reference path="../../typings/tsd.d.ts" />
+var _ = require('underscore');
+exports._registry = {};
+function register(instance, id) {
+    exports._registry[id] = instance;
+}
+exports.register = register;
+function unregister(instance, id) {
+    delete exports._registry[id];
+}
+exports.unregister = unregister;
+function resetRegistry() {
+    var oldCount = getRegistrySize();
+    var controller;
+    for (var key in exports._registry) {
+        controller = exports._registry[key];
+        controller.region.destroy();
     }
-    return API._registry[id] = instance;
-  },
-  unregister: function(instance, id) {
-    return delete API._registry[id];
-  },
-  resetRegistry: function() {
-    var controller, key, oldCount, ret, _ref;
-    oldCount = this.getRegistrySize();
-    _ref = API._registry;
-    for (key in _ref) {
-      controller = _ref[key];
-      controller.region.close();
-    }
-    ret = {
-      count: this.getRegistrySize(),
-      previous: oldCount,
-      msg: "There were " + oldCount + " controllers in the registry, there are now " + (this.getRegistrySize())
+    var ret = {
+        count: getRegistrySize(),
+        previous: oldCount,
+        msg: "There were " + oldCount + " controllers in the registry, there are now " + (this.getRegistrySize())
     };
-    console.info(ret);
+    console.info('Registry reset', ret);
     return ret;
-  },
-  getRegistrySize: function() {
-    return _.size(API._registry);
-  }
-};
-
-module.exports = API;
+}
+exports.resetRegistry = resetRegistry;
+function getRegistrySize() {
+    return _.size(exports._registry);
+}
+exports.getRegistrySize = getRegistrySize;
+//# sourceMappingURL=registry.js.map
