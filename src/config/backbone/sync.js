@@ -2,7 +2,7 @@
 var $ = require('jquery');
 var Backbone = require('backbone');
 var _ = require('underscore');
-function sync(app) {
+function configureBackboneSync(app) {
     var _sync = Backbone.sync;
     Backbone.sync = function (method, entity, options) {
         if (options === void 0) { options = {}; }
@@ -58,5 +58,5 @@ function sync(app) {
         };
     }
 }
-exports.sync = sync;
+exports.configureBackboneSync = configureBackboneSync;
 //# sourceMappingURL=sync.js.map

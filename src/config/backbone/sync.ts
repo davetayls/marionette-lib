@@ -5,7 +5,7 @@ import Backbone = require('backbone');
 import Marionette = require('backbone.marionette');
 import _ = require('underscore');
 
-export function sync(app:Marionette.Application):void {
+export function configureBackboneSync(app:Marionette.Application):void {
   var _sync = Backbone.sync;
   Backbone.sync = function(method, entity, options:any = {}) {
     _.defaults(options, {

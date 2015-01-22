@@ -1,43 +1,37 @@
-var BaseController, Marionette, registry,
-  __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
-registry = require('../utilities/registry');
-
-Marionette = require('backbone.marionette');
-
-BaseController = (function(_super) {
-  __extends(BaseController, _super);
-
-  function BaseController() {
-    this._instance_id = _.uniqueId('controller');
-    registry.register(this, this._instance_id);
-    BaseController.__super__.constructor.apply(this, arguments);
-  }
-
-  BaseController.prototype.destroy = function() {
-    console.log("destroying", this);
-    registry.unregister(this, this._instance_id);
-    return BaseController.__super__.destroy.apply(this, arguments);
-  };
-
-  BaseController.prototype.proxyEvents = function(instance, prefix) {
-    return this.listenTo(instance, "all", (function(_this) {
-      return function() {
-        var args, rootEvent;
-        args = Array.prototype.slice.call(arguments);
-        rootEvent = args[0];
-        if (prefix) {
-          args[0] = prefix + ":" + rootEvent;
-        }
-        args.push(instance);
-        _this.triggerMethod.apply(_this, args);
-      };
-    })(this));
-  };
-
-  return BaseController;
-
+/// <reference path="../../typings/tsd.d.ts" />
+var __extends = this.__extends || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    __.prototype = b.prototype;
+    d.prototype = new __();
+};
+var registry = require('../utilities/registry');
+var Marionette = require('backbone.marionette');
+var BaseController = (function (_super) {
+    __extends(BaseController, _super);
+    function BaseController() {
+        this._instance_id = _.uniqueId('controller');
+        registry.register(this, this._instance_id);
+        _super.call(this);
+    }
+    BaseController.prototype.destroy = function () {
+        console.log("destroying", this);
+        registry.unregister(this, this._instance_id);
+        _super.prototype.destroy.call(this);
+    };
+    BaseController.prototype.proxyEvents = function (instance, prefix) {
+        var _this = this;
+        return this.listenTo(instance, "all", function () {
+            var args = Array.prototype.slice.call(arguments);
+            var rootEvent = args[0];
+            if (prefix) {
+                args[0] = prefix + ":" + rootEvent;
+            }
+            args.push(instance);
+            Marionette.triggerMethod.apply(_this, args);
+        });
+    };
+    return BaseController;
 })(Marionette.Controller);
-
-module.exports = BaseController;
+exports.BaseController = BaseController;
+//# sourceMappingURL=Base.js.map
