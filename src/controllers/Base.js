@@ -9,10 +9,10 @@ var registry = require('../utilities/registry');
 var Marionette = require('backbone.marionette');
 var BaseController = (function (_super) {
     __extends(BaseController, _super);
-    function BaseController() {
+    function BaseController(options) {
         this._instance_id = _.uniqueId('controller');
         registry.register(this, this._instance_id);
-        _super.call(this);
+        _super.call(this, options);
     }
     BaseController.prototype.destroy = function () {
         console.log("destroying", this);

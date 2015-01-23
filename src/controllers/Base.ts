@@ -5,10 +5,10 @@ import Marionette = require('backbone.marionette');
 
 export class BaseController extends Marionette.Controller {
 
-  constructor() {
+  constructor(options?:any) {
     this._instance_id = _.uniqueId('controller');
     registry.register(this, this._instance_id);
-    super()
+    super(options);
   }
 
   _instance_id:string;
