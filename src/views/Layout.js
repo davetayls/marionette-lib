@@ -1,29 +1,25 @@
-'use strict';
-var Layout, Marionette,
-  __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
-Marionette = require('backbone.marionette');
-
-Layout = (function(_super) {
-  __extends(Layout, _super);
-
-  function Layout() {
-    return Layout.__super__.constructor.apply(this, arguments);
-  }
-
-  Layout.prototype.className = function() {
-    return this.name;
-  };
-
-  Layout.prototype.behaviors = function() {
-    return {
-      Modifiers: {}
+/// <reference path="../../typings/tsd.d.ts" />
+var __extends = this.__extends || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    __.prototype = b.prototype;
+    d.prototype = new __();
+};
+var Marionette = require('backbone.marionette');
+var Layout = (function (_super) {
+    __extends(Layout, _super);
+    function Layout() {
+        _super.apply(this, arguments);
+    }
+    Layout.prototype.className = function () {
+        return this.name;
     };
-  };
-
-  return Layout;
-
+    Layout.prototype.behaviors = function () {
+        return {
+            Modifiers: {}
+        };
+    };
+    return Layout;
 })(Marionette.LayoutView);
-
-module.exports = Layout;
+exports.Layout = Layout;
+//# sourceMappingURL=Layout.js.map

@@ -127,15 +127,15 @@ export class ActionPolicy extends BaseController.BaseController {
     super(options);
   }
 
+  options:IActionPolicyOptions;
+
   isAuthorized(actionName:string, actionConfig:IActionConfig):boolean {
     if (this.options.isAuthorized) {
-      return this.options.isAuthorized.call(this);
+      return this.options.isAuthorized.call(this, actionName, actionConfig);
     } else {
       return true;
     }
   }
-
-  options:IActionPolicyOptions;
 
 }
 

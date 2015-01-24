@@ -1,15 +1,6 @@
-define(function (require, exports, module) {'use strict';
-var Backbone, LayoutView, Marionette, _, _buildRegions;
-
-_ = require('underscore');
-
-Backbone = require('backbone');
-
-Marionette = require('backbone.marionette');
-
-LayoutView = Marionette.LayoutView;
-
-
+define(function (require, exports, module) {/// <reference path="../../../typings/tsd.d.ts" />
+var Marionette = require('backbone.marionette');
+var LayoutView = Marionette.LayoutView;
 /*
   _buildRegions
   -------------
@@ -17,12 +8,10 @@ LayoutView = Marionette.LayoutView;
   LayoutView so that getEl relative to the parentEl
   works properly
  */
-
-_buildRegions = LayoutView.prototype._buildRegions;
-
-LayoutView.prototype._buildRegions = function(regions) {
-  this._ensureElement();
-  return _buildRegions.apply(this, arguments);
+var _buildRegions = LayoutView.prototype._buildRegions;
+LayoutView.prototype._buildRegions = function (regions) {
+    this._ensureElement();
+    return _buildRegions.apply(this, arguments);
 };
-
+//# sourceMappingURL=LayoutView.js.map
 });

@@ -346,7 +346,7 @@ declare module Backbone {
         setElement(element: JQuery, delegate?: boolean): View<TModel>;
         id: string;
         cid: string;
-        className: string;
+        className(): string;
         tagName: string;
 
         el: any;

@@ -12,3 +12,12 @@
 /// <reference path="q/Q.d.ts" />
 
 declare var require;
+
+declare module 'spin' {
+  class Spin {
+    constructor(options?:any);
+    stop():void;
+    spin(el:any):void;
+  }
+  export = Spin;
+}

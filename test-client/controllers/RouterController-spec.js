@@ -6,14 +6,14 @@ define(function(require){
   describe('RouterController', function(){
 
     it('can create a new instance', function (){
-      controller = new RouterController()
-      expect(controller).to.be.instanceOf(RouterController);
+      var controller = new RouterController.RouterController();
+      expect(controller).to.be.instanceOf(RouterController.RouterController);
     });
 
     describe('authorize method', function(){
       it('should not run method if not authorized', function(){
         var fooFn = sinon.spy();
-        var ctrl = new RouterController({
+        var ctrl = new RouterController.RouterController({
           authorizeAnAction: function(fnName, actionConfig){
             expect(fnName).to.equal('foo');
             expect(actionConfig.fn).to.equal(fooFn);
@@ -31,7 +31,7 @@ define(function(require){
 
       it('should be able to pass in a config object for the action', function(){
         var fooFn = sinon.spy();
-        var ctrl = new RouterController({
+        var ctrl = new RouterController.RouterController({
           actions: {
             foo: {
               fn: fooFn
@@ -46,7 +46,7 @@ define(function(require){
       it('should be able to define a default policy', function(){
         var fooFn = sinon.spy();
         var barFn = sinon.spy();
-        var ctrl = new RouterController({
+        var ctrl = new RouterController.RouterController({
           defaultPolicy: new RouterController.ActionPolicy({
             isAuthorized: function(actionName, actionConfig){
               if (actionName === 'foo'){
@@ -75,7 +75,7 @@ define(function(require){
       it('should be able to define a policy on the action', function(){
         var fooFn = sinon.spy();
         var barFn = sinon.spy();
-        var ctrl = new RouterController({
+        var ctrl = new RouterController.RouterController({
           actionUnauthorized: function(){},
           actions: {
             foo: {
@@ -103,8 +103,8 @@ define(function(require){
       });
 
       it('should throw an error if an action is not authorized', function(){
-        var fooFn = sinon.spy()
-        var ctrl = new RouterController({
+        var fooFn = sinon.spy();
+        var ctrl = new RouterController.RouterController({
           defaultPolicy: new RouterController.ActionPolicy({
             isAuthorized: function(){ return false; }
           }),
@@ -113,14 +113,14 @@ define(function(require){
           }
         });
         function fn(){ ctrl.foo(); }
-        expect(fn).to.throw()
-        expect(fooFn).not.been.called
+        expect(fn).to.throw();
+        expect(fooFn).not.been.called;
       });
 
       it('should allow handling individual unauthorized action', function(){
         var fooFn = sinon.spy()
         var unAuthCalled = false;
-        var ctrl = new RouterController({
+        var ctrl = new RouterController.RouterController({
           defaultPolicy: new RouterController.ActionPolicy({
             isAuthorized: function(){ return false; }
           }),
@@ -145,7 +145,7 @@ define(function(require){
         var fooFn = sinon.spy()
         var childFn = sinon.spy()
         var unAuthCalled = false;
-        var ctrl = new RouterController({
+        var ctrl = new RouterController.RouterController({
           actions: {
             child: {
               policy: new RouterController.ActionPolicy({

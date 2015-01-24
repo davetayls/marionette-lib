@@ -2,7 +2,7 @@
 define(function(require){
 
   var Backbone = require('backbone');
-  var AppRouter = require('routers/App');
+  var AppRouter = require('routers/App').AppRouter;
 
   describe('AppRouter', function(){
 

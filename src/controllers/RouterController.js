@@ -116,7 +116,7 @@ var ActionPolicy = (function (_super) {
     }
     ActionPolicy.prototype.isAuthorized = function (actionName, actionConfig) {
         if (this.options.isAuthorized) {
-            return this.options.isAuthorized.call(this);
+            return this.options.isAuthorized.call(this, actionName, actionConfig);
         }
         else {
             return true;

@@ -346,6 +346,9 @@ declare module Marionette {
          */
         empty(): any;
 
+        currentView:Backbone.View<Backbone.Model>;
+        _nextView:Backbone.View<Backbone.Model>;
+
     }
 
     interface RegionDefaults {
@@ -675,7 +678,7 @@ declare module Marionette {
         /** 
          * Defines behaviors attached to this view. 
          */
-        behaviors: any;
+        behaviors(): any;
 
         /**
          * A configuration hash for models. The left side is the event on 
