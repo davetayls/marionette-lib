@@ -90,5 +90,6 @@ var LoadingController = (function (_super) {
     };
     return LoadingController;
 })(AppController.AppController);
+exports.LoadingController = LoadingController;
 //# sourceMappingURL=LoadingController.js.map
 });

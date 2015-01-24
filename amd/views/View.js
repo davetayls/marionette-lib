@@ -19,6 +19,9 @@ var View = (function (_super) {
             Modifiers: {}
         };
     };
+    View.prototype.getUi = function (key) {
+        return this.ui[key];
+    };
     return View;
 })(Marionette.View);
 exports.View = View;

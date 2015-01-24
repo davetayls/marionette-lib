@@ -1,4 +1,4 @@
-define(function (require, exports, module) {/// <reference path="../typings/tsd.d.ts" />
+/// <reference path="../typings/tsd.d.ts" />
 var Marionette = require('backbone.marionette');
 var _config = require('./config/client');
 exports.config = _config.config;
@@ -36,4 +36,3 @@ exports.navigation = require('./utilities/navigation');
 exports.registry = require('./utilities/registry');
 exports.views = require('./views/index');
 //# sourceMappingURL=client.js.map
-});
