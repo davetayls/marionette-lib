@@ -16,5 +16,9 @@ export class View<T extends Backbone.Model> extends Marionette.View<T> {
     };
   }
 
+  getUi(key:string):JQuery {
+    return this.ui[key];
+  }
+
 }
 

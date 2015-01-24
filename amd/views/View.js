@@ -1,31 +1,26 @@
-define(function (require, exports, module) {'use strict';
-var Marionette, View,
-  __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
-Marionette = require('backbone.marionette');
-
-View = (function(_super) {
-  __extends(View, _super);
-
-  function View() {
-    return View.__super__.constructor.apply(this, arguments);
-  }
-
-  View.prototype.className = function() {
-    return this.name;
-  };
-
-  View.prototype.behaviors = function() {
-    return {
-      Modifiers: {}
+define(function (require, exports, module) {/// <reference path="../../typings/tsd.d.ts" />
+var __extends = this.__extends || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    __.prototype = b.prototype;
+    d.prototype = new __();
+};
+var Marionette = require('backbone.marionette');
+var View = (function (_super) {
+    __extends(View, _super);
+    function View() {
+        _super.apply(this, arguments);
+    }
+    View.prototype.className = function () {
+        return this.name;
     };
-  };
-
-  return View;
-
+    View.prototype.behaviors = function () {
+        return {
+            Modifiers: {}
+        };
+    };
+    return View;
 })(Marionette.View);
-
-module.exports = View;
-
+exports.View = View;
+//# sourceMappingURL=View.js.map
 });

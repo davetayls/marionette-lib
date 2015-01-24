@@ -4,7 +4,7 @@ import AppController = require('../../controllers/App');
 import SpinnerView = require('../spinner/SpinnerView');
 import whenFetched = require('../../utilities/whenFetched');
 
-class LoadingController extends AppController.AppController {
+export class LoadingController extends AppController.AppController {
 
   initialize(options:any) {
     _.defaults(this.options, {

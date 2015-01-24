@@ -1,1 +1,3 @@
-export import Modifiers = require('./Modifiers');
+import modifiers = require('./Modifiers');
+
+export import Modifiers = modifiers.ModifiersBehavior;
