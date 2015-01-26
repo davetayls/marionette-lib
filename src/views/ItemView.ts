@@ -18,11 +18,12 @@ export class ItemView<T extends Backbone.Model> extends Marionette.ItemView<T> {
   ui:any;
   template:any;
 
-  className() {
-    return this.name;
-  }
+  //TODO: default className to this.name
+  //className() {
+  //  return this.name;
+  //}
 
-  behaviors() {
+  behaviors():any {
     return {
       Modifiers: {}
     };

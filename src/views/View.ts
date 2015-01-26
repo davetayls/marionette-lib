@@ -6,11 +6,12 @@ export class View<T extends Backbone.Model> extends Marionette.View<T> {
 
   name:string;
 
-  className() {
-    return this.name;
-  }
+  // TODO: implement className
+  //className() {
+  //  return this.name;
+  //}
 
-  behaviors() {
+  behaviors():any {
     return {
       Modifiers: {}
     };

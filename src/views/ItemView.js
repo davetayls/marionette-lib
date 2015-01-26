@@ -13,9 +13,10 @@ var ItemView = (function (_super) {
     }
     ItemView.prototype.defaults = function () {
     };
-    ItemView.prototype.className = function () {
-        return this.name;
-    };
+    //TODO: default className to this.name
+    //className() {
+    //  return this.name;
+    //}
     ItemView.prototype.behaviors = function () {
         return {
             Modifiers: {}

@@ -23,9 +23,10 @@ export class Button extends ItemView.ItemView<Backbone.Model> {
     'click': 'click'
   }
 
-  className() {
-    return 'btn btn-block btn--' + this.name;
-  }
+  // TODO: implement className
+  //className() {
+  //  return 'btn btn-block btn--' + this.name;
+  //}
 
   navigate() {
     return null;

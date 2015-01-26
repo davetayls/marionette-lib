@@ -26,9 +26,10 @@ var Button = (function (_super) {
             text: ''
         };
     };
-    Button.prototype.className = function () {
-        return 'btn btn-block btn--' + this.name;
-    };
+    // TODO: implement className
+    //className() {
+    //  return 'btn btn-block btn--' + this.name;
+    //}
     Button.prototype.navigate = function () {
         return null;
     };

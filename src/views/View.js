@@ -11,9 +11,10 @@ var View = (function (_super) {
     function View() {
         _super.apply(this, arguments);
     }
-    View.prototype.className = function () {
-        return this.name;
-    };
+    // TODO: implement className
+    //className() {
+    //  return this.name;
+    //}
     View.prototype.behaviors = function () {
         return {
             Modifiers: {}

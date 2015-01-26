@@ -7,11 +7,12 @@ export class List<T extends Backbone.Model> extends Marionette.CompositeView<T> 
 
   name:string;
 
-  className() {
-    return this.name;
-  }
+  // TODO: implement className
+  //className() {
+  //  return this.name;
+  //}
 
-  behaviors() {
+  behaviors():any {
     return {
       Modifiers: {}
     };

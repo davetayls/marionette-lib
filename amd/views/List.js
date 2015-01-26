@@ -11,9 +11,10 @@ var List = (function (_super) {
     function List() {
         _super.apply(this, arguments);
     }
-    List.prototype.className = function () {
-        return this.name;
-    };
+    // TODO: implement className
+    //className() {
+    //  return this.name;
+    //}
     List.prototype.behaviors = function () {
         return {
             Modifiers: {}

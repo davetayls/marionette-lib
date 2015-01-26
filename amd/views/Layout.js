@@ -11,9 +11,10 @@ var Layout = (function (_super) {
     function Layout() {
         _super.apply(this, arguments);
     }
-    Layout.prototype.className = function () {
-        return this.name;
-    };
+    //TODO: implement className
+    //className() {
+    //  return this.name;
+    //}
     Layout.prototype.behaviors = function () {
         return {
             Modifiers: {}

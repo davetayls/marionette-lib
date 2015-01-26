@@ -10,14 +10,7 @@
 /// <reference path="modernizr/modernizr.d.ts" />
 /// <reference path="showdown/showdown.d.ts" />
 /// <reference path="q/Q.d.ts" />
+/// <reference path="spin/spin.d.ts" />
 
 declare var require;
 
-declare module 'spin' {
-  class Spin {
-    constructor(options?:any);
-    stop():void;
-    spin(el:any):void;
-  }
-  export = Spin;
-}
