@@ -1,3 +1,4 @@
+exports.ChildHolderView = require('./ChildHolderView');
 exports.View = require('./View');
 exports.ItemView = require('./ItemView');
 exports.Layout = require('./Layout');

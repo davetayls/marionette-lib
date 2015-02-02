@@ -13,4 +13,3 @@
 /// <reference path="spin/spin.d.ts" />
 
 declare var require;
-

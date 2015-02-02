@@ -72,8 +72,8 @@ var NoticeView = (function (_super) {
     NoticeView.prototype.show = function () {
         return this.$el.show();
     };
-    NoticeView.prototype.set = function () {
-        this.model.set.apply(this.model, arguments);
+    NoticeView.prototype.set = function (properties) {
+        this.model.set(properties);
         return this.show();
     };
     NoticeView.prototype.closeButtons = function () {

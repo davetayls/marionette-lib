@@ -4,13 +4,19 @@ import ItemView = require('../../views/ItemView');
 
 export class Button extends ItemView.ItemView<Backbone.Model> {
 
+  constructor(options?: Backbone.ViewOptions<Backbone.Model>) {
+    this.name = this.name || 'base-button';
+    this.tagName = 'a';
+    this.triggers = {
+      'click': 'click'
+    };
+    super(options);
+  }
+
   initialize() {
     super.initialize();
     this.on('click', this.navigate);
   }
-
-  name = 'base-button';
-  tagName = 'a';
 
   defaults() {
     return {
@@ -19,14 +25,9 @@ export class Button extends ItemView.ItemView<Backbone.Model> {
     }
   }
 
-  triggers = {
-    'click': 'click'
+  get className() {
+    return 'btn btn-block btn--' + this.name;
   }
-
-  // TODO: implement className
-  //className() {
-  //  return 'btn btn-block btn--' + this.name;
-  //}
 
   navigate() {
     return null;

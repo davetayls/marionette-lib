@@ -4,17 +4,16 @@ import Marionette = require('backbone.marionette');
 
 export class View<T extends Backbone.Model> extends Marionette.View<T> {
 
+  constructor(options?: Backbone.ViewOptions<T>) {
+    this.behaviors = this.behaviors || {};
+    this.behaviors['Modifiers'] = {};
+    super(options);
+  }
+
   name:string;
 
-  // TODO: implement className
-  //className() {
-  //  return this.name;
-  //}
-
-  behaviors():any {
-    return {
-      Modifiers: {}
-    };
+  get className() {
+    return this.name;
   }
 
   getUi(key:string):JQuery {

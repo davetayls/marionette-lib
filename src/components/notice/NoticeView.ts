@@ -75,8 +75,8 @@ export class NoticeView extends ItemView.ItemView<Backbone.Model> {
     return this.$el.show();
   }
 
-  set() {
-    this.model.set.apply(this.model, arguments);
+  set(properties:any) {
+    this.model.set(properties);
     return this.show();
   }
 

@@ -8,20 +8,20 @@ var __extends = this.__extends || function (d, b) {
 var Marionette = require('backbone.marionette');
 var List = (function (_super) {
     __extends(List, _super);
-    function List() {
-        _super.apply(this, arguments);
+    function List(options) {
+        this.behaviors = this.behaviors || {};
+        this.behaviors['Modifiers'] = {};
+        _super.call(this, options);
     }
-    // TODO: implement className
-    //className() {
-    //  return this.name;
-    //}
-    List.prototype.behaviors = function () {
-        return {
-            Modifiers: {}
-        };
-    };
+    Object.defineProperty(List.prototype, "className", {
+        get: function () {
+            return this.name;
+        },
+        enumerable: true,
+        configurable: true
+    });
     List.prototype.animateOut = function (cb) {
-        return cb();
+        return cb.call(this);
     };
     return List;
 })(Marionette.CompositeView);

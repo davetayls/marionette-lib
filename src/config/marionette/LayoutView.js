@@ -1,4 +1,3 @@
-/// <reference path="../../../typings/tsd.d.ts" />
 var Marionette = require('backbone.marionette');
 var LayoutView = Marionette.LayoutView;
 /*
@@ -13,4 +12,3 @@ LayoutView.prototype._buildRegions = function (regions) {
     this._ensureElement();
     return _buildRegions.apply(this, arguments);
 };
-//# sourceMappingURL=LayoutView.js.map

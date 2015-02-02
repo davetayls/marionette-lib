@@ -4,6 +4,7 @@ import _ = require('underscore');
 import Q = require('q');
 import BaseController = require('./Base');
 import clientConfig = require('../config/client');
+import AnimatedRegion = require('../components/AnimatedRegion/AnimatedRegion');
 
 var app = clientConfig.config.app;
 
@@ -15,8 +16,12 @@ export interface ILoadingOptions {
 
 }
 
+export interface IConstructorOptions {
+  region?:AnimatedRegion.AnimatedRegion;
+}
+
 export interface IShowOptions {
-  region?:Marionette.Region;
+  region?:AnimatedRegion.AnimatedRegion;
   controller?:AppController;
   monitorReadyState?:IMonitorReadyState;
   loading?:ILoadingOptions;
@@ -30,7 +35,7 @@ export interface IShowOutcome {
 
 export class AppController extends BaseController.BaseController {
 
-  constructor(options:any = {}) {
+  constructor(options:IConstructorOptions = {}) {
     this._managedRegions = [];
     this.region = this.region || options.region || app.request("default:region");
     super();

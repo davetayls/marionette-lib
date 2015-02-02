@@ -18,7 +18,7 @@ export function getCurrentRoute():string {
   }
 }
 
-export function startHistory(options:Backbone.HistoryOptions):void {
+export function startHistory(options?:Backbone.HistoryOptions):void {
   if (Backbone.history) {
     Backbone.history.start(options);
     historyIsStarted = true;

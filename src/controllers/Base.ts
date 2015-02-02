@@ -2,6 +2,7 @@
 
 import registry = require('../utilities/registry');
 import Marionette = require('backbone.marionette');
+import AnimatedRegion = require('../components/AnimatedRegion/AnimatedRegion');
 
 export class BaseController extends Marionette.Controller {
 
@@ -12,7 +13,7 @@ export class BaseController extends Marionette.Controller {
   }
 
   _instance_id:string;
-  region:Marionette.Region;
+  region:AnimatedRegion.AnimatedRegion;
 
   destroy() {
     console.log("destroying", this);
@@ -20,8 +21,8 @@ export class BaseController extends Marionette.Controller {
     super.destroy();
   }
 
-  proxyEvents(instance, prefix) {
-    return this.listenTo(instance, "all", () => {
+  proxyEvents(instance:any, prefix?:string) {
+    this.listenTo(instance, "all", () => {
       var args = Array.prototype.slice.call(arguments);
       var rootEvent = args[0];
       if (prefix) {

@@ -8,13 +8,13 @@ var __extends = this.__extends || function (d, b) {
 var ItemView = require('../../views/ItemView');
 var Button = (function (_super) {
     __extends(Button, _super);
-    function Button() {
-        _super.apply(this, arguments);
-        this.name = 'base-button';
+    function Button(options) {
+        this.name = this.name || 'base-button';
         this.tagName = 'a';
         this.triggers = {
             'click': 'click'
         };
+        _super.call(this, options);
     }
     Button.prototype.initialize = function () {
         _super.prototype.initialize.call(this);
@@ -26,10 +26,13 @@ var Button = (function (_super) {
             text: ''
         };
     };
-    // TODO: implement className
-    //className() {
-    //  return 'btn btn-block btn--' + this.name;
-    //}
+    Object.defineProperty(Button.prototype, "className", {
+        get: function () {
+            return 'btn btn-block btn--' + this.name;
+        },
+        enumerable: true,
+        configurable: true
+    });
     Button.prototype.navigate = function () {
         return null;
     };

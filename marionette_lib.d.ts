@@ -61,6 +61,8 @@ declare module '__marionette_lib/components/index' {
     import _Loading = require('__marionette_lib/components/loading/LoadingController');
     export import Alert = _Alert.AlertComponent;
     export import Loading = _Loading.LoadingController;
+    export import NoticeView = require('__marionette_lib/components/notice/NoticeView');
+    export import AnimatedRegion = require('__marionette_lib/components/AnimatedRegion/AnimatedRegion');
 }
 
 declare module '__marionette_lib/controllers/Api' {
@@ -74,13 +76,17 @@ declare module '__marionette_lib/controllers/Api' {
 declare module '__marionette_lib/controllers/App' {
     import Q = require('q');
     import BaseController = require('__marionette_lib/controllers/Base');
+    import AnimatedRegion = require('__marionette_lib/components/AnimatedRegion/AnimatedRegion');
     export interface IMonitorReadyState {
         (): Q.Promise<any>;
     }
     export interface ILoadingOptions {
     }
+    export interface IConstructorOptions {
+        region?: AnimatedRegion.AnimatedRegion;
+    }
     export interface IShowOptions {
-        region?: Marionette.Region;
+        region?: AnimatedRegion.AnimatedRegion;
         controller?: AppController;
         monitorReadyState?: IMonitorReadyState;
         loading?: ILoadingOptions;
@@ -91,7 +97,7 @@ declare module '__marionette_lib/controllers/App' {
         options: IShowOptions;
     }
     export class AppController extends BaseController.BaseController {
-        constructor(options?: any);
+        constructor(options?: IConstructorOptions);
         _managedRegions: Marionette.Region[];
         _mainView: Backbone.View<Backbone.Model>;
         showController(controller: AppController, options?: IShowOptions): IShowOutcome;
@@ -106,12 +112,13 @@ declare module '__marionette_lib/controllers/App' {
 
 declare module '__marionette_lib/controllers/Base' {
     import Marionette = require('backbone.marionette');
+    import AnimatedRegion = require('__marionette_lib/components/AnimatedRegion/AnimatedRegion');
     export class BaseController extends Marionette.Controller {
         constructor(options?: any);
         _instance_id: string;
-        region: Marionette.Region;
+        region: AnimatedRegion.AnimatedRegion;
         destroy(): void;
-        proxyEvents(instance: any, prefix: any): any;
+        proxyEvents(instance: any, prefix?: string): void;
     }
 }
 
@@ -223,7 +230,7 @@ declare module '__marionette_lib/utilities/navigation' {
     export var historyIsStarted: boolean;
     export function to(route: any, options?: any): boolean;
     export function getCurrentRoute(): string;
-    export function startHistory(options: Backbone.HistoryOptions): void;
+    export function startHistory(options?: Backbone.HistoryOptions): void;
 }
 
 declare module '__marionette_lib/utilities/registry' {
@@ -248,6 +255,7 @@ declare module '__marionette_lib/utilities/registry' {
 }
 
 declare module '__marionette_lib/views/index' {
+    export import ChildHolderView = require('__marionette_lib/views/ChildHolderView');
     export import View = require('__marionette_lib/views/View');
     export import ItemView = require('__marionette_lib/views/ItemView');
     export import Layout = require('__marionette_lib/views/Layout');
@@ -297,6 +305,37 @@ declare module '__marionette_lib/components/loading/LoadingController' {
     }
 }
 
+declare module '__marionette_lib/components/notice/NoticeView' {
+    import ItemView = require('__marionette_lib/views/ItemView');
+    import SpinnerView = require('__marionette_lib/components/spinner/SpinnerView');
+    export class NoticeView extends ItemView.ItemView<Backbone.Model> {
+        _loadingView: SpinnerView.SpinnerView;
+        constructor(options?: Backbone.ViewOptions<Backbone.Model>);
+        defaults(): {
+            header: string;
+            body: string;
+            buttons: any[];
+            canDismiss: boolean;
+        };
+        initialize(options: any): void;
+        onRender(): void;
+        canDismiss(): any;
+        hide(): JQuery;
+        show(): JQuery;
+        set(properties: any): JQuery;
+        closeButtons(): any;
+        onButtonClicked(): any;
+    }
+}
+
+declare module '__marionette_lib/components/AnimatedRegion/AnimatedRegion' {
+    import Marionette = require('backbone.marionette');
+    export class AnimatedRegion extends Marionette.Region {
+        currentView: Backbone.View<Backbone.Model>;
+        _nextView: Backbone.View<Backbone.Model>;
+    }
+}
+
 declare module '__marionette_lib/handlebars/components' {
     import StaticController = require('__marionette_lib/controllers/Static');
     export function initComponents(components: {
@@ -310,7 +349,12 @@ declare module '__marionette_lib/handlebars/i18next' {
 
 declare module '__marionette_lib/routers/App' {
     import Marionette = require('backbone.marionette');
+    export enum APP_ROUTER_EVENTS {
+        'firstRoute' = 0,
+    }
     export class AppRouter extends Marionette.AppRouter {
+        static _firstRouteTriggered: boolean;
+        onRoute(routeName: string, routePath: string, routeArgs: any): void;
     }
 }
 
@@ -319,11 +363,25 @@ declare module '__marionette_lib/stickit/mdown' {
     export var updateMethod: string;
 }
 
+declare module '__marionette_lib/views/ChildHolderView' {
+    import Backbone = require('backbone');
+    import View = require('__marionette_lib/views/View');
+    export class ChildHolderView<T extends Backbone.Model> extends View.View<T> {
+        initialize(options: any): void;
+        children: Backbone.ChildViewContainer<T>;
+        add(view: Backbone.View<T>): JQuery;
+        render(): ChildHolderView<T>;
+        onDestroy(): void;
+        animateOut(cb: any): any;
+    }
+}
+
 declare module '__marionette_lib/views/View' {
     import Marionette = require('backbone.marionette');
     export class View<T extends Backbone.Model> extends Marionette.View<T> {
+        constructor(options?: Backbone.ViewOptions<T>);
         name: string;
-        behaviors(): any;
+        className: string;
         getUi(key: string): JQuery;
     }
 }
@@ -332,12 +390,13 @@ declare module '__marionette_lib/views/ItemView' {
     import Backbone = require('backbone');
     import Marionette = require('backbone.marionette');
     export class ItemView<T extends Backbone.Model> extends Marionette.ItemView<T> {
+        constructor(options?: Backbone.ViewOptions<T>);
         name: string;
         defaults(): any;
         options: any;
         ui: any;
         template: any;
-        behaviors(): any;
+        className: string;
     }
 }
 
@@ -345,8 +404,13 @@ declare module '__marionette_lib/views/Layout' {
     import Backbone = require('backbone');
     import Marionette = require('backbone.marionette');
     export class Layout<T extends Backbone.Model> extends Marionette.LayoutView<T> {
+        constructor(options?: Backbone.ViewOptions<T>);
         name: string;
-        behaviors(): any;
+        template: (data: any) => string;
+        regions: {
+            [key: string]: any;
+        };
+        className: string;
     }
 }
 
@@ -354,8 +418,10 @@ declare module '__marionette_lib/views/List' {
     import Backbone = require('backbone');
     import Marionette = require('backbone.marionette');
     export class List<T extends Backbone.Model> extends Marionette.CompositeView<T> {
+        constructor(options?: Backbone.ViewOptions<T>);
         name: string;
-        behaviors(): any;
+        template: (data: any) => string;
+        className: string;
         animateOut(cb: any): any;
     }
 }

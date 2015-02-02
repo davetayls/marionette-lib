@@ -5,17 +5,18 @@ import Marionette = require('backbone.marionette');
 
 export class Layout<T extends Backbone.Model> extends Marionette.LayoutView<T> {
 
+  constructor(options?: Backbone.ViewOptions<T>) {
+    this.behaviors = this.behaviors || {};
+    this.behaviors['Modifiers'] = {};
+    super(options);
+  }
+
   name:string;
+  template:(data:any) => string;
+  regions:{[key:string]:any};
 
-  //TODO: implement className
-  //className() {
-  //  return this.name;
-  //}
-
-  behaviors():any {
-    return {
-      Modifiers: {}
-    };
+  get className():string {
+    return this.name;
   }
 
 }

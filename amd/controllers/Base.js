@@ -21,7 +21,7 @@ var BaseController = (function (_super) {
     };
     BaseController.prototype.proxyEvents = function (instance, prefix) {
         var _this = this;
-        return this.listenTo(instance, "all", function () {
+        this.listenTo(instance, "all", function () {
             var args = Array.prototype.slice.call(arguments);
             var rootEvent = args[0];
             if (prefix) {

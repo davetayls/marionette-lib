@@ -8,20 +8,20 @@ var __extends = this.__extends || function (d, b) {
 var Marionette = require('backbone.marionette');
 var ItemView = (function (_super) {
     __extends(ItemView, _super);
-    function ItemView() {
-        _super.apply(this, arguments);
+    function ItemView(options) {
+        this.behaviors = this.behaviors || {};
+        this.behaviors['Modifiers'] = {};
+        _super.call(this, options);
     }
     ItemView.prototype.defaults = function () {
     };
-    //TODO: default className to this.name
-    //className() {
-    //  return this.name;
-    //}
-    ItemView.prototype.behaviors = function () {
-        return {
-            Modifiers: {}
-        };
-    };
+    Object.defineProperty(ItemView.prototype, "className", {
+        get: function () {
+            return this.name;
+        },
+        enumerable: true,
+        configurable: true
+    });
     return ItemView;
 })(Marionette.ItemView);
 exports.ItemView = ItemView;

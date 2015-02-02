@@ -231,6 +231,8 @@ declare module Marionette {
          * @param optionName the name of the option to retrieve.
          */
         getOption(optionName: string): any;
+
+        triggerMethod(name: string, ...args: any[]): any;
     }
 
     interface RegionConstructionOptions {
@@ -345,9 +347,6 @@ declare module Marionette {
          * Empties the current view from the region.
          */
         empty(): any;
-
-        currentView:Backbone.View<Backbone.Model>;
-        _nextView:Backbone.View<Backbone.Model>;
 
     }
 
@@ -678,7 +677,13 @@ declare module Marionette {
         /** 
          * Defines behaviors attached to this view. 
          */
-        behaviors(): any;
+        behaviors: any;
+
+        /**
+         * Defines `triggers` to forward DOM events to view
+         * events. `triggers: {"click .foo": "do:foo"}`
+         */
+        triggers:{[key:string]:any};
 
         /**
          * A configuration hash for models. The left side is the event on 
@@ -717,6 +722,12 @@ declare module Marionette {
          */
         getTemplate(): any;
 
+
+        /**
+         * Retrieve an object's attribute either directly from the object, or
+         * from the object's this.options, with this.options taking precedence.
+         */
+        getOption<T>(optionName:string): T;
 
         mixinTemplateHelpers(target?: any): any;
         configureTriggers(): any;
@@ -1134,8 +1145,6 @@ declare module Marionette {
           * view logic for better control over single regions.
           */
         getRegionManager(): any;
-
-        _buildRegions(regionDefinitions:any):any;
     }
 
     interface AppRouterOptions extends Backbone.RouterOptions {
