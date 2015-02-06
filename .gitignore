@@ -6,4 +6,3 @@ bower_components
 .bower.json
 tmp
 npm-debug.log
-*.map
