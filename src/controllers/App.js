@@ -8,13 +8,12 @@ var __extends = this.__extends || function (d, b) {
 var _ = require('underscore');
 var BaseController = require('./Base');
 var clientConfig = require('../config/client');
-var app = clientConfig.config.app;
 var AppController = (function (_super) {
     __extends(AppController, _super);
     function AppController(options) {
         if (options === void 0) { options = {}; }
         this._managedRegions = [];
-        this.region = this.region || options.region || app.request("default:region");
+        this.region = this.region || options.region || clientConfig.config.app.request("default:region");
         _super.call(this);
     }
     AppController.prototype.showController = function (controller, options) {
@@ -65,10 +64,10 @@ var AppController = (function (_super) {
                 loadingBody: _.result(this, 'loadingBody'),
                 monitorReadyState: options.monitorReadyState
             });
-            return app.execute("show:loading", view, options);
+            clientConfig.config.app.execute("show:loading", view, options);
         }
         else {
-            return options.region.show(view, options.immediate);
+            options.region.show(view, options.immediate);
         }
     };
     AppController.prototype.destroy = function () {

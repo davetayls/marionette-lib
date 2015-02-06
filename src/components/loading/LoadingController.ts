@@ -25,7 +25,7 @@ export class LoadingController extends AppController.AppController {
   entities:any;
   loadingView:Backbone.View<Backbone.Model>;
 
-  getLoadingView() {
+  getLoadingView():Backbone.View<Backbone.Model> {
     switch (this.options.loadingType) {
       case "opacity":
         this.region.currentView.$el.css("opacity", 0.5);

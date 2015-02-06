@@ -2,7 +2,9 @@
 
 import Marionette = require('backbone.marionette');
 
-export enum APP_ROUTER_EVENTS { 'firstRoute' }
+export enum APP_ROUTER_EVENTS {
+    firstRoute
+}
 
 export class AppRouter extends Marionette.AppRouter {
 
@@ -10,7 +12,7 @@ export class AppRouter extends Marionette.AppRouter {
 
   onRoute(routeName:string, routePath:string, routeArgs:any) {
     if (AppRouter._firstRouteTriggered) {
-      this.trigger(APP_ROUTER_EVENTS[APP_ROUTER_EVENTS['first:route']]);
+      this.trigger(APP_ROUTER_EVENTS[APP_ROUTER_EVENTS.firstRoute]);
     } else {
       AppRouter._firstRouteTriggered = true;
     }

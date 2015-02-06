@@ -8,7 +8,7 @@
 declare module 'marionette_lib' {
     import _config = require('__marionette_lib/config/client');
     export import config = _config.config;
-    export function configure(options: any): void;
+    export function configure(options: _config.IConfigureOptions): void;
     export import behaviors = require('__marionette_lib/behaviors/index');
     export import components = require('__marionette_lib/components/index');
     import _Api = require('__marionette_lib/controllers/Api');
@@ -105,7 +105,7 @@ declare module '__marionette_lib/controllers/App' {
         getMainView(): Backbone.View<Backbone.Model>;
         setMainView(view: any): any;
         manageRegion(region: any): number;
-        _manageView(view: any, options: any): any;
+        _manageView(view: any, options: any): void;
         destroy(): void;
     }
 }
@@ -291,13 +291,12 @@ declare module '__marionette_lib/components/alert/Alert' {
 
 declare module '__marionette_lib/components/loading/LoadingController' {
     import AppController = require('__marionette_lib/controllers/App');
-    import SpinnerView = require('__marionette_lib/components/spinner/SpinnerView');
     export class LoadingController extends AppController.AppController {
         initialize(options: any): any;
         options: any;
         entities: any;
         loadingView: Backbone.View<Backbone.Model>;
-        getLoadingView(): SpinnerView.SpinnerView;
+        getLoadingView(): Backbone.View<Backbone.Model>;
         monitorReadyState(realView: any, loadingView: any): any;
         showError(realView: any, loadingView: any): any;
         showRealView(realView: any, loadingView: any): any;
@@ -350,7 +349,7 @@ declare module '__marionette_lib/handlebars/i18next' {
 declare module '__marionette_lib/routers/App' {
     import Marionette = require('backbone.marionette');
     export enum APP_ROUTER_EVENTS {
-        'firstRoute' = 0,
+        firstRoute = 0,
     }
     export class AppRouter extends Marionette.AppRouter {
         static _firstRouteTriggered: boolean;

@@ -4,7 +4,7 @@ import Marionette = require('backbone.marionette');
 
 import _config = require('./config/client');
 export import config = _config.config;
-export function configure(options) {
+export function configure(options:_config.IConfigureOptions) {
   return _config.config.configure(options);
 };
 

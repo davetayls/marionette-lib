@@ -7,7 +7,7 @@ var __extends = this.__extends || function (d, b) {
 };
 var Marionette = require('backbone.marionette');
 (function (APP_ROUTER_EVENTS) {
-    APP_ROUTER_EVENTS[APP_ROUTER_EVENTS['firstRoute'] = 0] = 'firstRoute';
+    APP_ROUTER_EVENTS[APP_ROUTER_EVENTS["firstRoute"] = 0] = "firstRoute";
 })(exports.APP_ROUTER_EVENTS || (exports.APP_ROUTER_EVENTS = {}));
 var APP_ROUTER_EVENTS = exports.APP_ROUTER_EVENTS;
 var AppRouter = (function (_super) {
@@ -17,7 +17,7 @@ var AppRouter = (function (_super) {
     }
     AppRouter.prototype.onRoute = function (routeName, routePath, routeArgs) {
         if (AppRouter._firstRouteTriggered) {
-            this.trigger(APP_ROUTER_EVENTS[APP_ROUTER_EVENTS['first:route']]);
+            this.trigger(APP_ROUTER_EVENTS[0 /* firstRoute */]);
         }
         else {
             AppRouter._firstRouteTriggered = true;

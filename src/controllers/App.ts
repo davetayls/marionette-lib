@@ -6,8 +6,6 @@ import BaseController = require('./Base');
 import clientConfig = require('../config/client');
 import AnimatedRegion = require('../components/AnimatedRegion/AnimatedRegion');
 
-var app = clientConfig.config.app;
-
 export interface IMonitorReadyState {
   ():Q.Promise<any>;
 }
@@ -37,7 +35,7 @@ export class AppController extends BaseController.BaseController {
 
   constructor(options:IConstructorOptions = {}) {
     this._managedRegions = [];
-    this.region = this.region || options.region || app.request("default:region");
+    this.region = this.region || options.region || clientConfig.config.app.request("default:region");
     super();
   }
 
@@ -85,7 +83,7 @@ export class AppController extends BaseController.BaseController {
     return this._managedRegions.push(region);
   }
 
-  _manageView(view, options) {
+  _manageView(view, options):void {
     if (options.loading) {
       if (_.isBoolean(options.loading)) {
         options.loading = {};
@@ -95,9 +93,9 @@ export class AppController extends BaseController.BaseController {
         loadingBody: _.result(this, 'loadingBody'),
         monitorReadyState: options.monitorReadyState
       });
-      return app.execute("show:loading", view, options);
+      clientConfig.config.app.execute("show:loading", view, options);
     } else {
-      return options.region.show(view, options.immediate);
+      options.region.show(view, options.immediate);
     }
   }
 
