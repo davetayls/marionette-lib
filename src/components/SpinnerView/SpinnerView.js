@@ -9,29 +9,11 @@ var View = require('../../views/View');
 var Spin = require('spin');
 var SpinnerView = (function (_super) {
     __extends(SpinnerView, _super);
-    function SpinnerView() {
-        _super.apply(this, arguments);
-        this.name = 'loading';
+    function SpinnerView(options) {
+        this.name = 'SpinnerView';
         this.loadingDelay = 1000;
-        this.loadingClass = 'loading--spinning';
-        this.spinOptions = {
-            lines: 13,
-            length: 4,
-            width: 2,
-            radius: 5,
-            corners: 1,
-            rotate: 0,
-            direction: 1,
-            color: "#fff",
-            speed: 1,
-            trail: 60,
-            shadow: false,
-            hwaccel: true,
-            className: "spinner spinner--itemview animated bounceIn",
-            zIndex: 2e9,
-            top: "30px",
-            left: "auto"
-        };
+        this.loadingClass = 'SpinnerView--spinning';
+        _super.call(this, options);
     }
     SpinnerView.prototype.start = function () {
         var _this = this;
@@ -41,7 +23,7 @@ var SpinnerView = (function (_super) {
         }
         this.loadingTimeout = setTimeout(function () {
             _this.$el.addClass(_this.loadingClass);
-            _this.loadingSpinner = new Spin(_this.spinOptions);
+            _this.loadingSpinner = new Spin(SpinnerView.spinOptions);
             _this.loadingSpinner.spin(_this.$el[0]);
         }, this.loadingDelay);
     };
@@ -53,6 +35,24 @@ var SpinnerView = (function (_super) {
             this.loadingSpinner.stop();
             return this.$el.removeClass(this.loadingClass);
         }
+    };
+    SpinnerView.spinOptions = {
+        lines: 13,
+        length: 4,
+        width: 2,
+        radius: 5,
+        corners: 1,
+        rotate: 0,
+        direction: 1,
+        color: "#fff",
+        speed: 1,
+        trail: 60,
+        shadow: false,
+        hwaccel: true,
+        className: "SpinnerView__spinner animated bounceIn",
+        zIndex: 2e9,
+        top: "30px",
+        left: "auto"
     };
     return SpinnerView;
 })(View.View);

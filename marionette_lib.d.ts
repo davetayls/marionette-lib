@@ -58,7 +58,7 @@ declare module '__marionette_lib/behaviors/index' {
 
 declare module '__marionette_lib/components/index' {
     import _Alert = require('__marionette_lib/components/alert/Alert');
-    import _Loading = require('__marionette_lib/components/loading/LoadingController');
+    import _Loading = require('__marionette_lib/components/LoadingComponent/LoadingController');
     export import Alert = _Alert.AlertComponent;
     export import Loading = _Loading.LoadingController;
     export import NoticeView = require('__marionette_lib/components/notice/NoticeView');
@@ -289,24 +289,31 @@ declare module '__marionette_lib/components/alert/Alert' {
     }
 }
 
-declare module '__marionette_lib/components/loading/LoadingController' {
+declare module '__marionette_lib/components/LoadingComponent/LoadingController' {
     import AppController = require('__marionette_lib/controllers/App');
+    export interface ILoadingOptions extends AppController.IConstructorOptions {
+        view: Backbone.View<Backbone.Model>;
+        loadingType: string;
+        monitorReadyState?: (realView: Backbone.View<Backbone.Model>, loadingView: Backbone.View<Backbone.Model>, readyCallback: (errors?: any) => void) => Q.Promise<any>;
+        debug?: boolean;
+        entities?: any;
+    }
     export class LoadingController extends AppController.AppController {
-        initialize(options: any): any;
-        options: any;
+        constructor(options: ILoadingOptions);
+        options: ILoadingOptions;
         entities: any;
         loadingView: Backbone.View<Backbone.Model>;
         getLoadingView(): Backbone.View<Backbone.Model>;
-        monitorReadyState(realView: any, loadingView: any): any;
+        monitorReadyState(realView: Backbone.View<Backbone.Model>, loadingView: any): any;
         showError(realView: any, loadingView: any): any;
-        showRealView(realView: any, loadingView: any): any;
+        showRealView(realView: any, loadingView: any): void;
         getEntities(view: any): any[];
     }
 }
 
 declare module '__marionette_lib/components/notice/NoticeView' {
     import ItemView = require('__marionette_lib/views/ItemView');
-    import SpinnerView = require('__marionette_lib/components/spinner/SpinnerView');
+    import SpinnerView = require('__marionette_lib/components/SpinnerView/SpinnerView');
     export class NoticeView extends ItemView.ItemView<Backbone.Model> {
         _loadingView: SpinnerView.SpinnerView;
         constructor(options?: Backbone.ViewOptions<Backbone.Model>);
@@ -425,16 +432,16 @@ declare module '__marionette_lib/views/List' {
     }
 }
 
-declare module '__marionette_lib/components/spinner/SpinnerView' {
+declare module '__marionette_lib/components/SpinnerView/SpinnerView' {
     import View = require('__marionette_lib/views/View');
     import Spin = require('spin');
     export class SpinnerView extends View.View<Backbone.Model> {
-        name: string;
+        constructor(options?: Backbone.ViewOptions<Backbone.Model>);
         loadingDelay: number;
         loadingClass: string;
         loadingTimeout: number;
         loadingSpinner: Spin;
-        spinOptions: {
+        static spinOptions: {
             lines: number;
             length: number;
             width: number;

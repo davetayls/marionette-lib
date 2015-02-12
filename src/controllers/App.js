@@ -14,7 +14,7 @@ var AppController = (function (_super) {
         if (options === void 0) { options = {}; }
         this._managedRegions = [];
         this.region = this.region || options.region || clientConfig.config.app.request("default:region");
-        _super.call(this);
+        _super.call(this, options);
     }
     AppController.prototype.showController = function (controller, options) {
         if (options === void 0) { options = {}; }

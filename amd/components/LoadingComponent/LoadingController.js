@@ -1,4 +1,4 @@
-/// <reference path="../../../typings/tsd.d.ts" />
+define(function (require, exports, module) {/// <reference path="../../../typings/tsd.d.ts" />
 var __extends = this.__extends || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
@@ -6,27 +6,25 @@ var __extends = this.__extends || function (d, b) {
     d.prototype = new __();
 };
 var AppController = require('../../controllers/App');
-var SpinnerView = require('../spinner/SpinnerView');
+var SpinnerView = require('../SpinnerView/SpinnerView');
 var whenFetched = require('../../utilities/whenFetched');
 var LoadingController = (function (_super) {
     __extends(LoadingController, _super);
-    function LoadingController() {
-        _super.apply(this, arguments);
-    }
-    LoadingController.prototype.initialize = function (options) {
+    function LoadingController(options) {
+        _super.call(this, options);
         _.defaults(this.options, {
             loadingType: "spinner",
             debug: false
         });
-        this.entities = this.getOption('entities') || this.getEntities(options.view);
+        this.entities = options.entities || this.getEntities(options.view);
         this.loadingView = this.getLoadingView();
         if (this.loadingView) {
             this.show(this.loadingView);
         }
         if (!this.options.debug) {
-            return this.monitorReadyState(options.view, this.loadingView);
+            this.monitorReadyState(options.view, this.loadingView);
         }
-    };
+    }
     LoadingController.prototype.getLoadingView = function () {
         switch (this.options.loadingType) {
             case "opacity":
@@ -42,17 +40,15 @@ var LoadingController = (function (_super) {
         return loadingView;
     };
     LoadingController.prototype.monitorReadyState = function (realView, loadingView) {
-        var _viewReady;
-        _viewReady = (function (_this) {
-            return function (errors) {
-                if (errors && errors.length) {
-                    return _this.showError(realView, loadingView);
-                }
-                else {
-                    return _this.showRealView(realView, loadingView);
-                }
-            };
-        })(this);
+        var _this = this;
+        var _viewReady = function (errors) {
+            if (errors && errors.length) {
+                _this.showError(realView, loadingView);
+            }
+            else {
+                _this.showRealView(realView, loadingView);
+            }
+        };
         if (this.options.monitorReadyState) {
             return this.options.monitorReadyState.call(this, realView, loadingView, _viewReady);
         }
@@ -78,11 +74,11 @@ var LoadingController = (function (_super) {
                 break;
             case 'spinner':
                 if (this.region.currentView !== loadingView && this.region._nextView !== loadingView) {
-                    return realView.destroy();
+                    realView.destroy();
                 }
         }
         if (!(!realView || this.options.debug)) {
-            return this.show(realView);
+            this.show(realView);
         }
     };
     LoadingController.prototype.getEntities = function (view) {
@@ -92,3 +88,4 @@ var LoadingController = (function (_super) {
 })(AppController.AppController);
 exports.LoadingController = LoadingController;
 //# sourceMappingURL=LoadingController.js.map
+});

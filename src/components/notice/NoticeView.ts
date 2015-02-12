@@ -1,7 +1,7 @@
 /// <reference path="../../../typings/tsd.d.ts" />
 
 import ItemView = require('../../views/ItemView');
-import SpinnerView = require('../spinner/SpinnerView');
+import SpinnerView = require('../SpinnerView/SpinnerView');
 
 export class NoticeView extends ItemView.ItemView<Backbone.Model> {
 

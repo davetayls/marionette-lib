@@ -6,13 +6,19 @@ import Spin = require('spin');
 
 export class SpinnerView extends View.View<Backbone.Model> {
 
-  name = 'loading';
-  loadingDelay = 1000;
-  loadingClass = 'loading--spinning';
+  constructor(options?:Backbone.ViewOptions<Backbone.Model>){
+    this.name = 'SpinnerView';
+    this.loadingDelay = 1000;
+    this.loadingClass = 'SpinnerView--spinning';
+    super(options);
+  }
+
+  loadingDelay:number;
+  loadingClass:string;
   loadingTimeout:number;
   loadingSpinner:Spin;
 
-  spinOptions = {
+  static spinOptions = {
     lines: 13,
     length: 4,
     width: 2,
@@ -25,7 +31,7 @@ export class SpinnerView extends View.View<Backbone.Model> {
     trail: 60,
     shadow: false,
     hwaccel: true,
-    className: "spinner spinner--itemview animated bounceIn",
+    className: "SpinnerView__spinner animated bounceIn",
     zIndex: 2e9,
     top: "30px",
     left: "auto"
@@ -38,7 +44,7 @@ export class SpinnerView extends View.View<Backbone.Model> {
     }
     this.loadingTimeout = setTimeout(() => {
         this.$el.addClass(this.loadingClass);
-        this.loadingSpinner = new Spin(this.spinOptions);
+        this.loadingSpinner = new Spin(SpinnerView.spinOptions);
         this.loadingSpinner.spin(this.$el[0]);
     }, this.loadingDelay);
   }

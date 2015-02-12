@@ -1,27 +1,39 @@
 /// <reference path="../../../typings/tsd.d.ts" />
 
 import AppController = require('../../controllers/App');
-import SpinnerView = require('../spinner/SpinnerView');
+import SpinnerView = require('../SpinnerView/SpinnerView');
 import whenFetched = require('../../utilities/whenFetched');
+
+export interface ILoadingOptions extends AppController.IConstructorOptions {
+  view:Backbone.View<Backbone.Model>;
+  loadingType:string;
+  monitorReadyState?:(
+    realView:Backbone.View<Backbone.Model>,
+    loadingView:Backbone.View<Backbone.Model>,
+    readyCallback:(errors?:any)=>void) => Q.Promise<any>;
+  debug?:boolean;
+  entities?:any;
+}
 
 export class LoadingController extends AppController.AppController {
 
-  initialize(options:any) {
+  constructor(options:ILoadingOptions) {
+    super(options);
     _.defaults(this.options, {
       loadingType: "spinner",
       debug: false
     });
-    this.entities = this.getOption('entities') || this.getEntities(options.view);
+    this.entities = options.entities || this.getEntities(options.view);
     this.loadingView = this.getLoadingView();
     if (this.loadingView) {
       this.show(this.loadingView);
     }
     if (!this.options.debug) {
-      return this.monitorReadyState(options.view, this.loadingView);
+      this.monitorReadyState(options.view, this.loadingView);
     }
   }
 
-  options:any;
+  options:ILoadingOptions;
   entities:any;
   loadingView:Backbone.View<Backbone.Model>;
 
@@ -40,17 +52,14 @@ export class LoadingController extends AppController.AppController {
     return loadingView;
   }
 
-  monitorReadyState(realView, loadingView) {
-    var _viewReady;
-    _viewReady = (function(_this) {
-      return function(errors) {
-        if (errors && errors.length) {
-          return _this.showError(realView, loadingView);
-        } else {
-          return _this.showRealView(realView, loadingView);
-        }
-      };
-    })(this);
+  monitorReadyState(realView:Backbone.View<Backbone.Model>, loadingView) {
+    var _viewReady = (errors) => {
+      if (errors && errors.length) {
+        this.showError(realView, loadingView);
+      } else {
+        this.showRealView(realView, loadingView);
+      }
+    };
     if (this.options.monitorReadyState) {
       return this.options.monitorReadyState.call(this, realView, loadingView, _viewReady);
     } else {
@@ -70,18 +79,18 @@ export class LoadingController extends AppController.AppController {
     }
   }
 
-  showRealView(realView, loadingView) {
+  showRealView(realView, loadingView):void {
     switch (this.options.loadingType) {
       case "opacity":
         this.region.currentView.$el.removeAttr("style");
         break;
       case 'spinner':
         if (this.region.currentView !== loadingView && this.region._nextView !== loadingView) {
-          return realView.destroy();
+          realView.destroy();
         }
     }
     if (!(!realView || this.options.debug)) {
-      return this.show(realView);
+      this.show(realView);
     }
   }
 
