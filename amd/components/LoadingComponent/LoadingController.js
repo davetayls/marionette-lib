@@ -50,7 +50,7 @@ var LoadingController = (function (_super) {
             }
         };
         if (this.options.monitorReadyState) {
-            return this.options.monitorReadyState.call(this, realView, loadingView, _viewReady);
+            return this.options.monitorReadyState(realView, this, _viewReady);
         }
         else {
             return whenFetched.whenFetched(this.entities, _viewReady);

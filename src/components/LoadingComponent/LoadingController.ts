@@ -9,8 +9,8 @@ export interface ILoadingOptions extends AppController.IConstructorOptions {
   loadingType:string;
   monitorReadyState?:(
     realView:Backbone.View<Backbone.Model>,
-    loadingView:Backbone.View<Backbone.Model>,
-    readyCallback:(errors?:any)=>void) => Q.Promise<any>;
+    loadingController:LoadingController,
+    readyCallback:(errors?:any)=>void) => void;
   debug?:boolean;
   entities?:any;
 }
@@ -61,7 +61,7 @@ export class LoadingController extends AppController.AppController {
       }
     };
     if (this.options.monitorReadyState) {
-      return this.options.monitorReadyState.call(this, realView, loadingView, _viewReady);
+      return this.options.monitorReadyState(realView, this, _viewReady);
     } else {
       return whenFetched.whenFetched(this.entities, _viewReady);
     }

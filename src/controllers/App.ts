@@ -7,7 +7,10 @@ import clientConfig = require('../config/client');
 import AnimatedRegion = require('../components/AnimatedRegion/AnimatedRegion');
 
 export interface IMonitorReadyState {
-  ():Q.Promise<any>;
+  (
+    realView:Backbone.View<Backbone.Model>,
+    loadingView:Backbone.View<Backbone.Model>,
+    readyCallback:(errors?:any)=>void):Q.Promise<any>;
 }
 
 export interface ILoadingOptions {
@@ -21,7 +24,10 @@ export interface IConstructorOptions {
 export interface IShowOptions {
   region?:AnimatedRegion.AnimatedRegion;
   controller?:AppController;
-  monitorReadyState?:IMonitorReadyState;
+  monitorReadyState?:(
+    realView:Backbone.View<Backbone.Model>,
+    loadingView:Backbone.View<Backbone.Model>,
+    readyCallback:(errors?:any)=>void) => void;
   loading?:ILoadingOptions;
   immediate?:boolean;
 }

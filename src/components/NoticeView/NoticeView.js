@@ -5,20 +5,15 @@ var __extends = this.__extends || function (d, b) {
     __.prototype = b.prototype;
     d.prototype = new __();
 };
+var Backbone = require('backbone');
 var ItemView = require('../../views/ItemView');
 var SpinnerView = require('../SpinnerView/SpinnerView');
-var NoticeView = (function (_super) {
-    __extends(NoticeView, _super);
-    function NoticeView(options) {
-        this.template = require('hbs!./notice');
-        this.tagName = 'section';
-        this.name = 'notice';
-        this.ui = {
-            buttons: '.notice__btns'
-        };
-        _super.call(this, options);
+var NoticeViewModel = (function (_super) {
+    __extends(NoticeViewModel, _super);
+    function NoticeViewModel() {
+        _super.apply(this, arguments);
     }
-    NoticeView.prototype.defaults = function () {
+    NoticeViewModel.prototype.defaults = function () {
         return {
             header: '',
             body: '',
@@ -26,8 +21,61 @@ var NoticeView = (function (_super) {
             canDismiss: true
         };
     };
-    NoticeView.prototype.initialize = function (options) {
-        _super.prototype.initialize.call(this, options);
+    Object.defineProperty(NoticeViewModel.prototype, "header", {
+        get: function () {
+            return this.get('header');
+        },
+        set: function (value) {
+            this.set('header', value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(NoticeViewModel.prototype, "body", {
+        get: function () {
+            return this.get('body');
+        },
+        set: function (value) {
+            this.set('body', value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(NoticeViewModel.prototype, "buttons", {
+        get: function () {
+            return this.get('buttons');
+        },
+        set: function (value) {
+            this.set('buttons', value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(NoticeViewModel.prototype, "canDismiss", {
+        get: function () {
+            return this.get('canDismiss');
+        },
+        set: function (value) {
+            this.set('canDismiss', value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return NoticeViewModel;
+})(Backbone.Model);
+exports.NoticeViewModel = NoticeViewModel;
+var NoticeView = (function (_super) {
+    __extends(NoticeView, _super);
+    function NoticeView(options) {
+        if (options === void 0) { options = {}; }
+        this.name = 'NoticeView';
+        this.template = require('hbs!./notice');
+        this.tagName = 'section';
+        this.ui = {
+            buttons: '.NoticeView__btns'
+        };
+        _super.call(this, options);
+        this.model = this.model || new NoticeViewModel();
         if (options) {
             if (options.header) {
                 this.model.set('header', options.header);
@@ -36,11 +84,11 @@ var NoticeView = (function (_super) {
                 this.model.set('body', options.body);
             }
             if (options.buttons) {
-                this.model.set('buttons', options.buttons);
+                this.model.buttons = options.buttons;
             }
         }
         this.listenTo(this.model, 'change', this.render);
-    };
+    }
     NoticeView.prototype.onRender = function () {
         var _this = this;
         if (!this._loadingView) {

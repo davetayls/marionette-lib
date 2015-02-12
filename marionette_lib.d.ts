@@ -11,6 +11,7 @@ declare module 'marionette_lib' {
     export function configure(options: _config.IConfigureOptions): void;
     export import behaviors = require('__marionette_lib/behaviors/index');
     export import components = require('__marionette_lib/components/index');
+    export import interfaces = require('__marionette_lib/interfaces');
     import _Api = require('__marionette_lib/controllers/Api');
     import _App = require('__marionette_lib/controllers/App');
     import _Base = require('__marionette_lib/controllers/Base');
@@ -61,8 +62,28 @@ declare module '__marionette_lib/components/index' {
     import _Loading = require('__marionette_lib/components/LoadingComponent/LoadingController');
     export import Alert = _Alert.AlertComponent;
     export import Loading = _Loading.LoadingController;
-    export import NoticeView = require('__marionette_lib/components/notice/NoticeView');
+    export import NoticeView = require('__marionette_lib/components/NoticeView/NoticeView');
     export import AnimatedRegion = require('__marionette_lib/components/AnimatedRegion/AnimatedRegion');
+}
+
+declare module '__marionette_lib/interfaces' {
+    export interface IFetchResolution {
+        response: any;
+        status: number;
+        failed: boolean;
+    }
+    export interface IFetchModelResolution extends IFetchResolution {
+        options: Backbone.ModelFetchOptions;
+    }
+    export interface IFetchCollectionResolution extends IFetchResolution {
+        options: Backbone.CollectionFetchOptions;
+    }
+    export interface IFetchableModel {
+        _fetch: Q.Promise<IFetchModelResolution>;
+    }
+    export interface IFetchableCollection {
+        _fetch: Q.Promise<IFetchCollectionResolution>;
+    }
 }
 
 declare module '__marionette_lib/controllers/Api' {
@@ -78,7 +99,7 @@ declare module '__marionette_lib/controllers/App' {
     import BaseController = require('__marionette_lib/controllers/Base');
     import AnimatedRegion = require('__marionette_lib/components/AnimatedRegion/AnimatedRegion');
     export interface IMonitorReadyState {
-        (): Q.Promise<any>;
+        (realView: Backbone.View<Backbone.Model>, loadingView: Backbone.View<Backbone.Model>, readyCallback: (errors?: any) => void): Q.Promise<any>;
     }
     export interface ILoadingOptions {
     }
@@ -88,7 +109,7 @@ declare module '__marionette_lib/controllers/App' {
     export interface IShowOptions {
         region?: AnimatedRegion.AnimatedRegion;
         controller?: AppController;
-        monitorReadyState?: IMonitorReadyState;
+        monitorReadyState?: (realView: Backbone.View<Backbone.Model>, loadingView: Backbone.View<Backbone.Model>, readyCallback: (errors?: any) => void) => void;
         loading?: ILoadingOptions;
         immediate?: boolean;
     }
@@ -294,7 +315,7 @@ declare module '__marionette_lib/components/LoadingComponent/LoadingController' 
     export interface ILoadingOptions extends AppController.IConstructorOptions {
         view: Backbone.View<Backbone.Model>;
         loadingType: string;
-        monitorReadyState?: (realView: Backbone.View<Backbone.Model>, loadingView: Backbone.View<Backbone.Model>, readyCallback: (errors?: any) => void) => Q.Promise<any>;
+        monitorReadyState?: (realView: Backbone.View<Backbone.Model>, loadingController: LoadingController, readyCallback: (errors?: any) => void) => void;
         debug?: boolean;
         entities?: any;
     }
@@ -304,26 +325,38 @@ declare module '__marionette_lib/components/LoadingComponent/LoadingController' 
         entities: any;
         loadingView: Backbone.View<Backbone.Model>;
         getLoadingView(): Backbone.View<Backbone.Model>;
-        monitorReadyState(realView: Backbone.View<Backbone.Model>, loadingView: any): any;
+        monitorReadyState(realView: Backbone.View<Backbone.Model>, loadingView: any): void;
         showError(realView: any, loadingView: any): any;
         showRealView(realView: any, loadingView: any): void;
         getEntities(view: any): any[];
     }
 }
 
-declare module '__marionette_lib/components/notice/NoticeView' {
+declare module '__marionette_lib/components/NoticeView/NoticeView' {
+    import Backbone = require('backbone');
     import ItemView = require('__marionette_lib/views/ItemView');
     import SpinnerView = require('__marionette_lib/components/SpinnerView/SpinnerView');
-    export class NoticeView extends ItemView.ItemView<Backbone.Model> {
-        _loadingView: SpinnerView.SpinnerView;
-        constructor(options?: Backbone.ViewOptions<Backbone.Model>);
+    export interface INoticeViewOptions extends Backbone.ViewOptions<NoticeViewModel> {
+        header?: string;
+        body?: string;
+        buttons?: Backbone.View<Backbone.Model>[];
+    }
+    export class NoticeViewModel extends Backbone.Model {
         defaults(): {
             header: string;
             body: string;
             buttons: any[];
             canDismiss: boolean;
         };
-        initialize(options: any): void;
+        header: string;
+        body: string;
+        buttons: Backbone.View<Backbone.Model>[];
+        canDismiss: boolean;
+    }
+    export class NoticeView extends ItemView.ItemView<NoticeViewModel> {
+        constructor(options?: INoticeViewOptions);
+        _loadingView: SpinnerView.SpinnerView;
+        options: INoticeViewOptions;
         onRender(): void;
         canDismiss(): any;
         hide(): JQuery;
