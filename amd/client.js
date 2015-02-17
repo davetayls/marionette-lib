@@ -11,6 +11,7 @@ exports.behaviors = require('./behaviors/index');
 Marionette.Behaviors.behaviorsLookup = function () {
     return exports.behaviors;
 };
+exports.Exceptions = require('./Exceptions');
 exports.components = require('./components/index');
 exports.interfaces = require('./interfaces');
 var _Api = require('./controllers/Api');

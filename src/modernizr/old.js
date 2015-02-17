@@ -1,5 +1,5 @@
 /// <reference path="../../typings/modernizr/modernizr.d.ts" />
-function getAndroidVersion(ua) {
+function getCurrentAndroidVersion(ua) {
     ua = ua || navigator.userAgent;
     var match = ua.match(/Android\s([0-9\.]*)/);
     if (match) {
@@ -11,11 +11,9 @@ function getAndroidVersion(ua) {
 }
 ;
 Modernizr.addTest("old", function () {
-    var v;
-    v = getAndroidVersion();
+    var v = getCurrentAndroidVersion();
     if (v) {
-        v = parseFloat(v);
-        return v < 4.3;
+        return parseFloat(v) < 4.3;
     }
     else {
         return false;

@@ -4,11 +4,15 @@ import Backbone = require('backbone');
 import ItemView = require('../../views/ItemView');
 import SpinnerView = require('../SpinnerView/SpinnerView');
 
-export interface INoticeViewOptions extends Backbone.ViewOptions<NoticeViewModel> {
+export interface INoticeProperties {
   header?:string;
   body?:string;
-  buttons?:Backbone.View<Backbone.Model>[];
+  buttons?:Marionette.View<Backbone.Model>[];
+  canDismiss?:boolean;
+  loading?:boolean;
 }
+
+export interface INoticeViewOptions extends INoticeProperties,Backbone.ViewOptions<NoticeViewModel> {}
 
 export class NoticeViewModel extends Backbone.Model {
 
@@ -27,8 +31,7 @@ export class NoticeViewModel extends Backbone.Model {
   get body():string { return this.get('body'); }
   set body(value:string) { this.set('body', value); }
 
-  get buttons():Backbone.View<Backbone.Model>[] { return this.get('buttons'); }
-  set buttons(value:Backbone.View<Backbone.Model>[]) { this.set('buttons', value); }
+  get buttons():Marionette.View<Backbone.Model>[] { return this.get('buttons'); }
 
   get canDismiss():boolean { return this.get('canDismiss'); }
   set canDismiss(value:boolean) { this.set('canDismiss', value); }
@@ -96,15 +99,16 @@ export class NoticeView extends ItemView.ItemView<NoticeViewModel> {
     return this.$el.show();
   }
 
-  set(properties:any) {
+  set(properties:INoticeProperties) {
     this.model.set(properties);
     return this.show();
   }
 
-  closeButtons() {
-    return this.model.get('buttons').forEach(function(btn) {
-      return btn.close();
+  destroyButtons() {
+    this.model.buttons.forEach(function(btn) {
+      btn.destroy();
     });
+    this.model.buttons.length = 0;
   }
 
   onButtonClicked() {

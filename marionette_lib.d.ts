@@ -10,6 +10,7 @@ declare module 'marionette_lib' {
     export import config = _config.config;
     export function configure(options: _config.IConfigureOptions): void;
     export import behaviors = require('__marionette_lib/behaviors/index');
+    export import Exceptions = require('__marionette_lib/Exceptions');
     export import components = require('__marionette_lib/components/index');
     export import interfaces = require('__marionette_lib/interfaces');
     import _Api = require('__marionette_lib/controllers/Api');
@@ -55,6 +56,20 @@ declare module '__marionette_lib/config/client' {
 declare module '__marionette_lib/behaviors/index' {
     import modifiers = require('__marionette_lib/behaviors/Modifiers');
     export import Modifiers = modifiers.ModifiersBehavior;
+}
+
+declare module '__marionette_lib/Exceptions' {
+    export interface IException extends Error {
+        stack: string;
+    }
+    export class Exception {
+        constructor(error: Error);
+        error: Error;
+        name: string;
+        message: string;
+        stack: string;
+        toString(): string;
+    }
 }
 
 declare module '__marionette_lib/components/index' {
@@ -336,10 +351,14 @@ declare module '__marionette_lib/components/NoticeView/NoticeView' {
     import Backbone = require('backbone');
     import ItemView = require('__marionette_lib/views/ItemView');
     import SpinnerView = require('__marionette_lib/components/SpinnerView/SpinnerView');
-    export interface INoticeViewOptions extends Backbone.ViewOptions<NoticeViewModel> {
+    export interface INoticeProperties {
         header?: string;
         body?: string;
-        buttons?: Backbone.View<Backbone.Model>[];
+        buttons?: Marionette.View<Backbone.Model>[];
+        canDismiss?: boolean;
+        loading?: boolean;
+    }
+    export interface INoticeViewOptions extends INoticeProperties, Backbone.ViewOptions<NoticeViewModel> {
     }
     export class NoticeViewModel extends Backbone.Model {
         defaults(): {
@@ -350,7 +369,7 @@ declare module '__marionette_lib/components/NoticeView/NoticeView' {
         };
         header: string;
         body: string;
-        buttons: Backbone.View<Backbone.Model>[];
+        buttons: Marionette.View<Backbone.Model>[];
         canDismiss: boolean;
     }
     export class NoticeView extends ItemView.ItemView<NoticeViewModel> {
@@ -361,8 +380,8 @@ declare module '__marionette_lib/components/NoticeView/NoticeView' {
         canDismiss(): any;
         hide(): JQuery;
         show(): JQuery;
-        set(properties: any): JQuery;
-        closeButtons(): any;
+        set(properties: INoticeProperties): JQuery;
+        destroyButtons(): void;
         onButtonClicked(): any;
     }
 }

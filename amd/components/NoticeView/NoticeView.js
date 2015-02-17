@@ -45,9 +45,6 @@ var NoticeViewModel = (function (_super) {
         get: function () {
             return this.get('buttons');
         },
-        set: function (value) {
-            this.set('buttons', value);
-        },
         enumerable: true,
         configurable: true
     });
@@ -124,10 +121,11 @@ var NoticeView = (function (_super) {
         this.model.set(properties);
         return this.show();
     };
-    NoticeView.prototype.closeButtons = function () {
-        return this.model.get('buttons').forEach(function (btn) {
-            return btn.close();
+    NoticeView.prototype.destroyButtons = function () {
+        this.model.buttons.forEach(function (btn) {
+            btn.destroy();
         });
+        this.model.buttons.length = 0;
     };
     NoticeView.prototype.onButtonClicked = function () {
         return this.trigger('button:clicked');
