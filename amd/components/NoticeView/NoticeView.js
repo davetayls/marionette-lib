@@ -58,6 +58,16 @@ var NoticeViewModel = (function (_super) {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(NoticeViewModel.prototype, "loading", {
+        get: function () {
+            return this.get('loading');
+        },
+        set: function (value) {
+            this.set('loading', value);
+        },
+        enumerable: true,
+        configurable: true
+    });
     return NoticeViewModel;
 })(Backbone.Model);
 exports.NoticeViewModel = NoticeViewModel;
@@ -73,16 +83,20 @@ var NoticeView = (function (_super) {
         };
         _super.call(this, options);
         this.model = this.model || new NoticeViewModel();
-        if (options) {
-            if (options.header) {
-                this.model.set('header', options.header);
-            }
-            if (options.body) {
-                this.model.set('body', options.body);
-            }
-            if (options.buttons) {
-                this.model.buttons = options.buttons;
-            }
+        if (options.header) {
+            this.model.header = options.header;
+        }
+        if (options.body) {
+            this.model.body = options.body;
+        }
+        if (options.buttons) {
+            this.model.buttons = options.buttons;
+        }
+        if (_.isBoolean(options.loading)) {
+            this.model.loading = options.loading;
+        }
+        if (_.isBoolean(options.canDismiss)) {
+            this.model.canDismiss = options.canDismiss;
         }
         this.listenTo(this.model, 'change', this.render);
     }

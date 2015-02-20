@@ -371,6 +371,7 @@ declare module '__marionette_lib/components/NoticeView/NoticeView' {
         body: string;
         buttons: Marionette.View<Backbone.Model>[];
         canDismiss: boolean;
+        loading: boolean;
     }
     export class NoticeView extends ItemView.ItemView<NoticeViewModel> {
         constructor(options?: INoticeViewOptions);
