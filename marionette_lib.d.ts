@@ -76,9 +76,10 @@ declare module '__marionette_lib/components/index' {
     import _Alert = require('__marionette_lib/components/alert/Alert');
     import _Loading = require('__marionette_lib/components/LoadingComponent/LoadingController');
     export import Alert = _Alert.AlertComponent;
+    export import AnimatedRegion = require('__marionette_lib/components/AnimatedRegion/AnimatedRegion');
+    export import SpinnerView = require('__marionette_lib/components/SpinnerView/SpinnerView');
     export import Loading = _Loading.LoadingController;
     export import NoticeView = require('__marionette_lib/components/NoticeView/NoticeView');
-    export import AnimatedRegion = require('__marionette_lib/components/AnimatedRegion/AnimatedRegion');
 }
 
 declare module '__marionette_lib/interfaces' {
@@ -347,6 +348,46 @@ declare module '__marionette_lib/components/LoadingComponent/LoadingController' 
     }
 }
 
+declare module '__marionette_lib/components/AnimatedRegion/AnimatedRegion' {
+    import Marionette = require('backbone.marionette');
+    export class AnimatedRegion extends Marionette.Region {
+        currentView: Backbone.View<Backbone.Model>;
+        _nextView: Backbone.View<Backbone.Model>;
+    }
+}
+
+declare module '__marionette_lib/components/SpinnerView/SpinnerView' {
+    import View = require('__marionette_lib/views/View');
+    import Spin = require('spin');
+    export class SpinnerView extends View.View<Backbone.Model> {
+        constructor(options?: Backbone.ViewOptions<Backbone.Model>);
+        loadingDelay: number;
+        loadingClass: string;
+        loadingTimeout: number;
+        loadingSpinner: Spin;
+        static spinOptions: {
+            lines: number;
+            length: number;
+            width: number;
+            radius: number;
+            corners: number;
+            rotate: number;
+            direction: number;
+            color: string;
+            speed: number;
+            trail: number;
+            shadow: boolean;
+            hwaccel: boolean;
+            className: string;
+            zIndex: number;
+            top: string;
+            left: string;
+        };
+        start(): void;
+        stop(): JQuery;
+    }
+}
+
 declare module '__marionette_lib/components/NoticeView/NoticeView' {
     import Backbone = require('backbone');
     import ItemView = require('__marionette_lib/views/ItemView');
@@ -387,14 +428,6 @@ declare module '__marionette_lib/components/NoticeView/NoticeView' {
     }
 }
 
-declare module '__marionette_lib/components/AnimatedRegion/AnimatedRegion' {
-    import Marionette = require('backbone.marionette');
-    export class AnimatedRegion extends Marionette.Region {
-        currentView: Backbone.View<Backbone.Model>;
-        _nextView: Backbone.View<Backbone.Model>;
-    }
-}
-
 declare module '__marionette_lib/handlebars/components' {
     import StaticController = require('__marionette_lib/controllers/Static');
     export function initComponents(components: {
@@ -428,10 +461,14 @@ declare module '__marionette_lib/views/ChildHolderView' {
     export class ChildHolderView<T extends Backbone.Model> extends View.View<T> {
         initialize(options: any): void;
         children: Backbone.ChildViewContainer<T>;
-        add(view: Backbone.View<T>): JQuery;
+        add(view: Backbone.View<T>, index?: number): void;
+        renderChildView(view: Backbone.View<T>, index?: number): void;
+        attachHtml(view: Backbone.View<T>, index?: number): void;
         render(): ChildHolderView<T>;
         onDestroy(): void;
         animateOut(cb: any): any;
+    }
+    export class GenericChildHolderView extends ChildHolderView<Backbone.Model> {
     }
 }
 
@@ -482,38 +519,6 @@ declare module '__marionette_lib/views/List' {
         template: (data: any) => string;
         className: string;
         animateOut(cb: any): any;
-    }
-}
-
-declare module '__marionette_lib/components/SpinnerView/SpinnerView' {
-    import View = require('__marionette_lib/views/View');
-    import Spin = require('spin');
-    export class SpinnerView extends View.View<Backbone.Model> {
-        constructor(options?: Backbone.ViewOptions<Backbone.Model>);
-        loadingDelay: number;
-        loadingClass: string;
-        loadingTimeout: number;
-        loadingSpinner: Spin;
-        static spinOptions: {
-            lines: number;
-            length: number;
-            width: number;
-            radius: number;
-            corners: number;
-            rotate: number;
-            direction: number;
-            color: string;
-            speed: number;
-            trail: number;
-            shadow: boolean;
-            hwaccel: boolean;
-            className: string;
-            zIndex: number;
-            top: string;
-            left: string;
-        };
-        start(): void;
-        stop(): JQuery;
     }
 }
 

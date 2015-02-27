@@ -12,7 +12,9 @@ export function init(){
    * {{k header myVar="hello"}}
    */
   config.config.handlebars.registerHelper("t", function(i18n_key, options) {
-    var opts:{[key:string]:any} = {};
+    var opts:{[key:string]:any} = {
+      wrapWithKey: true
+    };
     _.extend(opts, options.hash);
     var result = i18next.t(i18n_key, opts);
     var attrs = ["data-t=\"" + i18n_key + "\""];
@@ -21,7 +23,11 @@ export function init(){
         return attrs.push("data-" + key + "=\"" + val + "\"");
       }
     });
-    return "<span " + (attrs.join(' ')) + ">" + (new Handlebars.SafeString(result)) + "</span>";
+    if (opts['wrapWithKey']) {
+      return "<span " + (attrs.join(' ')) + ">" + (new Handlebars.SafeString(result)) + "</span>";
+    } else {
+      return new Handlebars.SafeString(result);
+    }
   });
 
   /**
