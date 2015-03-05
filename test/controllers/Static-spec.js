@@ -1,5 +1,5 @@
 
-var StaticController = require('../../src/controllers/Static');
+var StaticController = require('../../src/controllers/Static').StaticController;
 
 describe('Static Controller', function() {
   describe('creation', function() {
@@ -16,14 +16,15 @@ describe('Static Controller', function() {
   });
   describe('attributes', function() {
     it('can allow an array of attributes', function() {
-      var html, st;
-      st = new StaticController({
+      var st = new StaticController({
         model: {
           foo: 'bar'
         }
       });
-      st.attributes = {
-        foo: 'foo'
+      st.attributes = function(){
+        return {
+          foo: 'foo'
+        };
       };
       st.name = 'component';
       st.template = function() {
@@ -31,7 +32,7 @@ describe('Static Controller', function() {
           return "";
         };
       };
-      html = st.render({
+      var html = st.render({
         hash: {
           foo: 'baz'
         }
@@ -39,7 +40,7 @@ describe('Static Controller', function() {
       expect(html).to.match(/foo="baz"/);
     });
   });
-  return describe('context', function() {
+  describe('context', function() {
     return it('should not polute context', function() {
       var childTemplate, st;
       st = new StaticController({

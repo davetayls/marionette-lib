@@ -12,8 +12,9 @@ module.exports = (grunt) ->
     'copy'
     'dts_bundle'
   ]
-  grunt.registerTask 'test', ['default', 'mochaTest']
+  grunt.registerTask 'test', ['mochaTest', 'karma']
   grunt.registerTask 'release', [
+    'build'
     'test'
     'bump:patch'
   ]
