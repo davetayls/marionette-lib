@@ -263,11 +263,9 @@ declare module '__marionette_lib/utilities/whenFetched' {
 }
 
 declare module '__marionette_lib/utilities/navigation' {
-    import Backbone = require('backbone');
-    export var historyIsStarted: boolean;
-    export function to(route: any, options?: any): boolean;
-    export function getCurrentRoute(): string;
-    export function startHistory(options?: Backbone.HistoryOptions): void;
+    import NavigationController = require('__marionette_lib/utilities/NavigationController');
+    var navigation: NavigationController.NavigationController;
+    export = navigation;
 }
 
 declare module '__marionette_lib/utilities/registry' {
@@ -453,6 +451,18 @@ declare module '__marionette_lib/routers/App' {
 declare module '__marionette_lib/stickit/mdown' {
     export var selector: string;
     export var updateMethod: string;
+}
+
+declare module '__marionette_lib/utilities/NavigationController' {
+    import Backbone = require('backbone');
+    import Marionette = require('backbone.marionette');
+    export class NavigationController extends Marionette.Controller {
+        constructor();
+        historyIsStarted: boolean;
+        to(route: any, options?: any): void;
+        getCurrentRoute(): string;
+        startHistory(options?: Backbone.HistoryOptions): void;
+    }
 }
 
 declare module '__marionette_lib/views/ChildHolderView' {
