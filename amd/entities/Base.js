@@ -1,37 +1,28 @@
-define(function (require, exports, module) {var Backbone, Entity, EntityCollection,
-  __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
-Backbone = require('backbone');
-
+define(function (require, exports, module) {/// <reference path="../../typings/tsd.d.ts" />
+var __extends = this.__extends || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    __.prototype = b.prototype;
+    d.prototype = new __();
+};
+var Backbone = require('backbone');
 require('backbone.dualstorage');
-
 window.Store.prototype.sep = '__';
-
-Entity = (function(_super) {
-  __extends(Entity, _super);
-
-  function Entity() {
-    return Entity.__super__.constructor.apply(this, arguments);
-  }
-
-  return Entity;
-
+var Entity = (function (_super) {
+    __extends(Entity, _super);
+    function Entity() {
+        _super.apply(this, arguments);
+    }
+    return Entity;
 })(Backbone.Model);
-
-EntityCollection = (function(_super) {
-  __extends(EntityCollection, _super);
-
-  function EntityCollection() {
-    return EntityCollection.__super__.constructor.apply(this, arguments);
-  }
-
-  return EntityCollection;
-
+exports.Entity = Entity;
+var EntityCollection = (function (_super) {
+    __extends(EntityCollection, _super);
+    function EntityCollection() {
+        _super.apply(this, arguments);
+    }
+    return EntityCollection;
 })(Backbone.Collection);
-
-Entity.Collection = EntityCollection;
-
-module.exports = Entity;
-
+exports.EntityCollection = EntityCollection;
+//# sourceMappingURL=Base.js.map
 });

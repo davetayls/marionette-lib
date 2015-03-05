@@ -1,34 +1,22 @@
-define(function (require, exports, module) {var MarionetteLibConfiguration, sync;
-
-sync = require('./backbone/sync');
-
+define(function (require, exports, module) {/// <reference path="../../typings/tsd.d.ts" />
+var sync = require('./backbone/sync');
 require('./marionette/LayoutView');
-
 require('./marionette/Region');
-
 require('./marionette/View');
-
-MarionetteLibConfiguration = (function() {
-  function MarionetteLibConfiguration() {}
-
-  MarionetteLibConfiguration.prototype.app = null;
-
-  MarionetteLibConfiguration.prototype.configure = function(options) {
-    if (options == null) {
-      options = {};
+var MarionetteLibConfiguration = (function () {
+    function MarionetteLibConfiguration() {
     }
-    this.app = options.app;
-    this.handlebars = options.handlebars;
-    this.componentsPath = options.componentsPath;
-    if (app) {
-      return sync(app);
-    }
-  };
-
-  return MarionetteLibConfiguration;
-
+    MarionetteLibConfiguration.prototype.configure = function (options) {
+        this.app = options.app;
+        this.handlebars = options.handlebars;
+        this.componentsPath = options.componentsPath;
+        if (this.app) {
+            sync.configureBackboneSync(this.app);
+        }
+    };
+    return MarionetteLibConfiguration;
 })();
-
-module.exports = new MarionetteLibConfiguration();
-
+exports.MarionetteLibConfiguration = MarionetteLibConfiguration;
+exports.config = new MarionetteLibConfiguration();
+//# sourceMappingURL=client.js.map
 });

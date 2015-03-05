@@ -1,0 +1,10 @@
+.SpinnerView {
+  position: relative;
+}
+.SpinnerView .SpinnerView__spinner {
+  left: 50% !important;
+}
+.SpinnerView--spinning {
+  height: 60px;
+  transition: height .3s ease;
+}

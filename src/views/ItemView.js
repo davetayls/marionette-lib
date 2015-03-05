@@ -1,38 +1,28 @@
-'use strict';
-var Backbone, ItemView, Marionette,
-  __hasProp = {}.hasOwnProperty,
-  __extends = function(child, parent) { for (var key in parent) { if (__hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; };
-
-Backbone = require('backbone');
-
-Marionette = require('backbone.marionette');
-
-ItemView = (function(_super) {
-  __extends(ItemView, _super);
-
-  function ItemView() {
-    return ItemView.__super__.constructor.apply(this, arguments);
-  }
-
-  ItemView.prototype.initialize = function() {
-    if (this.defaults && !this.getOption('model')) {
-      this.model = new Backbone.Model(this.defaults);
+/// <reference path="../../typings/tsd.d.ts" />
+var __extends = this.__extends || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    __.prototype = b.prototype;
+    d.prototype = new __();
+};
+var Marionette = require('backbone.marionette');
+var ItemView = (function (_super) {
+    __extends(ItemView, _super);
+    function ItemView(options) {
+        this.behaviors = this.behaviors || {};
+        this.behaviors['Modifiers'] = {};
+        _super.call(this, options);
     }
-    return ItemView.__super__.initialize.apply(this, arguments);
-  };
-
-  ItemView.prototype.className = function() {
-    return this.name;
-  };
-
-  ItemView.prototype.behaviors = function() {
-    return {
-      Modifiers: {}
+    ItemView.prototype.defaults = function () {
     };
-  };
-
-  return ItemView;
-
+    Object.defineProperty(ItemView.prototype, "className", {
+        get: function () {
+            return this.name;
+        },
+        enumerable: true,
+        configurable: true
+    });
+    return ItemView;
 })(Marionette.ItemView);
-
-module.exports = ItemView;
+exports.ItemView = ItemView;
+//# sourceMappingURL=ItemView.js.map

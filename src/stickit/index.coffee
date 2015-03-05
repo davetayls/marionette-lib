@@ -1,2 +1,0 @@
-
-exports.mdown = require './mdown'
