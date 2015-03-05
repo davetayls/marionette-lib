@@ -34,6 +34,9 @@
     },
     "q/Q.d.ts": {
       "commit": "20e56f1f30cb6b9249df06184fc04ba9c3c63340"
+    },
+    "flux/flux.d.ts": {
+      "commit": "69bdfb0884020e41f17a1dd80ad4c77de2636874"
     }
   }
 }
