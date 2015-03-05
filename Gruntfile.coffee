@@ -13,9 +13,12 @@ module.exports = (grunt) ->
     'dts_bundle'
   ]
   grunt.registerTask 'test', ['mochaTest', 'karma']
-  grunt.registerTask 'release', [
-    'build'
-    'test'
-    'bump:patch'
-  ]
+
+  grunt.registerTask 'release', (release = 'patch') ->
+    grunt.task.run [
+      "bump-only:#{release}"
+      'build'
+      'test'
+      "bump-commit"
+    ]
 
