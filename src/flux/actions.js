@@ -1,6 +1,6 @@
-/// <reference path="../../typings/tsd.d.ts" />
 var Action = (function () {
-    function Action() {
+    function Action(type) {
+        this.type = type;
     }
     return Action;
 })();

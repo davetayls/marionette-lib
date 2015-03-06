@@ -14,13 +14,13 @@ var Dispatcher = (function (_super) {
     }
     Dispatcher.prototype.handleServerAction = function (action) {
         this.dispatch({
-            type: constants.ACTION_SOURCES.ServerAction,
+            source: constants.ACTION_SOURCES.ServerAction,
             action: action
         });
     };
     Dispatcher.prototype.handleViewAction = function (action) {
         this.dispatch({
-            type: constants.ACTION_SOURCES.ViewAction,
+            source: constants.ACTION_SOURCES.ViewAction,
             action: action
         });
     };

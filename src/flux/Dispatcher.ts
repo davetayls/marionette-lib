@@ -8,14 +8,14 @@ export class Dispatcher extends flux.Dispatcher<fluxInterfaces.IPayload> {
 
   handleServerAction(action:any){
     this.dispatch({
-      type: constants.ACTION_SOURCES.ServerAction,
+      source: constants.ACTION_SOURCES.ServerAction,
       action: action
     });
   }
 
   handleViewAction(action:any){
     this.dispatch({
-      type: constants.ACTION_SOURCES.ViewAction,
+      source: constants.ACTION_SOURCES.ViewAction,
       action: action
     });
   }
