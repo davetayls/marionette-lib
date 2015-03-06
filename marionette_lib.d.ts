@@ -463,7 +463,10 @@ declare module '__marionette_lib/stickit/mdown' {
 }
 
 declare module '__marionette_lib/flux/actions' {
+    import constants = require('__marionette_lib/constants');
     export class Action {
+        constructor(type: constants.StringConstant);
+        type: constants.StringConstant;
     }
     export class ActionCreator {
     }
@@ -473,7 +476,7 @@ declare module '__marionette_lib/flux/interfaces' {
     import constants = require('__marionette_lib/constants');
     import actions = require('__marionette_lib/flux/actions');
     export interface IPayload {
-        type: constants.StringConstant;
+        source: constants.StringConstant;
         action: actions.Action;
     }
 }

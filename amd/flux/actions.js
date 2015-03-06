@@ -1,6 +1,6 @@
-define(function (require, exports, module) {/// <reference path="../../typings/tsd.d.ts" />
-var Action = (function () {
-    function Action() {
+define(function (require, exports, module) {var Action = (function () {
+    function Action(type) {
+        this.type = type;
     }
     return Action;
 })();
