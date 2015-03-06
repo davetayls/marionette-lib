@@ -1,6 +1,6 @@
 
 import constants = require('../constants');
-import actions = require('actions');
+import actions = require('./actions');
 
 export interface IPayload {
   type:constants.StringConstant;

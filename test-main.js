@@ -3,16 +3,9 @@ var TEST_REGEXP = /(spec|test)\.js$/i;
 
 var pathToModule = function(path) {
   var p =  path.replace(/^\/base\//, '../').replace(/\.js$/, '');
-  //console.log(path, p);
+  console.log(path, p);
   return p
 };
-
-Object.keys(window.__karma__.files).forEach(function(file) {
-  if (TEST_REGEXP.test(file)) {
-    // Normalize paths to RequireJS module names.
-    allTestFiles.push(pathToModule(file));
-  }
-});
 
 require.config({
   // Karma serves files under /base, which is the basePath from your config file
@@ -30,4 +23,13 @@ require.config({
 
   // we have to kickoff jasmine, as it is asynchronous
   callback: window.__karma__.start
+});
+
+Object.keys(window.__karma__.files).forEach(function(file) {
+  var okToAdd = TEST_REGEXP.test(file);
+  //console.log('file', okToAdd, file);
+  if (okToAdd) {
+    // Normalize paths to RequireJS module names.
+    allTestFiles.push(pathToModule(file));
+  }
 });

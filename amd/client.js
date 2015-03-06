@@ -32,6 +32,7 @@ var controllers;
 exports.handlebars = require('./handlebars/index');
 exports.routers = require('./routers/index');
 exports.stickit = require('./stickit/index');
+exports.flux = require('./flux/index');
 var _whenFetched = require('./utilities/whenFetched');
 exports.whenFetched = _whenFetched.whenFetched;
 exports.navigation = require('./utilities/navigation');
