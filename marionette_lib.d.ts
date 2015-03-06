@@ -4,6 +4,7 @@
 //   ../typings/q/Q.d.ts
 //   ../typings/backbone/backbone.d.ts
 //   ../typings/spin/spin.d.ts
+//   ../typings/flux/flux.d.ts
 
 declare module 'marionette_lib' {
     import _config = require('__marionette_lib/config/client');
@@ -30,6 +31,7 @@ declare module 'marionette_lib' {
     export import handlebars = require('__marionette_lib/handlebars/index');
     export import routers = require('__marionette_lib/routers/index');
     export import stickit = require('__marionette_lib/stickit/index');
+    export import flux = require('__marionette_lib/flux/index');
     import _whenFetched = require('__marionette_lib/utilities/whenFetched');
     export import whenFetched = _whenFetched.whenFetched;
     export import navigation = require('__marionette_lib/utilities/navigation');
@@ -248,6 +250,13 @@ declare module '__marionette_lib/stickit/index' {
     export import mdown = require('__marionette_lib/stickit/mdown');
 }
 
+declare module '__marionette_lib/flux/index' {
+    export import actions = require('__marionette_lib/flux/actions');
+    export import interfaces = require('__marionette_lib/flux/interfaces');
+    export import Dispatcher = require('__marionette_lib/flux/Dispatcher');
+    export import Store = require('__marionette_lib/flux/Store');
+}
+
 declare module '__marionette_lib/utilities/whenFetched' {
     import Q = require('q');
     export interface IWhenFetchedEntity {
@@ -453,6 +462,45 @@ declare module '__marionette_lib/stickit/mdown' {
     export var updateMethod: string;
 }
 
+declare module '__marionette_lib/flux/actions' {
+    export class Action {
+    }
+    export class ActionCreator {
+    }
+}
+
+declare module '__marionette_lib/flux/interfaces' {
+    import constants = require('__marionette_lib/constants');
+    import actions = require('__marionette_lib/flux/actions');
+    export interface IPayload {
+        type: constants.StringConstant;
+        action: actions.Action;
+    }
+}
+
+declare module '__marionette_lib/flux/Dispatcher' {
+    import flux = require('flux');
+    import fluxInterfaces = require('__marionette_lib/flux/interfaces');
+    export class Dispatcher extends flux.Dispatcher<fluxInterfaces.IPayload> {
+        handleServerAction(action: any): void;
+        handleViewAction(action: any): void;
+    }
+}
+
+declare module '__marionette_lib/flux/Store' {
+    import EventedClass = require('__marionette_lib/utilities/EventedClass');
+    import fluxInterfaces = require('__marionette_lib/flux/interfaces');
+    import flux = require('flux');
+    export class Store extends EventedClass.EventedClass {
+        constructor(dispatcher: flux.Dispatcher<fluxInterfaces.IPayload>);
+        dispatchToken: string;
+        dispatch(payload: fluxInterfaces.IPayload): void;
+        emitChange(): void;
+        addChangeListener(callback: () => void): void;
+        removeChangeListener(callback: () => void): void;
+    }
+}
+
 declare module '__marionette_lib/utilities/NavigationController' {
     import Backbone = require('backbone');
     import Marionette = require('backbone.marionette');
@@ -529,6 +577,37 @@ declare module '__marionette_lib/views/List' {
         template: (data: any) => string;
         className: string;
         animateOut(cb: any): any;
+    }
+}
+
+declare module '__marionette_lib/constants' {
+    export class StringConstant {
+        val: string;
+        constructor(val: string);
+        toString(): string;
+        matches(value: string): boolean;
+    }
+    export class EVENT_TYPES extends StringConstant {
+        static Change: EVENT_TYPES;
+    }
+    export class ACTION_SOURCES extends StringConstant {
+        static ServerAction: ACTION_SOURCES;
+        static ViewAction: ACTION_SOURCES;
+    }
+}
+
+declare module '__marionette_lib/utilities/EventedClass' {
+    import Backbone = require('backbone');
+    export class EventedClass implements Backbone.Events {
+        on: (eventName: string, callback?: Function, context?: any) => any;
+        off: (eventName?: string, callback?: Function, context?: any) => any;
+        trigger: (eventName: string, ...args: any[]) => any;
+        bind: (eventName: string, callback: Function, context?: any) => any;
+        unbind: (eventName?: string, callback?: Function, context?: any) => any;
+        once: (events: string, callback: Function, context?: any) => any;
+        listenTo: (object: any, events: string, callback: Function) => any;
+        listenToOnce: (object: any, events: string, callback: Function) => any;
+        stopListening: (object?: any, events?: string, callback?: Function) => any;
     }
 }
 

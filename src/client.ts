@@ -36,6 +36,7 @@ export module controllers {
 export import handlebars = require('./handlebars/index');
 export import routers = require('./routers/index');
 export import stickit = require('./stickit/index');
+export import flux = require('./flux/index');
 
 import _whenFetched = require('./utilities/whenFetched');
 export import whenFetched = _whenFetched.whenFetched;
