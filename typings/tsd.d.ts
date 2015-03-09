@@ -13,4 +13,4 @@
 /// <reference path="spin/spin.d.ts" />
 /// <reference path="flux/flux.d.ts" />
 
-declare function require(modulePath:string);
+declare function require(modulePath:string):any;
