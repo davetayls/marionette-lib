@@ -5,7 +5,7 @@ export class Action {
   constructor(type:constants.StringConstant) {
     this.type = type;
   }
-  
+
   type:constants.StringConstant;
 }
 
