@@ -1,5 +1,5 @@
 var allTestFiles = [];
-var TEST_REGEXP = /(spec|test)\.js$/i;
+var TEST_REGEXP = /^\/base\/test.*(spec|test)\.js$/i;
 
 var pathToModule = function(path) {
   var p =  path.replace(/^\/base\//, '../').replace(/\.js$/, '');
@@ -15,7 +15,8 @@ require.config({
     'backbone': '../bower_components/backbone/backbone',
     'backbone.marionette': '../bower_components/backbone.marionette/lib/backbone.marionette',
     'jquery': '../bower_components/jquery/dist/jquery',
-    'underscore': '../bower_components/underscore/underscore'
+    'underscore': '../bower_components/underscore/underscore',
+    'q': '../bower_components/q/q'
   },
 
   // dynamically load all test files
