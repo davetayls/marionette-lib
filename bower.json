@@ -1,6 +1,6 @@
 {
   "name": "marionette_lib",
-  "version": "3.1.5",
+  "version": "3.1.6",
   "homepage": "https://github.com/davetayls/marionette_lib",
   "authors": [
     "davetayls <dave@the-taylors.org>"
@@ -41,6 +41,6 @@
     "snapjs": "~1.9.3",
     "spin.js": "2.x.x",
     "flux": "~2.0.2",
-    "q": "~2.0.2"
+    "q": "1.x.x"
   }
 }
