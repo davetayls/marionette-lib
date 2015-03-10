@@ -82,6 +82,7 @@ declare module '__marionette_lib/components/index' {
     import _Loading = require('__marionette_lib/components/LoadingComponent/LoadingController');
     export import Alert = _Alert.AlertComponent;
     export import AnimatedRegion = require('__marionette_lib/components/AnimatedRegion/AnimatedRegion');
+    export import Button = require('__marionette_lib/components/Button/Button');
     export import SpinnerView = require('__marionette_lib/components/SpinnerView/SpinnerView');
     export import Loading = _Loading.LoadingController;
     export import NoticeView = require('__marionette_lib/components/NoticeView/NoticeView');
@@ -363,6 +364,44 @@ declare module '__marionette_lib/components/LoadingComponent/LoadingController' 
         showError(realView: any, loadingView: any): any;
         showRealView(realView: any, loadingView: any): void;
         getEntities(view: any): any[];
+    }
+}
+
+declare module '__marionette_lib/components/Button/Button' {
+    import Backbone = require('backbone');
+    import constants = require('__marionette_lib/constants');
+    import ItemView = require('__marionette_lib/views/ItemView');
+    export class BUTTON_EVENTS extends constants.StringConstant {
+        static navigate: BUTTON_EVENTS;
+    }
+    export class BUTTON_THEME extends constants.StringConstant {
+        static default: BUTTON_THEME;
+        static inverse: BUTTON_THEME;
+        static action: BUTTON_THEME;
+    }
+    export class ButtonModel extends Backbone.Model {
+        defaults(): {
+            name: string;
+            icon: string;
+            text: string;
+            theme: BUTTON_THEME;
+        };
+        name: string;
+        icon: string;
+        text: string;
+        theme: BUTTON_THEME;
+    }
+    export interface IButtonOptions extends Backbone.ViewOptions<ButtonModel> {
+        name: string;
+        icon: string;
+        text: string;
+        theme?: BUTTON_THEME;
+    }
+    export class Button extends ItemView.ItemView<ButtonModel> {
+        constructor(options?: IButtonOptions);
+        className: string;
+        navigate(): void;
+        setOptions(options: IButtonOptions): void;
     }
 }
 
