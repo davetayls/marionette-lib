@@ -41,14 +41,17 @@ declare module 'marionette_lib' {
 
 declare module '__marionette_lib/config/client' {
     import Marionette = require('backbone.marionette');
+    import AnimatedRegion = require('__marionette_lib/components/AnimatedRegion/AnimatedRegion');
     export interface IConfigureOptions {
         app?: Marionette.Application;
         handlebars: HandlebarsStatic;
+        defaultRegion: AnimatedRegion.AnimatedRegion;
         componentsPath: string;
     }
     export class MarionetteLibConfiguration {
         app: Marionette.Application;
         handlebars: HandlebarsStatic;
+        defaultRegion: AnimatedRegion.AnimatedRegion;
         componentsPath: string;
         configure(options: IConfigureOptions): void;
     }
@@ -306,6 +309,14 @@ declare module '__marionette_lib/views/index' {
     export import List = require('__marionette_lib/views/List');
 }
 
+declare module '__marionette_lib/components/AnimatedRegion/AnimatedRegion' {
+    import Marionette = require('backbone.marionette');
+    export class AnimatedRegion extends Marionette.Region {
+        currentView: Backbone.View<Backbone.Model>;
+        _nextView: Backbone.View<Backbone.Model>;
+    }
+}
+
 declare module '__marionette_lib/behaviors/Modifiers' {
     import Marionette = require('backbone.marionette');
     export interface IModifiedOptions {
@@ -352,14 +363,6 @@ declare module '__marionette_lib/components/LoadingComponent/LoadingController' 
         showError(realView: any, loadingView: any): any;
         showRealView(realView: any, loadingView: any): void;
         getEntities(view: any): any[];
-    }
-}
-
-declare module '__marionette_lib/components/AnimatedRegion/AnimatedRegion' {
-    import Marionette = require('backbone.marionette');
-    export class AnimatedRegion extends Marionette.Region {
-        currentView: Backbone.View<Backbone.Model>;
-        _nextView: Backbone.View<Backbone.Model>;
     }
 }
 
@@ -448,10 +451,15 @@ declare module '__marionette_lib/handlebars/i18next' {
 
 declare module '__marionette_lib/routers/App' {
     import Marionette = require('backbone.marionette');
-    export enum APP_ROUTER_EVENTS {
-        firstRoute = 0,
+    import constants = require('__marionette_lib/constants');
+    export interface AppRouterOptions extends Marionette.AppRouterOptions {
+        name: string;
+    }
+    export class APP_ROUTER_EVENTS extends constants.StringConstant {
+        static firstRoute: APP_ROUTER_EVENTS;
     }
     export class AppRouter extends Marionette.AppRouter {
+        constructor(options?: AppRouterOptions);
         static _firstRouteTriggered: boolean;
         onRoute(routeName: string, routePath: string, routeArgs: any): void;
     }

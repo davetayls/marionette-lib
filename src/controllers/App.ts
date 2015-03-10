@@ -41,7 +41,7 @@ export class AppController extends BaseController.BaseController {
 
   constructor(options:IConstructorOptions = {}) {
     this._managedRegions = [];
-    this.region = this.region || options.region || clientConfig.config.app.request("default:region");
+    this.region = this.region || options.region || clientConfig.config.defaultRegion;
     super(options);
   }
 

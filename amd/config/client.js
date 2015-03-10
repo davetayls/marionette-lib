@@ -9,6 +9,7 @@ var MarionetteLibConfiguration = (function () {
     MarionetteLibConfiguration.prototype.configure = function (options) {
         this.app = options.app;
         this.handlebars = options.handlebars;
+        this.defaultRegion = options.defaultRegion;
         this.componentsPath = options.componentsPath;
         if (this.app) {
             sync.configureBackboneSync(this.app);
