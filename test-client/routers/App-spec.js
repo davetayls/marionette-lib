@@ -7,7 +7,9 @@ define(function(require){
   describe('AppRouter', function(){
 
     it('can create a new instance', function(){
-      router = new AppRouter()
+      router = new AppRouter({
+        name: 'RouterName'
+      });
       expect(router).to.be.instanceOf(AppRouter);
     });
 
