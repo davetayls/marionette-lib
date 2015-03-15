@@ -1,12 +1,8 @@
-var Handlebars, Static, fs, hbs, _;
+var Static, fs, _;
 
 _ = require('underscore');
 
 fs = require('fs');
-
-hbs = require('hbs');
-
-Handlebars = hbs.handlebars;
 
 Static = require('../../src/controllers/Static');
 

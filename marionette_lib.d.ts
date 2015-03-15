@@ -11,8 +11,9 @@ declare module 'marionette_lib' {
     export import config = _config.config;
     export function configure(options: _config.IConfigureOptions): void;
     export import behaviors = require('__marionette_lib/behaviors/index');
-    export import Exceptions = require('__marionette_lib/Exceptions');
     export import components = require('__marionette_lib/components/index');
+    export import constants = require('__marionette_lib/constants');
+    export import Exceptions = require('__marionette_lib/Exceptions');
     export import interfaces = require('__marionette_lib/interfaces');
     import _Api = require('__marionette_lib/controllers/Api');
     import _App = require('__marionette_lib/controllers/App');
@@ -32,6 +33,7 @@ declare module 'marionette_lib' {
     export import routers = require('__marionette_lib/routers/index');
     export import stickit = require('__marionette_lib/stickit/index');
     export import flux = require('__marionette_lib/flux/index');
+    export import DebouncedDocContainer = require('__marionette_lib/utilities/DebouncedDocContainer');
     import _whenFetched = require('__marionette_lib/utilities/whenFetched');
     export import whenFetched = _whenFetched.whenFetched;
     export import navigation = require('__marionette_lib/utilities/navigation');
@@ -63,6 +65,40 @@ declare module '__marionette_lib/behaviors/index' {
     export import Modifiers = modifiers.ModifiersBehavior;
 }
 
+declare module '__marionette_lib/components/index' {
+    import _Alert = require('__marionette_lib/components/alert/Alert');
+    import _Loading = require('__marionette_lib/components/LoadingComponent/LoadingController');
+    export import Alert = _Alert.AlertComponent;
+    export import AnimatedRegion = require('__marionette_lib/components/AnimatedRegion/AnimatedRegion');
+    export import Button = require('__marionette_lib/components/Button/Button');
+    export import SpinnerView = require('__marionette_lib/components/SpinnerView/SpinnerView');
+    export import Loading = _Loading.LoadingController;
+    export import NoticeView = require('__marionette_lib/components/NoticeView/NoticeView');
+}
+
+declare module '__marionette_lib/constants' {
+    export class StringConstant {
+        val: string;
+        constructor(val: string);
+        toString(): string;
+        matches(value: string): boolean;
+    }
+    export class EVENT_TYPES extends StringConstant {
+        static Change: EVENT_TYPES;
+    }
+    export class ACTION_SOURCES extends StringConstant {
+        static ServerAction: ACTION_SOURCES;
+        static ViewAction: ACTION_SOURCES;
+        static DeviceAction: ACTION_SOURCES;
+    }
+    export class DOC_STATUSES extends StringConstant {
+        static empty: DOC_STATUSES;
+        static fetchingFromServer: DOC_STATUSES;
+        static fetchingLocal: DOC_STATUSES;
+        static fetched: DOC_STATUSES;
+    }
+}
+
 declare module '__marionette_lib/Exceptions' {
     export interface IException extends Error {
         stack: string;
@@ -75,17 +111,6 @@ declare module '__marionette_lib/Exceptions' {
         stack: string;
         toString(): string;
     }
-}
-
-declare module '__marionette_lib/components/index' {
-    import _Alert = require('__marionette_lib/components/alert/Alert');
-    import _Loading = require('__marionette_lib/components/LoadingComponent/LoadingController');
-    export import Alert = _Alert.AlertComponent;
-    export import AnimatedRegion = require('__marionette_lib/components/AnimatedRegion/AnimatedRegion');
-    export import Button = require('__marionette_lib/components/Button/Button');
-    export import SpinnerView = require('__marionette_lib/components/SpinnerView/SpinnerView');
-    export import Loading = _Loading.LoadingController;
-    export import NoticeView = require('__marionette_lib/components/NoticeView/NoticeView');
 }
 
 declare module '__marionette_lib/interfaces' {
@@ -212,6 +237,7 @@ declare module '__marionette_lib/controllers/RouterController' {
 declare module '__marionette_lib/controllers/Static' {
     export interface IStaticControllerOptions {
         model?: any;
+        templateFn?: (data: any) => string;
     }
     export class StaticController {
         constructor(options?: IStaticControllerOptions);
@@ -259,6 +285,39 @@ declare module '__marionette_lib/flux/index' {
     export import interfaces = require('__marionette_lib/flux/interfaces');
     export import Dispatcher = require('__marionette_lib/flux/Dispatcher');
     export import Store = require('__marionette_lib/flux/Store');
+}
+
+declare module '__marionette_lib/utilities/DebouncedDocContainer' {
+    export interface IDebouncedDocItem<T extends IDocContainerItem> {
+            id: any;
+            doc: T;
+            expires?: number;
+    }
+    export interface IDocContainerItem {
+            id: any;
+    }
+    export class DebouncedDocContainer<T extends IDocContainerItem> {
+            constructor();
+            docs: IDebouncedDocItem<T>[];
+            docTimeToLive: number;
+            clearExpiredDocs(): void;
+            /**
+                * Puts a document in to the array if it is not there
+                * @param doc
+                */
+            put(doc: T): void;
+            /**
+                * Return the entry with details about the doc with an id
+                * @param id
+                */
+            entryById(id: any): IDebouncedDocItem<T>;
+            /**
+                * Return the saved document by its id
+                * @param id
+                * @returns {T}
+                */
+            byId(id: any): T;
+    }
 }
 
 declare module '__marionette_lib/utilities/whenFetched' {
@@ -335,9 +394,12 @@ declare module '__marionette_lib/behaviors/Modifiers' {
 declare module '__marionette_lib/components/alert/Alert' {
     import Backbone = require('backbone');
     import ItemView = require('__marionette_lib/views/ItemView');
+    export interface IAlertOptions extends Backbone.ViewOptions<Backbone.Model> {
+        message: string;
+        alertType: string;
+    }
     export class AlertComponent extends ItemView.ItemView<Backbone.Model> {
-        name: string;
-        template: any;
+        constructor(options: IAlertOptions);
         templateHelpers(): {
             message: any;
         };
@@ -498,7 +560,7 @@ declare module '__marionette_lib/routers/App' {
         static firstRoute: APP_ROUTER_EVENTS;
     }
     export class AppRouter extends Marionette.AppRouter {
-        constructor(options?: AppRouterOptions);
+        constructor(options: AppRouterOptions);
         static _firstRouteTriggered: boolean;
         onRoute(routeName: string, routePath: string, routeArgs: any): void;
     }
@@ -511,11 +573,15 @@ declare module '__marionette_lib/stickit/mdown' {
 
 declare module '__marionette_lib/flux/actions' {
     import constants = require('__marionette_lib/constants');
+    import Dispatcher = require('__marionette_lib/flux/Dispatcher');
     export class Action {
         constructor(type: constants.StringConstant);
         type: constants.StringConstant;
+        async: boolean;
     }
     export class ActionCreator {
+        constructor(dispatcher: Dispatcher.Dispatcher);
+        dispatcher: Dispatcher.Dispatcher;
     }
 }
 
@@ -531,20 +597,27 @@ declare module '__marionette_lib/flux/interfaces' {
 declare module '__marionette_lib/flux/Dispatcher' {
     import flux = require('flux');
     import fluxInterfaces = require('__marionette_lib/flux/interfaces');
+    import actions = require('__marionette_lib/flux/actions');
     export class Dispatcher extends flux.Dispatcher<fluxInterfaces.IPayload> {
-        handleServerAction(action: any): void;
-        handleViewAction(action: any): void;
+        handleServerAction(action: actions.Action): void;
+        handleDeviceAction(action: actions.Action): void;
+        handleViewAction(action: actions.Action): void;
     }
 }
 
 declare module '__marionette_lib/flux/Store' {
+    import Q = require('q');
     import EventedClass = require('__marionette_lib/utilities/EventedClass');
     import fluxInterfaces = require('__marionette_lib/flux/interfaces');
-    import flux = require('flux');
+    import Dispatcher = require('__marionette_lib/flux/Dispatcher');
     export class Store extends EventedClass.EventedClass {
-        constructor(dispatcher: flux.Dispatcher<fluxInterfaces.IPayload>);
+        constructor(dispatcher: Dispatcher.Dispatcher);
+        protected storeReadyDeferred: Q.Deferred<any>;
+        storeReady: Q.Promise<any>;
+        protected dispatcher: Dispatcher.Dispatcher;
         dispatchToken: string;
         dispatch(payload: fluxInterfaces.IPayload): void;
+        initStoreReadyDeferred(): void;
         emitChange(): void;
         addChangeListener(callback: () => void): void;
         removeChangeListener(callback: () => void): void;
@@ -627,22 +700,6 @@ declare module '__marionette_lib/views/List' {
         template: (data: any) => string;
         className: string;
         animateOut(cb: any): any;
-    }
-}
-
-declare module '__marionette_lib/constants' {
-    export class StringConstant {
-        val: string;
-        constructor(val: string);
-        toString(): string;
-        matches(value: string): boolean;
-    }
-    export class EVENT_TYPES extends StringConstant {
-        static Change: EVENT_TYPES;
-    }
-    export class ACTION_SOURCES extends StringConstant {
-        static ServerAction: ACTION_SOURCES;
-        static ViewAction: ACTION_SOURCES;
     }
 }
 

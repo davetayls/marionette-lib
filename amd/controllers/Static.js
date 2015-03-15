@@ -1,6 +1,5 @@
 define(function (require, exports, module) {/// <reference path="../../typings/tsd.d.ts" />
 var _ = require('underscore');
-var Backbone = require('backbone');
 var StaticController = (function () {
     function StaticController(options) {
         if (options === void 0) { options = {}; }
@@ -16,7 +15,12 @@ var StaticController = (function () {
         return {};
     };
     StaticController.prototype.template = function () {
-        throw new Error('template not implemented');
+        if (this.options.templateFn) {
+            return this.options.templateFn;
+        }
+        else {
+            throw new Error('template not implemented');
+        }
     };
     StaticController.prototype.className = function (hash) {
         if (hash === void 0) { hash = {}; }
@@ -138,6 +142,5 @@ var StaticController = (function () {
     return StaticController;
 })();
 exports.StaticController = StaticController;
-_.extend(StaticController.prototype, Backbone.Events);
 //# sourceMappingURL=Static.js.map
 });

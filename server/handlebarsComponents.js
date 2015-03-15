@@ -1,4 +1,4 @@
-var Handlebars, fs, hbs, join, path, _;
+var fs, join, path, _;
 
 _ = require('underscore');
 
@@ -8,11 +8,7 @@ path = require('path');
 
 join = path.join;
 
-hbs = require('hbs');
-
-Handlebars = hbs.handlebars;
-
-module.exports = function(COMPONENT_DIR) {
+exports.register = function(COMPONENT_DIR, Handlebars) {
   var className, getAttributes, getComponentController;
   getComponentController = function(name, context) {
     var Controller, controllerPath;

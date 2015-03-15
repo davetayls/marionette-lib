@@ -33,8 +33,21 @@ var ACTION_SOURCES = (function (_super) {
     }
     ACTION_SOURCES.ServerAction = new ACTION_SOURCES('ServerAction');
     ACTION_SOURCES.ViewAction = new ACTION_SOURCES('ViewAction');
+    ACTION_SOURCES.DeviceAction = new ACTION_SOURCES('DeviceAction');
     return ACTION_SOURCES;
 })(StringConstant);
 exports.ACTION_SOURCES = ACTION_SOURCES;
+var DOC_STATUSES = (function (_super) {
+    __extends(DOC_STATUSES, _super);
+    function DOC_STATUSES() {
+        _super.apply(this, arguments);
+    }
+    DOC_STATUSES.empty = new DOC_STATUSES('empty');
+    DOC_STATUSES.fetchingFromServer = new DOC_STATUSES('fetchingFromServer');
+    DOC_STATUSES.fetchingLocal = new DOC_STATUSES('fetchingLocal');
+    DOC_STATUSES.fetched = new DOC_STATUSES('fetched');
+    return DOC_STATUSES;
+})(StringConstant);
+exports.DOC_STATUSES = DOC_STATUSES;
 //# sourceMappingURL=constants.js.map
 });

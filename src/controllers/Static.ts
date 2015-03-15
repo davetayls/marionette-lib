@@ -1,10 +1,10 @@
 /// <reference path="../../typings/tsd.d.ts" />
 
 import _ = require('underscore');
-import Backbone = require('backbone');
 
 export interface IStaticControllerOptions {
   model?:any;
+  templateFn?:(data:any) => string;
 }
 
 export class StaticController {
@@ -30,7 +30,11 @@ export class StaticController {
   }
 
   template():Function {
-    throw new Error('template not implemented');
+    if (this.options.templateFn) {
+      return this.options.templateFn
+    } else {
+      throw new Error('template not implemented');
+    }
   }
 
   className(hash:any = {}) {
@@ -153,5 +157,4 @@ export class StaticController {
 
 }
 
-_.extend(StaticController.prototype, Backbone.Events);
 

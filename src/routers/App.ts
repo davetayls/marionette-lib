@@ -13,7 +13,7 @@ export class APP_ROUTER_EVENTS extends constants.StringConstant {
 
 export class AppRouter extends Marionette.AppRouter {
 
-  constructor(options?: AppRouterOptions) {
+  constructor(options: AppRouterOptions) {
     super(options);
     console.log('AppRouter ' + options.name + ' created', options.appRoutes);
   }

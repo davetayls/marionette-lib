@@ -6,7 +6,8 @@ var Action = (function () {
 })();
 exports.Action = Action;
 var ActionCreator = (function () {
-    function ActionCreator() {
+    function ActionCreator(dispatcher) {
+        this.dispatcher = dispatcher;
     }
     return ActionCreator;
 })();

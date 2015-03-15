@@ -14,8 +14,9 @@ Marionette.Behaviors.behaviorsLookup = function() {
   return behaviors;
 };
 
-export import Exceptions = require('./Exceptions');
 export import components = require('./components/index');
+export import constants = require('./constants');
+export import Exceptions = require('./Exceptions');
 export import interfaces = require('./interfaces');
 import _Api = require('./controllers/Api');
 import _App = require('./controllers/App');
@@ -38,6 +39,7 @@ export import routers = require('./routers/index');
 export import stickit = require('./stickit/index');
 export import flux = require('./flux/index');
 
+export import DebouncedDocContainer = require('./utilities/DebouncedDocContainer');
 import _whenFetched = require('./utilities/whenFetched');
 export import whenFetched = _whenFetched.whenFetched;
 export import navigation = require('./utilities/navigation');

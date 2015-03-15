@@ -11,8 +11,9 @@ exports.behaviors = require('./behaviors/index');
 Marionette.Behaviors.behaviorsLookup = function () {
     return exports.behaviors;
 };
-exports.Exceptions = require('./Exceptions');
 exports.components = require('./components/index');
+exports.constants = require('./constants');
+exports.Exceptions = require('./Exceptions');
 exports.interfaces = require('./interfaces');
 var _Api = require('./controllers/Api');
 var _App = require('./controllers/App');
@@ -33,6 +34,7 @@ exports.handlebars = require('./handlebars/index');
 exports.routers = require('./routers/index');
 exports.stickit = require('./stickit/index');
 exports.flux = require('./flux/index');
+exports.DebouncedDocContainer = require('./utilities/DebouncedDocContainer');
 var _whenFetched = require('./utilities/whenFetched');
 exports.whenFetched = _whenFetched.whenFetched;
 exports.navigation = require('./utilities/navigation');

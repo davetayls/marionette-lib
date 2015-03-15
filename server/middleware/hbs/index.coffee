@@ -1,2 +1,0 @@
-
-exports.components = require './components'

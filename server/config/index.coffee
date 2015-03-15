@@ -1,6 +1,4 @@
 
-hbs = require '../middleware/hbs'
-
 class MarionetteLibConfiguration
 
   handlebars: null

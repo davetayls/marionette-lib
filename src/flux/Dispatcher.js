@@ -13,16 +13,49 @@ var Dispatcher = (function (_super) {
         _super.apply(this, arguments);
     }
     Dispatcher.prototype.handleServerAction = function (action) {
-        this.dispatch({
+        var _this = this;
+        var payload = {
             source: constants.ACTION_SOURCES.ServerAction,
             action: action
-        });
+        };
+        if (action.async) {
+            setTimeout(function () {
+                _this.dispatch(payload);
+            }, 0);
+        }
+        else {
+            this.dispatch(payload);
+        }
+    };
+    Dispatcher.prototype.handleDeviceAction = function (action) {
+        var _this = this;
+        var payload = {
+            source: constants.ACTION_SOURCES.DeviceAction,
+            action: action
+        };
+        if (action.async) {
+            setTimeout(function () {
+                _this.dispatch(payload);
+            }, 0);
+        }
+        else {
+            this.dispatch(payload);
+        }
     };
     Dispatcher.prototype.handleViewAction = function (action) {
-        this.dispatch({
+        var _this = this;
+        var payload = {
             source: constants.ACTION_SOURCES.ViewAction,
             action: action
-        });
+        };
+        if (action.async) {
+            setTimeout(function () {
+                _this.dispatch(payload);
+            }, 0);
+        }
+        else {
+            this.dispatch(payload);
+        }
     };
     return Dispatcher;
 })(flux.Dispatcher);

@@ -3,10 +3,19 @@
 import Backbone = require('backbone');
 import ItemView = require('../../views/ItemView');
 
+export interface IAlertOptions extends Backbone.ViewOptions<Backbone.Model> {
+  message:string;
+  alertType:string;
+}
+
 export class AlertComponent extends ItemView.ItemView<Backbone.Model> {
 
-  name = 'alert';
-  template = require('hbs!./alert');
+  constructor(options:IAlertOptions) {
+    this.name = 'alert';
+    this.template = require('hbs!./alert');
+    super(options);
+  }
+
   templateHelpers() {
     return {
       message: this.options.message

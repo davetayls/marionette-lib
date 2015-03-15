@@ -1,8 +1,6 @@
 
 _ = require 'underscore'
 fs = require 'fs'
-hbs = require 'hbs'
-Handlebars = hbs.handlebars
 
 # Set methods for retrieving static templates from file system
 Static = require '../../src/controllers/Static'

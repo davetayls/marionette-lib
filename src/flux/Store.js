@@ -5,15 +5,22 @@ var __extends = this.__extends || function (d, b) {
     __.prototype = b.prototype;
     d.prototype = new __();
 };
+var Q = require('q');
 var constants = require('../constants');
 var EventedClass = require('../utilities/EventedClass');
 var Store = (function (_super) {
     __extends(Store, _super);
     function Store(dispatcher) {
         _super.call(this);
+        this.dispatcher = dispatcher;
         this.dispatchToken = dispatcher.register(this.dispatch.bind(this));
+        this.initStoreReadyDeferred();
     }
     Store.prototype.dispatch = function (payload) {
+    };
+    Store.prototype.initStoreReadyDeferred = function () {
+        this.storeReadyDeferred = Q.defer();
+        this.storeReady = this.storeReadyDeferred.promise;
     };
     Store.prototype.emitChange = function () {
         this.trigger(constants.EVENT_TYPES.Change.val);

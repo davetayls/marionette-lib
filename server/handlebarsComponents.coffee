@@ -7,10 +7,8 @@ _ = require 'underscore'
 fs = require 'fs'
 path = require 'path'
 join = path.join
-hbs = require 'hbs'
-Handlebars = hbs.handlebars
 
-module.exports = (COMPONENT_DIR) ->
+exports.register = (COMPONENT_DIR, Handlebars) ->
 
   getComponentController = (name, context) ->
     controllerPath = join(COMPONENT_DIR, name, 'StaticController')

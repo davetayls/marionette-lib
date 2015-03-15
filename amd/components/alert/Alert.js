@@ -8,10 +8,10 @@ var __extends = this.__extends || function (d, b) {
 var ItemView = require('../../views/ItemView');
 var AlertComponent = (function (_super) {
     __extends(AlertComponent, _super);
-    function AlertComponent() {
-        _super.apply(this, arguments);
+    function AlertComponent(options) {
         this.name = 'alert';
         this.template = require('hbs!./alert');
+        _super.call(this, options);
     }
     AlertComponent.prototype.templateHelpers = function () {
         return {

@@ -1,6 +1,4 @@
-var MarionetteLibConfiguration, hbs;
-
-hbs = require('../middleware/hbs');
+var MarionetteLibConfiguration;
 
 MarionetteLibConfiguration = (function() {
   function MarionetteLibConfiguration() {}
