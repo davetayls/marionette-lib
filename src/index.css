@@ -1,3 +1,7 @@
+.Scrollables__container {
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+}
 .SpinnerView {
   position: relative;
 }

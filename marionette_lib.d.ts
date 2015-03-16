@@ -7,9 +7,8 @@
 //   ../typings/flux/flux.d.ts
 
 declare module 'marionette_lib' {
-    import _config = require('__marionette_lib/config/client');
-    export import config = _config.config;
-    export function configure(options: _config.IConfigureOptions): void;
+    export import config = require('__marionette_lib/config/client');
+    export function configure(options: config.IConfigureOptions): void;
     export import behaviors = require('__marionette_lib/behaviors/index');
     export import components = require('__marionette_lib/components/index');
     export import constants = require('__marionette_lib/constants');
@@ -61,8 +60,10 @@ declare module '__marionette_lib/config/client' {
 }
 
 declare module '__marionette_lib/behaviors/index' {
-    import modifiers = require('__marionette_lib/behaviors/Modifiers');
-    export import Modifiers = modifiers.ModifiersBehavior;
+    import _Modifiers = require('__marionette_lib/behaviors/Modifiers');
+    import _Scrollables = require('__marionette_lib/behaviors/Scrollables');
+    export import Modifiers = _Modifiers.ModifiersBehavior;
+    export import Scrollables = _Scrollables.ScrollablesBehavior;
 }
 
 declare module '__marionette_lib/components/index' {
@@ -388,6 +389,17 @@ declare module '__marionette_lib/behaviors/Modifiers' {
         removeModifier(modifier: string): boolean;
         toggleModifier(modifier: string): boolean;
         onModified(modifier: string, options?: IModifiedOptions): void;
+    }
+}
+
+declare module '__marionette_lib/behaviors/Scrollables' {
+    import Marionette = require('backbone.marionette');
+    export interface IScrollablesOptions {
+        [key: string]: string;
+    }
+    export class ScrollablesBehavior extends Marionette.Behavior {
+        options: IScrollablesOptions;
+        onShow(): void;
     }
 }
 

@@ -1,9 +1,8 @@
 define(function (require, exports, module) {/// <reference path="../typings/tsd.d.ts" />
 var Marionette = require('backbone.marionette');
-var _config = require('./config/client');
-exports.config = _config.config;
+exports.config = require('./config/client');
 function configure(options) {
-    return _config.config.configure(options);
+    return exports.config.config.configure(options);
 }
 exports.configure = configure;
 ;
