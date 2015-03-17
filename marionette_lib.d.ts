@@ -589,7 +589,6 @@ declare module '__marionette_lib/flux/actions' {
     export class Action {
         constructor(type: constants.StringConstant);
         type: constants.StringConstant;
-        async: boolean;
     }
     export class ActionCreator {
         constructor(dispatcher: Dispatcher.Dispatcher);

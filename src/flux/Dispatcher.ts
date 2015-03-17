@@ -53,13 +53,7 @@ export class Dispatcher extends flux.Dispatcher<IPayload> {
       source: constants.ACTION_SOURCES.ServerAction,
       action: action
     };
-    if (action.async) {
-      setTimeout(() => {
-        this.handlePayload(payload);
-      }, 0);
-    } else {
-      this.handlePayload(payload);
-    }
+    this.handlePayload(payload);
   }
 
   handleDeviceAction(action:actions.Action){
@@ -67,11 +61,7 @@ export class Dispatcher extends flux.Dispatcher<IPayload> {
       source: constants.ACTION_SOURCES.DeviceAction,
       action: action
     };
-    if (action.async) {
-      setTimeout(() => { this.handlePayload(payload); }, 0);
-    } else {
-      this.handlePayload(payload);
-    }
+    this.handlePayload(payload);
   }
 
   handleViewAction(action:actions.Action){
@@ -79,11 +69,7 @@ export class Dispatcher extends flux.Dispatcher<IPayload> {
       source: constants.ACTION_SOURCES.ViewAction,
       action: action
     };
-    if (action.async) {
-      setTimeout(() => { this.handlePayload(payload); }, 0);
-    } else {
-      this.handlePayload(payload);
-    }
+    this.handlePayload(payload);
   }
 
 }

@@ -41,49 +41,25 @@ var Dispatcher = (function (_super) {
             this.dispatchPayload();
     };
     Dispatcher.prototype.handleServerAction = function (action) {
-        var _this = this;
         var payload = {
             source: constants.ACTION_SOURCES.ServerAction,
             action: action
         };
-        if (action.async) {
-            setTimeout(function () {
-                _this.handlePayload(payload);
-            }, 0);
-        }
-        else {
-            this.handlePayload(payload);
-        }
+        this.handlePayload(payload);
     };
     Dispatcher.prototype.handleDeviceAction = function (action) {
-        var _this = this;
         var payload = {
             source: constants.ACTION_SOURCES.DeviceAction,
             action: action
         };
-        if (action.async) {
-            setTimeout(function () {
-                _this.handlePayload(payload);
-            }, 0);
-        }
-        else {
-            this.handlePayload(payload);
-        }
+        this.handlePayload(payload);
     };
     Dispatcher.prototype.handleViewAction = function (action) {
-        var _this = this;
         var payload = {
             source: constants.ACTION_SOURCES.ViewAction,
             action: action
         };
-        if (action.async) {
-            setTimeout(function () {
-                _this.handlePayload(payload);
-            }, 0);
-        }
-        else {
-            this.handlePayload(payload);
-        }
+        this.handlePayload(payload);
     };
     return Dispatcher;
 })(flux.Dispatcher);

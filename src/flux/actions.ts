@@ -8,7 +8,7 @@ export class Action {
   }
 
   type:constants.StringConstant;
-  async:boolean;
+  //async:boolean;
 }
 
 export class ActionCreator {
