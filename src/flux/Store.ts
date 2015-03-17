@@ -13,24 +13,24 @@ export class Store extends EventedClass.EventedClass {
   constructor(dispatcher:Dispatcher.Dispatcher) {
     super();
     this.dispatcher = dispatcher;
-    this.dispatchToken = dispatcher.register(this.dispatch.bind(this));
-    this.initStoreReadyDeferred();
+    this.dispatchToken = dispatcher.registerStore(this);
   }
 
-  protected storeReadyDeferred:Q.Deferred<any>;
-  storeReady:Q.Promise<any>;
+  protected stateHasChanged:boolean;
   protected dispatcher:Dispatcher.Dispatcher;
   dispatchToken:string;
 
   dispatch(payload:fluxInterfaces.IPayload):void {}
 
-  initStoreReadyDeferred():void {
-    this.storeReadyDeferred = Q.defer<any>();
-    this.storeReady = this.storeReadyDeferred.promise;
+  protected emitChange():void {
+    this.stateHasChanged = true;
   }
 
-  emitChange():void {
-    this.trigger(constants.EVENT_TYPES.Change.val);
+  notifyIfStateChanged():void {
+    if (this.stateHasChanged) {
+      this.stateHasChanged = false;
+      this.trigger(constants.EVENT_TYPES.Change.val);
+    }
   }
 
   addChangeListener(callback: ()=>void) {

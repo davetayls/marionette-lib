@@ -5,7 +5,6 @@ var __extends = this.__extends || function (d, b) {
     __.prototype = b.prototype;
     d.prototype = new __();
 };
-var Q = require('q');
 var constants = require('../constants');
 var EventedClass = require('../utilities/EventedClass');
 var Store = (function (_super) {
@@ -13,17 +12,18 @@ var Store = (function (_super) {
     function Store(dispatcher) {
         _super.call(this);
         this.dispatcher = dispatcher;
-        this.dispatchToken = dispatcher.register(this.dispatch.bind(this));
-        this.initStoreReadyDeferred();
+        this.dispatchToken = dispatcher.registerStore(this);
     }
     Store.prototype.dispatch = function (payload) {
     };
-    Store.prototype.initStoreReadyDeferred = function () {
-        this.storeReadyDeferred = Q.defer();
-        this.storeReady = this.storeReadyDeferred.promise;
-    };
     Store.prototype.emitChange = function () {
-        this.trigger(constants.EVENT_TYPES.Change.val);
+        this.stateHasChanged = true;
+    };
+    Store.prototype.notifyIfStateChanged = function () {
+        if (this.stateHasChanged) {
+            this.stateHasChanged = false;
+            this.trigger(constants.EVENT_TYPES.Change.val);
+        }
     };
     Store.prototype.addChangeListener = function (callback) {
         this.on(constants.EVENT_TYPES.Change.val, callback);

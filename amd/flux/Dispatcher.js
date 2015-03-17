@@ -10,8 +10,36 @@ var constants = require('../constants');
 var Dispatcher = (function (_super) {
     __extends(Dispatcher, _super);
     function Dispatcher() {
-        _super.apply(this, arguments);
+        this.stores = [];
+        this.payloadQueue = [];
+        _super.call(this);
     }
+    Dispatcher.prototype.registerStore = function (store) {
+        this.stores.push(store);
+        return this.register(store.dispatch.bind(store));
+    };
+    Dispatcher.prototype.dispatchPayload = function () {
+        var payload = this.payloadQueue.shift();
+        if (payload) {
+            this.dispatching = true;
+            console.log('Dispatching:', payload);
+            this.dispatch(payload);
+            this.notifyStoreListeners();
+            this.dispatching = false;
+            this.dispatchPayload();
+        }
+    };
+    Dispatcher.prototype.notifyStoreListeners = function () {
+        this.stores.forEach(function (store) {
+            store.notifyIfStateChanged();
+        });
+    };
+    Dispatcher.prototype.handlePayload = function (payload) {
+        this.payloadQueue.push(payload);
+        console.log('Dispatcher: Handling', payload);
+        if (!this.dispatching)
+            this.dispatchPayload();
+    };
     Dispatcher.prototype.handleServerAction = function (action) {
         var _this = this;
         var payload = {
@@ -20,11 +48,11 @@ var Dispatcher = (function (_super) {
         };
         if (action.async) {
             setTimeout(function () {
-                _this.dispatch(payload);
+                _this.handlePayload(payload);
             }, 0);
         }
         else {
-            this.dispatch(payload);
+            this.handlePayload(payload);
         }
     };
     Dispatcher.prototype.handleDeviceAction = function (action) {
@@ -35,11 +63,11 @@ var Dispatcher = (function (_super) {
         };
         if (action.async) {
             setTimeout(function () {
-                _this.dispatch(payload);
+                _this.handlePayload(payload);
             }, 0);
         }
         else {
-            this.dispatch(payload);
+            this.handlePayload(payload);
         }
     };
     Dispatcher.prototype.handleViewAction = function (action) {
@@ -50,11 +78,11 @@ var Dispatcher = (function (_super) {
         };
         if (action.async) {
             setTimeout(function () {
-                _this.dispatch(payload);
+                _this.handlePayload(payload);
             }, 0);
         }
         else {
-            this.dispatch(payload);
+            this.handlePayload(payload);
         }
     };
     return Dispatcher;

@@ -609,8 +609,18 @@ declare module '__marionette_lib/flux/interfaces' {
 declare module '__marionette_lib/flux/Dispatcher' {
     import flux = require('flux');
     import fluxInterfaces = require('__marionette_lib/flux/interfaces');
+    import IPayload = fluxInterfaces.IPayload;
     import actions = require('__marionette_lib/flux/actions');
-    export class Dispatcher extends flux.Dispatcher<fluxInterfaces.IPayload> {
+    import Store = require('__marionette_lib/flux/Store');
+    export class Dispatcher extends flux.Dispatcher<IPayload> {
+        constructor();
+        stores: Store.Store[];
+        payloadQueue: IPayload[];
+        dispatching: boolean;
+        registerStore(store: Store.Store): string;
+        dispatchPayload(): void;
+        notifyStoreListeners(): void;
+        handlePayload(payload: IPayload): void;
         handleServerAction(action: actions.Action): void;
         handleDeviceAction(action: actions.Action): void;
         handleViewAction(action: actions.Action): void;
@@ -618,19 +628,17 @@ declare module '__marionette_lib/flux/Dispatcher' {
 }
 
 declare module '__marionette_lib/flux/Store' {
-    import Q = require('q');
     import EventedClass = require('__marionette_lib/utilities/EventedClass');
     import fluxInterfaces = require('__marionette_lib/flux/interfaces');
     import Dispatcher = require('__marionette_lib/flux/Dispatcher');
     export class Store extends EventedClass.EventedClass {
         constructor(dispatcher: Dispatcher.Dispatcher);
-        protected storeReadyDeferred: Q.Deferred<any>;
-        storeReady: Q.Promise<any>;
+        protected stateHasChanged: boolean;
         protected dispatcher: Dispatcher.Dispatcher;
         dispatchToken: string;
         dispatch(payload: fluxInterfaces.IPayload): void;
-        initStoreReadyDeferred(): void;
-        emitChange(): void;
+        protected emitChange(): void;
+        notifyIfStateChanged(): void;
         addChangeListener(callback: () => void): void;
         removeChangeListener(callback: () => void): void;
     }
