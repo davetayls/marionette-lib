@@ -587,7 +587,7 @@ declare module '__marionette_lib/flux/actions' {
     import constants = require('__marionette_lib/constants');
     import Dispatcher = require('__marionette_lib/flux/Dispatcher');
     export class Action {
-        constructor(type: constants.StringConstant);
+        constructor(type?: constants.StringConstant);
         type: constants.StringConstant;
     }
     export class ActionCreator {
@@ -636,7 +636,7 @@ declare module '__marionette_lib/flux/Store' {
         protected dispatcher: Dispatcher.Dispatcher;
         dispatchToken: string;
         dispatch(payload: fluxInterfaces.IPayload): void;
-        protected emitChange(): void;
+        protected stateChanged(): void;
         notifyIfStateChanged(): void;
         addChangeListener(callback: () => void): void;
         removeChangeListener(callback: () => void): void;

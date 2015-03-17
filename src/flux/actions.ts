@@ -3,7 +3,7 @@ import constants = require('../constants');
 import Dispatcher = require('./Dispatcher');
 
 export class Action {
-  constructor(type:constants.StringConstant) {
+  constructor(type?:constants.StringConstant) {
     this.type = type;
   }
 

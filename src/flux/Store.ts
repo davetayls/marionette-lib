@@ -22,7 +22,7 @@ export class Store extends EventedClass.EventedClass {
 
   dispatch(payload:fluxInterfaces.IPayload):void {}
 
-  protected emitChange():void {
+  protected stateChanged():void {
     this.stateHasChanged = true;
   }
 

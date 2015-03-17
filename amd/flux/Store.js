@@ -16,7 +16,7 @@ var Store = (function (_super) {
     }
     Store.prototype.dispatch = function (payload) {
     };
-    Store.prototype.emitChange = function () {
+    Store.prototype.stateChanged = function () {
         this.stateHasChanged = true;
     };
     Store.prototype.notifyIfStateChanged = function () {
