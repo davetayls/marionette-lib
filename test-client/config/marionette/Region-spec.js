@@ -1,5 +1,4 @@
-
-define(function(require){
+define(function (require, exports, module) {
 
   var Marionette = require('backbone.marionette');
   require('config/client');

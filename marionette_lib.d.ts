@@ -37,6 +37,7 @@ declare module 'marionette_lib' {
     export import whenFetched = _whenFetched.whenFetched;
     export import navigation = require('__marionette_lib/utilities/navigation');
     export import registry = require('__marionette_lib/utilities/registry');
+    export import urlUtils = require('__marionette_lib/utilities/url');
     export import views = require('__marionette_lib/views/index');
 }
 
@@ -97,6 +98,12 @@ declare module '__marionette_lib/constants' {
         static fetchingFromServer: DOC_STATUSES;
         static fetchingLocal: DOC_STATUSES;
         static fetched: DOC_STATUSES;
+        static creatingOnServer: DOC_STATUSES;
+        static updatingOnServer: DOC_STATUSES;
+        static deletingOnServer: DOC_STATUSES;
+        static deletedOnServer: DOC_STATUSES;
+        static deletedLocal: DOC_STATUSES;
+        static deleted: DOC_STATUSES;
     }
 }
 
@@ -111,6 +118,10 @@ declare module '__marionette_lib/Exceptions' {
         message: string;
         stack: string;
         toString(): string;
+    }
+    export class DocumentExistsException extends Exception {
+    }
+    export class NotImplementedException extends Exception {
     }
 }
 
@@ -201,7 +212,9 @@ declare module '__marionette_lib/controllers/Component' {
 declare module '__marionette_lib/controllers/RouterController' {
     import BaseController = require('__marionette_lib/controllers/Base');
     export interface IRouterOptions {
-        actions: IActionConfig[];
+        actions: {
+            [key: string]: IActionConfig;
+        };
     }
     export interface IActionConfig {
         fn: Function;
@@ -219,7 +232,9 @@ declare module '__marionette_lib/controllers/RouterController' {
         actionUnauthorized(actionName: string, actionConfig: IActionConfig): void;
         callActionUnauthorized(actionName: string, actionConfig: IActionConfig): any;
         defaultPolicy(): ActionPolicy;
-        _setupActions(actions: IActionConfig[]): void;
+        _setupActions(actions: {
+            [key: string]: IActionConfig;
+        }): void;
         _getActionConfig(actionConfig: any): any;
         _getActionFunction(actionConfig: any): Function;
         _getActionPolicy(actionConfig: IActionConfig): ActionPolicy;
@@ -289,6 +304,12 @@ declare module '__marionette_lib/flux/index' {
 }
 
 declare module '__marionette_lib/utilities/DebouncedDocContainer' {
+    export interface IMergeDocResult<TDoc extends IDocContainerItem> {
+            added: boolean;
+            merged: boolean;
+            changedProperties: string[];
+            doc: TDoc;
+    }
     export interface IDebouncedDocItem<T extends IDocContainerItem> {
             id: any;
             doc: T;
@@ -301,6 +322,7 @@ declare module '__marionette_lib/utilities/DebouncedDocContainer' {
             constructor();
             docs: IDebouncedDocItem<T>[];
             docTimeToLive: number;
+            length: number;
             clearExpiredDocs(): void;
             /**
                 * Puts a document in to the array if it is not there
@@ -318,6 +340,13 @@ declare module '__marionette_lib/utilities/DebouncedDocContainer' {
                 * @returns {T}
                 */
             byId(id: any): T;
+            /**
+                * Merges a doc in to the store, if it exists
+                * otherwise adds it
+                * @param doc
+                */
+            mergeDoc(doc: T): IMergeDocResult<T>;
+            mergeMultiple(docs: T[]): IMergeDocResult<T>[];
     }
 }
 
@@ -360,6 +389,41 @@ declare module '__marionette_lib/utilities/registry' {
     }
     export function resetRegistry(): IRegistryState;
     export function getRegistrySize(): number;
+}
+
+declare module '__marionette_lib/utilities/url' {
+    /**
+        * Extract a query string value
+        * @param searchString
+        * @param key
+        * @returns {*}
+        */
+    export function getQuery(searchString: string, key: string): string;
+    /**
+        * Extract the searchString query string values from a url
+        * @param url
+        * @returns {string}
+        */
+    export function searchString(url: string): string;
+    /**
+        * Get the correct separator for a url and a query string
+        * @param url
+        * @returns {string}
+        */
+    export function separator(url: string): string;
+    /**
+        * Joins url query string values
+        * @param urls
+        * @returns {string}
+        */
+    export function join(...urls: string[]): string;
+    /**
+        * Join url paths
+        * @param urls
+        * @returns {string}
+        */
+    export function joinPaths(...urls: string[]): string;
+    export function param(obj: Object, separator?: string, joiner?: string): string;
 }
 
 declare module '__marionette_lib/views/index' {

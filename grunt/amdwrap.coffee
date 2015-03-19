@@ -8,3 +8,10 @@ module.exports =
       '!modernizr/**/*'
     ]
     dest: 'amd'
+  test:
+    expand: true
+    cwd: 'test-client'
+    src: [
+      '**/*.js'
+    ]
+    dest: 'test-client'

@@ -37,6 +37,9 @@
     },
     "flux/flux.d.ts": {
       "commit": "69bdfb0884020e41f17a1dd80ad4c77de2636874"
+    },
+    "moment/moment.d.ts": {
+      "commit": "90e43700429b7ae972915b6ee2c839929e77ecda"
     }
   }
 }

@@ -1,5 +1,4 @@
-
-define(function(require){
+define(function (require, exports, module) {
 
   var RouterController = require('controllers/RouterController');
 

@@ -1,3 +1,9 @@
+var __extends = this.__extends || function (d, b) {
+    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+    function __() { this.constructor = d; }
+    __.prototype = b.prototype;
+    d.prototype = new __();
+};
 var Exception = (function () {
     function Exception(error) {
         this.error = error;
@@ -29,4 +35,20 @@ var Exception = (function () {
     return Exception;
 })();
 exports.Exception = Exception;
+var DocumentExistsException = (function (_super) {
+    __extends(DocumentExistsException, _super);
+    function DocumentExistsException() {
+        _super.apply(this, arguments);
+    }
+    return DocumentExistsException;
+})(Exception);
+exports.DocumentExistsException = DocumentExistsException;
+var NotImplementedException = (function (_super) {
+    __extends(NotImplementedException, _super);
+    function NotImplementedException() {
+        _super.apply(this, arguments);
+    }
+    return NotImplementedException;
+})(Exception);
+exports.NotImplementedException = NotImplementedException;
 //# sourceMappingURL=Exceptions.js.map

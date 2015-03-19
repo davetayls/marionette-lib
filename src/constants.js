@@ -46,6 +46,12 @@ var DOC_STATUSES = (function (_super) {
     DOC_STATUSES.fetchingFromServer = new DOC_STATUSES('fetchingFromServer');
     DOC_STATUSES.fetchingLocal = new DOC_STATUSES('fetchingLocal');
     DOC_STATUSES.fetched = new DOC_STATUSES('fetched');
+    DOC_STATUSES.creatingOnServer = new DOC_STATUSES('creatingOnServer');
+    DOC_STATUSES.updatingOnServer = new DOC_STATUSES('updatingOnServer');
+    DOC_STATUSES.deletingOnServer = new DOC_STATUSES('deletingOnServer');
+    DOC_STATUSES.deletedOnServer = new DOC_STATUSES('deletedOnServer');
+    DOC_STATUSES.deletedLocal = new DOC_STATUSES('deletedLocal');
+    DOC_STATUSES.deleted = new DOC_STATUSES('deleted');
     return DOC_STATUSES;
 })(StringConstant);
 exports.DOC_STATUSES = DOC_STATUSES;

@@ -22,4 +22,10 @@ export class DOC_STATUSES extends StringConstant {
   static fetchingFromServer = new DOC_STATUSES('fetchingFromServer');
   static fetchingLocal = new DOC_STATUSES('fetchingLocal');
   static fetched = new DOC_STATUSES('fetched');
+  static creatingOnServer = new DOC_STATUSES('creatingOnServer');
+  static updatingOnServer = new DOC_STATUSES('updatingOnServer');
+  static deletingOnServer = new DOC_STATUSES('deletingOnServer');
+  static deletedOnServer = new DOC_STATUSES('deletedOnServer');
+  static deletedLocal = new DOC_STATUSES('deletedLocal');
+  static deleted = new DOC_STATUSES('deleted');
 }

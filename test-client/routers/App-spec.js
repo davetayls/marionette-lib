@@ -1,5 +1,4 @@
-
-define(function(require){
+define(function (require, exports, module) {
 
   var Backbone = require('backbone');
   var AppRouter = require('routers/App').AppRouter;

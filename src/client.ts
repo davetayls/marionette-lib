@@ -43,4 +43,5 @@ import _whenFetched = require('./utilities/whenFetched');
 export import whenFetched = _whenFetched.whenFetched;
 export import navigation = require('./utilities/navigation');
 export import registry = require('./utilities/registry');
+export import urlUtils = require('./utilities/url');
 export import views = require('./views/index');

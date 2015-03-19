@@ -1,10 +1,18 @@
 define(function (require, exports, module) {/// <reference path="../../typings/tsd.d.ts" />
 var _ = require('underscore');
+var Exceptions = require('../Exceptions');
 var DebouncedDocContainer = (function () {
     function DebouncedDocContainer() {
         this.docs = [];
         this.docTimeToLive = 1000;
     }
+    Object.defineProperty(DebouncedDocContainer.prototype, "length", {
+        get: function () {
+            return this.docs.length;
+        },
+        enumerable: true,
+        configurable: true
+    });
     DebouncedDocContainer.prototype.clearExpiredDocs = function () {
         throw new Error('Not implemented');
     };
@@ -17,8 +25,11 @@ var DebouncedDocContainer = (function () {
             this.docs.push({
                 id: doc.id,
                 doc: doc,
-                expires: Date.now() + this.docTimeToLive
+                expires: this.docTimeToLive ? Date.now() + this.docTimeToLive : null
             });
+        }
+        else {
+            throw new Exceptions.DocumentExistsException(new Error('Document ' + doc.id + ' already exists'));
         }
     };
     /**
@@ -40,6 +51,52 @@ var DebouncedDocContainer = (function () {
         if (item) {
             return item.doc;
         }
+    };
+    /**
+     * Merges a doc in to the store, if it exists
+     * otherwise adds it
+     * @param doc
+     */
+    DebouncedDocContainer.prototype.mergeDoc = function (doc) {
+        if (!doc.id)
+            throw new Error('mergeDoc document must have a valid id');
+        var keys = _.keys(doc);
+        var entry = this.entryById(doc.id);
+        if (entry) {
+            var existingDoc = entry.doc;
+            var changedProperties = [];
+            _.each(keys, function (key) {
+                var value = doc[key];
+                if (!_.isFunction(value)) {
+                    if (existingDoc[key] !== value) {
+                        existingDoc[key] = value;
+                        changedProperties.push(key);
+                    }
+                }
+            });
+            return {
+                added: false,
+                merged: changedProperties.length > 0,
+                changedProperties: changedProperties,
+                doc: existingDoc
+            };
+        }
+        else {
+            this.put(doc);
+            return {
+                added: true,
+                merged: false,
+                changedProperties: keys,
+                doc: doc
+            };
+        }
+    };
+    DebouncedDocContainer.prototype.mergeMultiple = function (docs) {
+        var _this = this;
+        var merges = docs.map(function (doc) {
+            return _this.mergeDoc(doc);
+        });
+        return merges;
     };
     return DebouncedDocContainer;
 })();

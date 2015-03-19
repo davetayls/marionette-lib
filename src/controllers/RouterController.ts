@@ -4,7 +4,7 @@ import _ = require('underscore');
 import BaseController = require('./Base');
 
 export interface IRouterOptions {
-  actions:IActionConfig[];
+  actions:{[key:string]:IActionConfig};
 }
 
 export interface IActionConfig {
@@ -51,7 +51,7 @@ export class RouterController extends BaseController.BaseController {
     return new ActionPolicy();
   }
 
-  _setupActions(actions:IActionConfig[]):void {
+  _setupActions(actions:{[key:string]:IActionConfig}):void {
     _.each(actions, (config:IActionConfig, key) => {
       this.addAction(key, config);
     });

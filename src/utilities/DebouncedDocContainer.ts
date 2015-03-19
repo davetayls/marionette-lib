@@ -1,5 +1,13 @@
 /// <reference path="../../typings/tsd.d.ts" />
 import _ = require('underscore');
+import Exceptions = require('../Exceptions');
+
+export interface IMergeDocResult<TDoc extends IDocContainerItem> {
+  added:boolean;
+  merged:boolean;
+  changedProperties:string[];
+  doc:TDoc;
+}
 
 export interface IDebouncedDocItem<T extends IDocContainerItem> {
   id:any;
@@ -21,6 +29,10 @@ export class DebouncedDocContainer<T extends IDocContainerItem> {
   docs:IDebouncedDocItem<T>[];
   docTimeToLive:number;
 
+  get length():number {
+    return this.docs.length;
+  }
+
   clearExpiredDocs():void {
     throw new Error('Not implemented');
   }
@@ -34,8 +46,12 @@ export class DebouncedDocContainer<T extends IDocContainerItem> {
       this.docs.push({
         id: doc.id,
         doc: doc,
-        expires: Date.now() + this.docTimeToLive
+        expires: this.docTimeToLive ? Date.now() + this.docTimeToLive : null
       });
+    } else {
+      throw new Exceptions.DocumentExistsException(
+        new Error('Document ' + doc.id + ' already exists')
+      );
     }
   }
 
@@ -58,6 +74,51 @@ export class DebouncedDocContainer<T extends IDocContainerItem> {
     if (item) {
       return item.doc;
     }
+  }
+
+  /**
+   * Merges a doc in to the store, if it exists
+   * otherwise adds it
+   * @param doc
+   */
+  mergeDoc(doc:T):IMergeDocResult<T> {
+    if (!doc.id) throw new Error('mergeDoc document must have a valid id');
+    var keys = _.keys(doc);
+    var entry = this.entryById(doc.id);
+    if (entry) {
+      var existingDoc = entry.doc;
+      var changedProperties = [];
+      _.each(keys, (key) => {
+        var value = doc[key];
+        if (!_.isFunction(value)) {
+          if (existingDoc[key] !== value) {
+            existingDoc[key] = value;
+            changedProperties.push(key);
+          }
+        }
+      });
+      return {
+        added: false,
+        merged: changedProperties.length > 0,
+        changedProperties: changedProperties,
+        doc: existingDoc
+      }
+    } else {
+      this.put(doc);
+      return {
+        added: true,
+        merged: false,
+        changedProperties: keys,
+        doc: doc
+      };
+    }
+  }
+
+  mergeMultiple(docs:T[]):IMergeDocResult<T>[] {
+    var merges = docs.map((doc) => {
+      return this.mergeDoc(doc);
+    });
+    return merges;
   }
 }
 

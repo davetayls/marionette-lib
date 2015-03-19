@@ -33,3 +33,5 @@ export class Exception {
 
 }
 
+export class DocumentExistsException extends Exception {}
+export class NotImplementedException extends Exception {}

@@ -12,5 +12,9 @@
 /// <reference path="q/Q.d.ts" />
 /// <reference path="spin/spin.d.ts" />
 /// <reference path="flux/flux.d.ts" />
+/// <reference path="moment/moment.d.ts" />
+/// <reference path="mocha/mocha.d.ts" />
+/// <reference path="chai/chai.d.ts" />
+/// <reference path="sinon-chai/sinon-chai.d.ts" />
 
 declare function require(modulePath:string):any;
