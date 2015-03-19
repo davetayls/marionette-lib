@@ -324,6 +324,7 @@ declare module '__marionette_lib/utilities/DebouncedDocContainer' {
             docTimeToLive: number;
             length: number;
             clearExpiredDocs(): void;
+            clearAllDocs(): void;
             /**
                 * Puts a document in to the array if it is not there
                 * @param doc
@@ -334,6 +335,11 @@ declare module '__marionette_lib/utilities/DebouncedDocContainer' {
                 * @param id
                 */
             entryById(id: any): IDebouncedDocItem<T>;
+            /**
+                * Return all the docs
+                * @returns {IDebouncedDocItem<T>[]}
+                */
+            all(): T[];
             /**
                 * Return the saved document by its id
                 * @param id

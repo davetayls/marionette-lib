@@ -19,6 +19,7 @@ export declare class DebouncedDocContainer<T extends IDocContainerItem> {
     docTimeToLive: number;
     length: number;
     clearExpiredDocs(): void;
+    clearAllDocs(): void;
     /**
      * Puts a document in to the array if it is not there
      * @param doc
@@ -29,6 +30,11 @@ export declare class DebouncedDocContainer<T extends IDocContainerItem> {
      * @param id
      */
     entryById(id: any): IDebouncedDocItem<T>;
+    /**
+     * Return all the docs
+     * @returns {IDebouncedDocItem<T>[]}
+     */
+    all(): T[];
     /**
      * Return the saved document by its id
      * @param id

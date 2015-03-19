@@ -37,6 +37,10 @@ export class DebouncedDocContainer<T extends IDocContainerItem> {
     throw new Error('Not implemented');
   }
 
+  clearAllDocs():void {
+    this.docs.length = 0;
+  }
+
   /**
    * Puts a document in to the array if it is not there
    * @param doc
@@ -62,6 +66,16 @@ export class DebouncedDocContainer<T extends IDocContainerItem> {
   entryById(id:any):IDebouncedDocItem<T> {
     var item:IDebouncedDocItem<T> = _.findWhere(this.docs, { id: id });
     if (item) return item;
+  }
+
+  /**
+   * Return all the docs
+   * @returns {IDebouncedDocItem<T>[]}
+   */
+  all():T[] {
+    return this.docs.map((entry) => {
+      return entry.doc;
+    });
   }
 
   /**

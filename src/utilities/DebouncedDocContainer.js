@@ -16,6 +16,9 @@ var DebouncedDocContainer = (function () {
     DebouncedDocContainer.prototype.clearExpiredDocs = function () {
         throw new Error('Not implemented');
     };
+    DebouncedDocContainer.prototype.clearAllDocs = function () {
+        this.docs.length = 0;
+    };
     /**
      * Puts a document in to the array if it is not there
      * @param doc
@@ -40,6 +43,15 @@ var DebouncedDocContainer = (function () {
         var item = _.findWhere(this.docs, { id: id });
         if (item)
             return item;
+    };
+    /**
+     * Return all the docs
+     * @returns {IDebouncedDocItem<T>[]}
+     */
+    DebouncedDocContainer.prototype.all = function () {
+        return this.docs.map(function (entry) {
+            return entry.doc;
+        });
     };
     /**
      * Return the saved document by its id
