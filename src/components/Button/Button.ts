@@ -14,13 +14,21 @@ export class BUTTON_THEME extends constants.StringConstant {
   static action = new BUTTON_THEME('action');
 }
 
+export class BUTTON_SIZE extends constants.StringConstant {
+  static default = new BUTTON_SIZE('default');
+  static small = new BUTTON_SIZE('small');
+  static large = new BUTTON_SIZE('large');
+}
+
 export class ButtonModel extends Backbone.Model {
   defaults() {
     return {
       name: '',
       icon: '',
       text: '',
-      theme: BUTTON_THEME.default
+      block: true,
+      theme: BUTTON_THEME.default,
+      size: BUTTON_SIZE.default
     }
   }
 
@@ -33,8 +41,15 @@ export class ButtonModel extends Backbone.Model {
   get text():string { return this.get('text'); }
   set text(value:string) { this.set('text', value); }
 
+  get block():boolean { return this.get('block'); }
+  set block(value:boolean) { this.set('block', value); }
+
   get theme():BUTTON_THEME { return this.get('theme'); }
   set theme(value:BUTTON_THEME) { this.set('theme', value); }
+
+  get size():BUTTON_SIZE { return this.get('size'); }
+  set size(value:BUTTON_SIZE) { this.set('size', value); }
+
 
 }
 
@@ -42,7 +57,9 @@ export interface IButtonOptions extends Backbone.ViewOptions<ButtonModel> {
   name:string;
   icon:string;
   text:string;
+  block:boolean;
   theme?:BUTTON_THEME;
+  size?:BUTTON_SIZE;
 }
 
 export class Button extends ItemView.ItemView<ButtonModel> {
@@ -58,7 +75,7 @@ export class Button extends ItemView.ItemView<ButtonModel> {
     };
     this.on('click', this.navigate);
     super(options);
-    this.$el.addClass('Button--' + this.model.theme.toString());
+    this.setClassNames();
   }
 
   get className():string {
@@ -70,9 +87,31 @@ export class Button extends ItemView.ItemView<ButtonModel> {
   }
 
   setOptions(options:IButtonOptions) {
+    this.unsetClassNames();
     if (options.icon) this.model.icon = options.icon;
     if (options.text) this.model.text = options.text;
+    if (_.isBoolean(options.block)) this.model.block = options.block;
     if (options.theme) this.model.theme = options.theme;
+    if (options.size) this.model.size = options.size;
+  }
+
+  unsetClassNames():void {
+    if (!this.$el) return;
+    this.$el
+      .removeClass('Button--' + this.model.theme)
+      .removeClass('Button--' + this.model.size)
+    ;
+    this.$el.removeClass('btn-block');
+  }
+
+  setClassNames():void {
+    this.$el
+      .addClass('Button--' + this.model.theme)
+      .addClass('Button--' + this.model.size + 'Size')
+    ;
+    if (this.model.block) {
+      this.$el.addClass('btn-block');
+    }
   }
 
 }

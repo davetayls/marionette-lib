@@ -10,27 +10,40 @@ export declare class BUTTON_THEME extends constants.StringConstant {
     static inverse: BUTTON_THEME;
     static action: BUTTON_THEME;
 }
+export declare class BUTTON_SIZE extends constants.StringConstant {
+    static default: BUTTON_SIZE;
+    static small: BUTTON_SIZE;
+    static large: BUTTON_SIZE;
+}
 export declare class ButtonModel extends Backbone.Model {
     defaults(): {
         name: string;
         icon: string;
         text: string;
+        block: boolean;
         theme: BUTTON_THEME;
+        size: BUTTON_SIZE;
     };
     name: string;
     icon: string;
     text: string;
+    block: boolean;
     theme: BUTTON_THEME;
+    size: BUTTON_SIZE;
 }
 export interface IButtonOptions extends Backbone.ViewOptions<ButtonModel> {
     name: string;
     icon: string;
     text: string;
+    block: boolean;
     theme?: BUTTON_THEME;
+    size?: BUTTON_SIZE;
 }
 export declare class Button extends ItemView.ItemView<ButtonModel> {
     constructor(options?: IButtonOptions);
     className: string;
     navigate(): void;
     setOptions(options: IButtonOptions): void;
+    unsetClassNames(): void;
+    setClassNames(): void;
 }

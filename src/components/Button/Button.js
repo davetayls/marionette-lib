@@ -28,6 +28,17 @@ var BUTTON_THEME = (function (_super) {
     return BUTTON_THEME;
 })(constants.StringConstant);
 exports.BUTTON_THEME = BUTTON_THEME;
+var BUTTON_SIZE = (function (_super) {
+    __extends(BUTTON_SIZE, _super);
+    function BUTTON_SIZE() {
+        _super.apply(this, arguments);
+    }
+    BUTTON_SIZE.default = new BUTTON_SIZE('default');
+    BUTTON_SIZE.small = new BUTTON_SIZE('small');
+    BUTTON_SIZE.large = new BUTTON_SIZE('large');
+    return BUTTON_SIZE;
+})(constants.StringConstant);
+exports.BUTTON_SIZE = BUTTON_SIZE;
 var ButtonModel = (function (_super) {
     __extends(ButtonModel, _super);
     function ButtonModel() {
@@ -38,7 +49,9 @@ var ButtonModel = (function (_super) {
             name: '',
             icon: '',
             text: '',
-            theme: BUTTON_THEME.default
+            block: true,
+            theme: BUTTON_THEME.default,
+            size: BUTTON_SIZE.default
         };
     };
     Object.defineProperty(ButtonModel.prototype, "name", {
@@ -71,12 +84,32 @@ var ButtonModel = (function (_super) {
         enumerable: true,
         configurable: true
     });
+    Object.defineProperty(ButtonModel.prototype, "block", {
+        get: function () {
+            return this.get('block');
+        },
+        set: function (value) {
+            this.set('block', value);
+        },
+        enumerable: true,
+        configurable: true
+    });
     Object.defineProperty(ButtonModel.prototype, "theme", {
         get: function () {
             return this.get('theme');
         },
         set: function (value) {
             this.set('theme', value);
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(ButtonModel.prototype, "size", {
+        get: function () {
+            return this.get('size');
+        },
+        set: function (value) {
+            this.set('size', value);
         },
         enumerable: true,
         configurable: true
@@ -98,7 +131,7 @@ var Button = (function (_super) {
         };
         this.on('click', this.navigate);
         _super.call(this, options);
-        this.$el.addClass('Button--' + this.model.theme.toString());
+        this.setClassNames();
     }
     Object.defineProperty(Button.prototype, "className", {
         get: function () {
@@ -111,12 +144,29 @@ var Button = (function (_super) {
         this.trigger(BUTTON_EVENTS.navigate.val, this.name);
     };
     Button.prototype.setOptions = function (options) {
+        this.unsetClassNames();
         if (options.icon)
             this.model.icon = options.icon;
         if (options.text)
             this.model.text = options.text;
+        if (_.isBoolean(options.block))
+            this.model.block = options.block;
         if (options.theme)
             this.model.theme = options.theme;
+        if (options.size)
+            this.model.size = options.size;
+    };
+    Button.prototype.unsetClassNames = function () {
+        if (!this.$el)
+            return;
+        this.$el.removeClass('Button--' + this.model.theme).removeClass('Button--' + this.model.size);
+        this.$el.removeClass('btn-block');
+    };
+    Button.prototype.setClassNames = function () {
+        this.$el.addClass('Button--' + this.model.theme).addClass('Button--' + this.model.size + 'Size');
+        if (this.model.block) {
+            this.$el.addClass('btn-block');
+        }
     };
     return Button;
 })(ItemView.ItemView);
