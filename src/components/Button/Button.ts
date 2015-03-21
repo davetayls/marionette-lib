@@ -12,6 +12,9 @@ export class BUTTON_THEME extends constants.StringConstant {
   static default = new BUTTON_THEME('default');
   static inverse = new BUTTON_THEME('inverse');
   static action = new BUTTON_THEME('action');
+  static link = new BUTTON_THEME('link');
+  static primary = new BUTTON_THEME('primary');
+  static secondary = new BUTTON_THEME('secondary');
 }
 
 export class BUTTON_SIZE extends constants.StringConstant {
@@ -57,7 +60,7 @@ export interface IButtonOptions extends Backbone.ViewOptions<ButtonModel> {
   name:string;
   icon:string;
   text:string;
-  block:boolean;
+  block?:boolean;
   theme?:BUTTON_THEME;
   size?:BUTTON_SIZE;
 }
@@ -67,7 +70,7 @@ export class Button extends ItemView.ItemView<ButtonModel> {
   constructor(options?:IButtonOptions) {
     this.model = options.model || new ButtonModel(this.defaults());
     this.name = options.name || this.model.name || 'base-button';
-    if (options) this.setOptions(options);
+    if (options) this.setProperties(options);
     this.template = require('hbs!./Button');
     this.tagName = 'a';
     this.triggers = {
@@ -79,14 +82,17 @@ export class Button extends ItemView.ItemView<ButtonModel> {
   }
 
   get className():string {
-    return 'Button btn btn-block Button--' + this.name + 'Button';
+    return 'Button btn Button--' + this.name + 'Button';
   }
+
+  get text():string { return this.model.text; }
+  set text(value:string) { this.model.text = value; }
 
   navigate():void {
     this.trigger(BUTTON_EVENTS.navigate.val, this.name);
   }
 
-  setOptions(options:IButtonOptions) {
+  setProperties(options:IButtonOptions) {
     this.unsetClassNames();
     if (options.icon) this.model.icon = options.icon;
     if (options.text) this.model.text = options.text;
@@ -98,6 +104,7 @@ export class Button extends ItemView.ItemView<ButtonModel> {
   unsetClassNames():void {
     if (!this.$el) return;
     this.$el
+      .removeClass('btn-link')
       .removeClass('Button--' + this.model.theme)
       .removeClass('Button--' + this.model.size)
     ;
@@ -109,6 +116,9 @@ export class Button extends ItemView.ItemView<ButtonModel> {
       .addClass('Button--' + this.model.theme)
       .addClass('Button--' + this.model.size + 'Size')
     ;
+    if (this.model.theme === BUTTON_THEME.link) {
+      this.$el.addClass('btn-link');
+    }
     if (this.model.block) {
       this.$el.addClass('btn-block');
     }

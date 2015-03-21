@@ -25,6 +25,9 @@ var BUTTON_THEME = (function (_super) {
     BUTTON_THEME.default = new BUTTON_THEME('default');
     BUTTON_THEME.inverse = new BUTTON_THEME('inverse');
     BUTTON_THEME.action = new BUTTON_THEME('action');
+    BUTTON_THEME.link = new BUTTON_THEME('link');
+    BUTTON_THEME.primary = new BUTTON_THEME('primary');
+    BUTTON_THEME.secondary = new BUTTON_THEME('secondary');
     return BUTTON_THEME;
 })(constants.StringConstant);
 exports.BUTTON_THEME = BUTTON_THEME;
@@ -123,7 +126,7 @@ var Button = (function (_super) {
         this.model = options.model || new ButtonModel(this.defaults());
         this.name = options.name || this.model.name || 'base-button';
         if (options)
-            this.setOptions(options);
+            this.setProperties(options);
         this.template = require('hbs!./Button');
         this.tagName = 'a';
         this.triggers = {
@@ -135,7 +138,17 @@ var Button = (function (_super) {
     }
     Object.defineProperty(Button.prototype, "className", {
         get: function () {
-            return 'Button btn btn-block Button--' + this.name + 'Button';
+            return 'Button btn Button--' + this.name + 'Button';
+        },
+        enumerable: true,
+        configurable: true
+    });
+    Object.defineProperty(Button.prototype, "text", {
+        get: function () {
+            return this.model.text;
+        },
+        set: function (value) {
+            this.model.text = value;
         },
         enumerable: true,
         configurable: true
@@ -143,7 +156,7 @@ var Button = (function (_super) {
     Button.prototype.navigate = function () {
         this.trigger(BUTTON_EVENTS.navigate.val, this.name);
     };
-    Button.prototype.setOptions = function (options) {
+    Button.prototype.setProperties = function (options) {
         this.unsetClassNames();
         if (options.icon)
             this.model.icon = options.icon;
@@ -159,11 +172,14 @@ var Button = (function (_super) {
     Button.prototype.unsetClassNames = function () {
         if (!this.$el)
             return;
-        this.$el.removeClass('Button--' + this.model.theme).removeClass('Button--' + this.model.size);
+        this.$el.removeClass('btn-link').removeClass('Button--' + this.model.theme).removeClass('Button--' + this.model.size);
         this.$el.removeClass('btn-block');
     };
     Button.prototype.setClassNames = function () {
         this.$el.addClass('Button--' + this.model.theme).addClass('Button--' + this.model.size + 'Size');
+        if (this.model.theme === BUTTON_THEME.link) {
+            this.$el.addClass('btn-link');
+        }
         if (this.model.block) {
             this.$el.addClass('btn-block');
         }
