@@ -522,6 +522,9 @@ declare module '__marionette_lib/components/Button/Button' {
         static default: BUTTON_THEME;
         static inverse: BUTTON_THEME;
         static action: BUTTON_THEME;
+        static link: BUTTON_THEME;
+        static primary: BUTTON_THEME;
+        static secondary: BUTTON_THEME;
     }
     export class BUTTON_SIZE extends constants.StringConstant {
         static default: BUTTON_SIZE;
@@ -548,15 +551,16 @@ declare module '__marionette_lib/components/Button/Button' {
         name: string;
         icon: string;
         text: string;
-        block: boolean;
+        block?: boolean;
         theme?: BUTTON_THEME;
         size?: BUTTON_SIZE;
     }
     export class Button extends ItemView.ItemView<ButtonModel> {
         constructor(options?: IButtonOptions);
         className: string;
+        text: string;
         navigate(): void;
-        setOptions(options: IButtonOptions): void;
+        setProperties(options: IButtonOptions): void;
         unsetClassNames(): void;
         setClassNames(): void;
     }
