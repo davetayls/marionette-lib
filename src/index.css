@@ -2,6 +2,108 @@
   overflow: auto;
   -webkit-overflow-scrolling: touch;
 }
+.btn:focus {
+  outline: none;
+}
+/*
+.Button {
+  &--action {
+    border-color $color--accent
+    background-color $color--accent
+  }
+
+}
+
+.btn
+.btn:visited
+  text-decoration: none
+  text-shadow: none
+  color: #fff
+  box-shadow: none
+  border: solid 1px #fff
+  border-radius: 10px
+  background: transparent
+  text-align center
+
+.btn
+.btn-main
+  &:active
+    background-color: rgba(255,255,255,0.3)
+
+.btn-main,
+a.btn-main,
+a.btn-main:visited
+  color: #fff
+  background-color: $color--accent
+  border-color $color--accent
+  text-shadow: none
+
+.btn-wide
+.btn-block
+  display: block
+  font-size-rem: 20
+  text-decoration none
+  text-align center
+
+  &
+  &:active
+    padding: 10px 0
+
+  .btn-img
+    line-height: 28px
+    vertical-align: middle
+    display: inline-block
+    height: 28px
+    position: absolute
+    left: 16px
+    top: 50%
+    transform translateY(-50%)
+    padding: 0
+
+    object
+    img
+      padding: 0
+      border: none
+      float: left
+      margin-top: -3px
+
+    &--fill
+      position: relative
+      top: 0
+      left: 0
+      img
+        float: none
+
+.btn-block
+  margin-left: 14%
+  margin-right: 14%
+  width: 72%;
+
+.btn-wide
+  margin-left: 0
+  margin-right: 0
+  text-align: center
+
+.list--buttons
+  reset-list()
+  display: block
+  padding-top: $baseline--doublepx
+
+  p + &
+    padding-top: 0
+
+
+
+.Button
+  &--action
+    border-color $color--accent
+    background-color $color--accent
+  &--inverse
+    color #000
+    border-color #fff
+    background-color #fff
+
+*/
 .SpinnerView {
   position: relative;
 }
