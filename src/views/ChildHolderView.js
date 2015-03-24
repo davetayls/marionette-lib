@@ -17,10 +17,14 @@ var ChildHolderView = (function (_super) {
         this.children = new Backbone.ChildViewContainer();
     };
     ChildHolderView.prototype.add = function (view, index) {
+        var _this = this;
         this.triggerMethod('before:add:child', view);
         // Store the child view itself so we can properly
         // remove and/or destroy it later
         this.children.add(view);
+        this.listenTo(view, 'destroy', function () {
+            _this.viewDestroyed(view);
+        });
         this.renderChildView(view, index);
         Marionette.triggerMethod.call(view, 'show');
         this.triggerMethod('add:child', view);
@@ -30,6 +34,9 @@ var ChildHolderView = (function (_super) {
         view.render();
         this.attachHtml(view, index);
     };
+    ChildHolderView.prototype.viewDestroyed = function (view) {
+        this.children.remove(view);
+    };
     ChildHolderView.prototype.attachHtml = function (view, index) {
         this.$el.append(view.el);
     };
@@ -37,11 +44,11 @@ var ChildHolderView = (function (_super) {
         this.children.call('render');
         return this;
     };
-    //onShow() {
-    //  this.render();
-    //}
-    ChildHolderView.prototype.onDestroy = function () {
+    ChildHolderView.prototype.empty = function () {
         this.children.call('destroy');
+    };
+    ChildHolderView.prototype.onDestroy = function () {
+        this.empty();
     };
     ChildHolderView.prototype.animateOut = function (cb) {
         return cb.call(this);

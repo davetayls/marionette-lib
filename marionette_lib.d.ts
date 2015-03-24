@@ -751,9 +751,11 @@ declare module '__marionette_lib/views/ChildHolderView' {
         initialize(options: any): void;
         children: Backbone.ChildViewContainer<T>;
         add(view: Backbone.View<T>, index?: number): void;
-        renderChildView(view: Backbone.View<T>, index?: number): void;
-        attachHtml(view: Backbone.View<T>, index?: number): void;
+        protected renderChildView(view: Backbone.View<T>, index?: number): void;
+        protected viewDestroyed(view: any): void;
+        protected attachHtml(view: Backbone.View<T>, index?: number): void;
         render(): ChildHolderView<T>;
+        empty(): void;
         onDestroy(): void;
         animateOut(cb: any): any;
     }

@@ -17,18 +17,25 @@ export class ChildHolderView<T extends Backbone.Model> extends View.View<T> {
     // Store the child view itself so we can properly
     // remove and/or destroy it later
     this.children.add(view);
+    this.listenTo(view, 'destroy', () => {
+      this.viewDestroyed(view);
+    });
     this.renderChildView(view, index);
     Marionette.triggerMethod.call(view, 'show');
     this.triggerMethod('add:child', view);
   }
 
   // render the child view
-  renderChildView(view:Backbone.View<T>, index?:number) {
+  protected renderChildView(view:Backbone.View<T>, index?:number) {
     view.render();
     this.attachHtml(view, index);
   }
 
-  attachHtml(view:Backbone.View<T>, index?:number) {
+  protected viewDestroyed(view):void {
+    this.children.remove(view);
+  }
+
+  protected attachHtml(view:Backbone.View<T>, index?:number) {
     this.$el.append(view.el);
   }
 
@@ -37,12 +44,12 @@ export class ChildHolderView<T extends Backbone.Model> extends View.View<T> {
     return this;
   }
 
-  //onShow() {
-  //  this.render();
-  //}
+  empty():void {
+    this.children.call('destroy');
+  }
 
   onDestroy() {
-    this.children.call('destroy');
+    this.empty();
   }
 
   animateOut(cb) {
