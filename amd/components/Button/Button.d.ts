@@ -45,7 +45,9 @@ export interface IButtonOptions extends Backbone.ViewOptions<ButtonModel> {
 export declare class Button extends ItemView.ItemView<ButtonModel> {
     constructor(options?: IButtonOptions);
     className: string;
+    getIconClass(iconName: string): string;
     text: string;
+    serializeData(): any;
     navigate(): void;
     setProperties(options: IButtonOptions): void;
     unsetClassNames(): void;

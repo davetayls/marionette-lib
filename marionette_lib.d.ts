@@ -558,7 +558,9 @@ declare module '__marionette_lib/components/Button/Button' {
     export class Button extends ItemView.ItemView<ButtonModel> {
         constructor(options?: IButtonOptions);
         className: string;
+        getIconClass(iconName: string): string;
         text: string;
+        serializeData(): any;
         navigate(): void;
         setProperties(options: IButtonOptions): void;
         unsetClassNames(): void;

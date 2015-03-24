@@ -143,6 +143,9 @@ var Button = (function (_super) {
         enumerable: true,
         configurable: true
     });
+    Button.prototype.getIconClass = function (iconName) {
+        return 'Icon Icon--' + iconName;
+    };
     Object.defineProperty(Button.prototype, "text", {
         get: function () {
             return this.model.text;
@@ -153,6 +156,11 @@ var Button = (function (_super) {
         enumerable: true,
         configurable: true
     });
+    Button.prototype.serializeData = function () {
+        var data = this.model.toJSON();
+        data.iconClass = this.getIconClass(this.model.icon);
+        return data;
+    };
     Button.prototype.navigate = function () {
         this.trigger(BUTTON_EVENTS.navigate.val, this.name);
     };

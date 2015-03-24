@@ -85,8 +85,18 @@ export class Button extends ItemView.ItemView<ButtonModel> {
     return 'Button btn Button--' + this.name + 'Button';
   }
 
+  getIconClass(iconName:string):string {
+    return 'Icon Icon--' + iconName;
+  }
+
   get text():string { return this.model.text; }
   set text(value:string) { this.model.text = value; }
+
+  serializeData():any {
+    var data:any = this.model.toJSON();
+    data.iconClass =this.getIconClass(this.model.icon);
+    return data;
+  }
 
   navigate():void {
     this.trigger(BUTTON_EVENTS.navigate.val, this.name);
