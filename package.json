@@ -1,6 +1,6 @@
 {
   "name": "marionette_lib",
-  "version": "3.1.13",
+  "version": "3.1.14",
   "description": "marionette_lib",
   "main": "server/index.coffee",
   "dependencies": {},
