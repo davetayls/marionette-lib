@@ -6,8 +6,7 @@ function initComponents(components) {
         throw new Error('This requires handlebars to have been passed in to configure');
     }
     function getComponentController(name, context) {
-        var Controller;
-        Controller = components[name];
+        var Controller = components[name];
         if (Controller) {
             return new Controller({
                 model: context
@@ -18,11 +17,8 @@ function initComponents(components) {
         }
     }
     function getAttributes(attributes) {
-        var attr;
-        if (attributes == null) {
-            attributes = {};
-        }
-        attr = _.map(attributes || {}, function (val, key) {
+        if (attributes === void 0) { attributes = {}; }
+        var attr = _.map(attributes || {}, function (val, key) {
             if (_.isString(val || _.isFinite(val))) {
                 return "" + key + "=\"" + val + "\"";
             }
@@ -55,8 +51,7 @@ function initComponents(components) {
         return hash["class"] = classes.join(' ');
     }
     config.config.handlebars.registerHelper('c', function (name, options) {
-        var controller;
-        controller = getComponentController(name, this);
+        var controller = getComponentController(name, this);
         return controller.render(options);
     });
     config.config.handlebars.registerHelper('in_region', function (name, options) {
@@ -65,13 +60,12 @@ function initComponents(components) {
         };
     });
     config.config.handlebars.registerHelper('region', function (name, options) {
-        var attributes, componentPath, content, hash, in_region;
-        componentPath = "" + this._componentName + "__" + name;
-        in_region = this._regions[name];
-        content = in_region ? in_region.fn(this) : '';
-        hash = options.hash || {};
+        var componentPath = "" + this._componentName + "__" + name;
+        var in_region = this._regions[name];
+        var content = in_region ? in_region.fn(this) : '';
+        var hash = options.hash || {};
         className("" + componentPath + "-region", hash);
-        attributes = getAttributes(hash);
+        var attributes = getAttributes(hash);
         return ['<div', attributes, '>', content, "</div>"].join('');
     });
 }

@@ -46,7 +46,7 @@ export class AppController extends BaseController.BaseController {
   }
 
   _managedRegions:Marionette.Region[];
-  _mainView:Backbone.View<Backbone.Model>;
+  _mainView:Marionette.View<Backbone.Model>;
 
   showController(controller:AppController, options:IShowOptions = {}):IShowOutcome {
     options.controller = controller;
@@ -54,7 +54,7 @@ export class AppController extends BaseController.BaseController {
     return this.show(controller.getMainView(), options);
   }
 
-  show(view:Backbone.View<Backbone.Model>, options:IShowOptions = {}):IShowOutcome {
+  show(view:Marionette.View<Backbone.Model>, options:IShowOptions = {}):IShowOutcome {
     _.defaults(options, {
       loading: null,
       immediate: false,
@@ -71,11 +71,11 @@ export class AppController extends BaseController.BaseController {
     };
   }
 
-  getMainView():Backbone.View<Backbone.Model> {
+  getMainView():Marionette.View<Backbone.Model> {
     return this._mainView;
   }
 
-  setMainView(view) {
+  setMainView(view:Marionette.View<Backbone.Model>) {
     if (this._mainView) {
       return;
     }
@@ -85,11 +85,11 @@ export class AppController extends BaseController.BaseController {
     }
   }
 
-  manageRegion(region) {
+  manageRegion(region:Marionette.Region) {
     return this._managedRegions.push(region);
   }
 
-  _manageView(view, options):void {
+  _manageView(view:Marionette.View<Backbone.Model>, options:IShowOptions):void {
     if (options.loading) {
       if (_.isBoolean(options.loading)) {
         options.loading = {};

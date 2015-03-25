@@ -64,14 +64,13 @@ var StaticController = (function () {
         return this.model;
     };
     StaticController.prototype.mixinHash = function (context, hash) {
-        var contextProps, properties, propertyKeys;
         if (hash == null) {
             hash = {};
         }
-        contextProps = _.result(this, 'contextProperties');
+        var contextProps = _.result(this, 'contextProperties');
         if (_.isObject(contextProps)) {
-            propertyKeys = _.keys(contextProps);
-            properties = _.pick(hash, propertyKeys);
+            var propertyKeys = _.keys(contextProps);
+            var properties = _.pick(hash, propertyKeys);
             return _.extend(context, contextProps, properties);
         }
     };
@@ -115,9 +114,7 @@ var StaticController = (function () {
         }
     };
     StaticController.prototype.render = function (options) {
-        if (options == null) {
-            options = {};
-        }
+        if (options === void 0) { options = {}; }
         this.context = this.getContext();
         this.mixinHash(this.context, options.hash);
         this.context.className = this.className(options.hash);
@@ -128,15 +125,15 @@ var StaticController = (function () {
             attributes: this.context.attributes
         });
     };
-    StaticController.prototype.renderOuterHtml = function (context, _arg) {
-        var attributes, className, tagName, _ref;
-        _ref = _arg != null ? _arg : {}, className = _ref.className, attributes = _ref.attributes;
-        tagName = _.result(this, 'tagName');
+    StaticController.prototype.renderOuterHtml = function (context, options) {
+        if (options === void 0) { options = {}; }
+        var className = options.className;
+        var attributes = options.attributes;
+        var tagName = _.result(this, 'tagName');
         return ["<" + tagName, attributes, " class=\"" + className + "\"", ">\n", this.renderContentTemplate(context), "</" + tagName + ">"].join('');
     };
     StaticController.prototype.renderContentTemplate = function (context) {
-        var tmpl;
-        tmpl = this.getComponentTemplate();
+        var tmpl = this.getComponentTemplate();
         return tmpl(context);
     };
     return StaticController;

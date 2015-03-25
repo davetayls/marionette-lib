@@ -4,15 +4,14 @@ import _ = require('underscore');
 import config = require('../config/client');
 import StaticController = require('../controllers/Static');
 
-export function initComponents(components:{[key:string]: StaticController.StaticController}) {
+export function initComponents(components:{[key:string]: typeof StaticController.StaticController}) {
 
   if (!config.config.handlebars) {
     throw new Error('This requires handlebars to have been passed in to configure');
   }
 
-  function getComponentController(name, context) {
-    var Controller;
-    Controller = components[name];
+  function getComponentController(name:string, context:any) {
+    var Controller = components[name];
     if (Controller) {
       return new Controller({
         model: context
@@ -22,12 +21,8 @@ export function initComponents(components:{[key:string]: StaticController.Static
     }
   }
 
-  function getAttributes(attributes) {
-    var attr;
-    if (attributes == null) {
-      attributes = {};
-    }
-    attr = _.map(attributes || {}, function(val, key) {
+  function getAttributes(attributes:{[key:string]:any} = {}) {
+    var attr = _.map(attributes || {}, function(val, key) {
       if (_.isString(val || _.isFinite(val))) {
         return "" + key + "=\"" + val + "\"";
       } else {
@@ -41,8 +36,8 @@ export function initComponents(components:{[key:string]: StaticController.Static
     }
   }
 
-  function className(name, hash) {
-    var classes;
+  function className(name:string, hash:any) {
+    var classes:string[];
     if (hash == null) {
       hash = {};
     }
@@ -58,26 +53,24 @@ export function initComponents(components:{[key:string]: StaticController.Static
     return hash["class"] = classes.join(' ');
   }
 
-  config.config.handlebars.registerHelper('c', function(name, options) {
-    var controller;
-    controller = getComponentController(name, this);
+  config.config.handlebars.registerHelper('c', function(name:string, options:any) {
+    var controller = getComponentController(name, this);
     return controller.render(options);
   });
 
-  config.config.handlebars.registerHelper('in_region', function(name, options) {
+  config.config.handlebars.registerHelper('in_region', function(name:string, options:any) {
     return this._regions[name] = {
       fn: options.fn
     };
   });
 
-  config.config.handlebars.registerHelper('region', function(name, options) {
-    var attributes, componentPath, content, hash, in_region;
-    componentPath = "" + this._componentName + "__" + name;
-    in_region = this._regions[name];
-    content = in_region ? in_region.fn(this) : '';
-    hash = options.hash || {};
+  config.config.handlebars.registerHelper('region', function(name:string, options:any) {
+    var componentPath = "" + this._componentName + "__" + name;
+    var in_region = this._regions[name];
+    var content = in_region ? in_region.fn(this) : '';
+    var hash = options.hash || {};
     className("" + componentPath + "-region", hash);
-    attributes = getAttributes(hash);
+    var attributes = getAttributes(hash);
     return ['<div', attributes, '>', content, "</div>"].join('');
   });
 

@@ -7,7 +7,7 @@ import _ = require('underscore');
 
 export function configureBackboneSync(app:Marionette.Application):void {
   var _sync = Backbone.sync;
-  Backbone.sync = function(method, entity, options:any = {}) {
+  Backbone.sync = function(method:string, entity:any, options:any = {}) {
     _.defaults(options, {
       beforeSend: _.bind(beforeSend, entity),
       complete: _.bind(complete, entity)
@@ -26,12 +26,12 @@ export function configureBackboneSync(app:Marionette.Application):void {
     return this.trigger("sync:stop", this);
   }
 
-  function addFetchPromise(entity, options):void {
+  function addFetchPromise(entity:any, options:any):void {
     var d = $.Deferred();
     entity._fetch = d.promise();
     var _success = options.success;
     var _error = options.error;
-    options.success = function(resp, status, xhr) {
+    options.success = function(resp:any, status:string, xhr:JQueryXHR) {
       _success.apply(this, arguments);
       d.resolve({
         response: resp,
@@ -40,7 +40,7 @@ export function configureBackboneSync(app:Marionette.Application):void {
         failed: false
       });
     };
-    options.error = function(resp, status) {
+    options.error = function(resp:any, status:string) {
       if (resp.status === 0) {
         entity.trigger('error:offline');
         app.vent.trigger('fetch:offline', entity);

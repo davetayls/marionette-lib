@@ -5,7 +5,7 @@ import SpinnerView = require('../SpinnerView/SpinnerView');
 import whenFetched = require('../../utilities/whenFetched');
 
 export interface ILoadingOptions extends AppController.IConstructorOptions {
-  view:Backbone.View<Backbone.Model>;
+  view:Marionette.View<Backbone.Model>;
   loadingType:string;
   monitorReadyState?:(
     realView:Backbone.View<Backbone.Model>,
@@ -35,9 +35,9 @@ export class LoadingController extends AppController.AppController {
 
   options:ILoadingOptions;
   entities:any;
-  loadingView:Backbone.View<Backbone.Model>;
+  loadingView:Marionette.View<Backbone.Model>;
 
-  getLoadingView():Backbone.View<Backbone.Model> {
+  getLoadingView():Marionette.View<Backbone.Model> {
     switch (this.options.loadingType) {
       case "opacity":
         this.region.currentView.$el.css("opacity", 0.5);
@@ -52,8 +52,8 @@ export class LoadingController extends AppController.AppController {
     return loadingView;
   }
 
-  monitorReadyState(realView:Backbone.View<Backbone.Model>, loadingView) {
-    var _viewReady = (errors) => {
+  monitorReadyState(realView:Marionette.View<Backbone.Model>, loadingView:Marionette.View<Backbone.Model>) {
+    var _viewReady = (errors:any[]) => {
       if (errors && errors.length) {
         this.showError(realView, loadingView);
       } else {
@@ -67,19 +67,19 @@ export class LoadingController extends AppController.AppController {
     }
   }
 
-  showError(realView, loadingView) {
+  showError(realView:Marionette.View<Backbone.Model>, loadingView:Marionette.View<Backbone.Model>) {
     if (realView) {
       realView.destroy();
     }
     switch (this.options.loadingType) {
       case 'spinner':
-        return loadingView.stop();
+        return (<SpinnerView.SpinnerView>loadingView).stop();
       default:
         throw new Error('No error handline on loading type');
     }
   }
 
-  showRealView(realView, loadingView):void {
+  showRealView(realView:Marionette.View<Backbone.Model>, loadingView:Marionette.View<Backbone.Model>):void {
     switch (this.options.loadingType) {
       case "opacity":
         this.region.currentView.$el.removeAttr("style");
@@ -94,7 +94,7 @@ export class LoadingController extends AppController.AppController {
     }
   }
 
-  getEntities(view) {
+  getEntities(view:Marionette.View<Backbone.Model>) {
     return _.chain(view).pick("model", "collection").toArray().compact().value();
   }
 

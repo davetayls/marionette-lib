@@ -11,7 +11,7 @@ export function init(){
    * to allow for variable replacement
    * {{k header myVar="hello"}}
    */
-  config.config.handlebars.registerHelper("t", function(i18n_key, options) {
+  config.config.handlebars.registerHelper("t", function(i18n_key:string, options:any) {
     var opts:{[key:string]:any} = {
       wrapWithKey: true
     };
@@ -33,13 +33,12 @@ export function init(){
   /**
    * Translation in a block context
    */
-  config.config.handlebars.registerHelper("tr", function(context, options) {
-    var opts, result;
-    opts = i18next.functions.extend(options.hash, context);
+  config.config.handlebars.registerHelper("tr", function(context:any, options:any) {
+    var opts:any = i18next.functions.extend(options.hash, context);
     if (options.fn) {
       opts.defaultValue = options.fn(context);
     }
-    result = i18next.t(opts.key, opts);
+    var result = i18next.t(opts.key, opts);
     return new Handlebars.SafeString(result);
   });
 

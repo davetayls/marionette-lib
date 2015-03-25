@@ -70,6 +70,7 @@ var DebouncedDocContainer = (function () {
      * @param doc
      */
     DebouncedDocContainer.prototype.mergeDoc = function (doc) {
+        var _this = this;
         if (!doc.id)
             throw new Error('mergeDoc document must have a valid id');
         var keys = _.keys(doc);
@@ -78,12 +79,8 @@ var DebouncedDocContainer = (function () {
             var existingDoc = entry.doc;
             var changedProperties = [];
             _.each(keys, function (key) {
-                var value = doc[key];
-                if (!_.isFunction(value)) {
-                    if (existingDoc[key] !== value) {
-                        existingDoc[key] = value;
-                        changedProperties.push(key);
-                    }
+                if (_this.mergeDocKey(key, existingDoc, doc)) {
+                    changedProperties.push(key);
                 }
             });
             return {
@@ -101,6 +98,15 @@ var DebouncedDocContainer = (function () {
                 changedProperties: keys,
                 doc: doc
             };
+        }
+    };
+    DebouncedDocContainer.prototype.mergeDocKey = function (key, existingDoc, doc) {
+        var value = doc[key];
+        if (!_.isFunction(value)) {
+            if (existingDoc[key] !== value) {
+                existingDoc[key] = value;
+                return true;
+            }
         }
     };
     DebouncedDocContainer.prototype.mergeMultiple = function (docs) {

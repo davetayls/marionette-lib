@@ -18,7 +18,7 @@ export class List<T extends Backbone.Model> extends Marionette.CompositeView<T> 
     return this.name;
   }
 
-  animateOut(cb) {
+  animateOut(cb:()=>void) {
     return cb.call(this);
   }
 

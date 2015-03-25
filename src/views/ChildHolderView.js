@@ -10,12 +10,10 @@ var Marionette = require('backbone.marionette');
 var View = require('./View');
 var ChildHolderView = (function (_super) {
     __extends(ChildHolderView, _super);
-    function ChildHolderView() {
-        _super.apply(this, arguments);
-    }
-    ChildHolderView.prototype.initialize = function (options) {
+    function ChildHolderView(options) {
         this.children = new Backbone.ChildViewContainer();
-    };
+        _super.call(this, options);
+    }
     ChildHolderView.prototype.add = function (view, index) {
         var _this = this;
         this.triggerMethod('before:add:child', view);

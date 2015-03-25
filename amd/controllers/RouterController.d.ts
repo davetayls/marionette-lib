@@ -24,7 +24,8 @@ export declare class RouterController extends BaseController.BaseController {
     _setupActions(actions: {
         [key: string]: IActionConfig;
     }): void;
-    _getActionConfig(actionConfig: any): any;
+    _getActionConfig(actionConfig: IActionConfig): IActionConfig;
+    _getActionConfigFromFn(fn: any): IActionConfig;
     _getActionFunction(actionConfig: any): Function;
     _getActionPolicy(actionConfig: IActionConfig): ActionPolicy;
     addAction(actionName: string, actionConfig: IActionConfig): void;

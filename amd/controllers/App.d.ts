@@ -24,12 +24,12 @@ export interface IShowOutcome {
 export declare class AppController extends BaseController.BaseController {
     constructor(options?: IConstructorOptions);
     _managedRegions: Marionette.Region[];
-    _mainView: Backbone.View<Backbone.Model>;
+    _mainView: Marionette.View<Backbone.Model>;
     showController(controller: AppController, options?: IShowOptions): IShowOutcome;
-    show(view: Backbone.View<Backbone.Model>, options?: IShowOptions): IShowOutcome;
-    getMainView(): Backbone.View<Backbone.Model>;
-    setMainView(view: any): any;
-    manageRegion(region: any): number;
-    _manageView(view: any, options: any): void;
+    show(view: Marionette.View<Backbone.Model>, options?: IShowOptions): IShowOutcome;
+    getMainView(): Marionette.View<Backbone.Model>;
+    setMainView(view: Marionette.View<Backbone.Model>): any;
+    manageRegion(region: Marionette.Region): number;
+    _manageView(view: Marionette.View<Backbone.Model>, options: IShowOptions): void;
     destroy(): void;
 }

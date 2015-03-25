@@ -52,22 +52,28 @@ export class RouterController extends BaseController.BaseController {
   }
 
   _setupActions(actions:{[key:string]:IActionConfig}):void {
-    _.each(actions, (config:IActionConfig, key) => {
+    _.each(actions, (config:IActionConfig, key:string) => {
       this.addAction(key, config);
     });
   }
 
-  _getActionConfig(actionConfig) {
+  _getActionConfig(actionConfig:IActionConfig):IActionConfig {
     if (actionConfig == null) {
-      actionConfig = {};
+      actionConfig = {
+        fn: () => {}
+      };
     }
     if (_.isFunction(actionConfig)) {
-      return {
-        fn: actionConfig
-      };
+      return this._getActionConfigFromFn(actionConfig);
     } else {
       return actionConfig;
     }
+  }
+
+  _getActionConfigFromFn(fn:any):IActionConfig {
+    return {
+      fn: <Function>fn
+    };
   }
 
   _getActionFunction(actionConfig:any):Function {
@@ -91,10 +97,11 @@ export class RouterController extends BaseController.BaseController {
   }
 
   addAction(actionName:string, actionConfig:IActionConfig):void {
+    var attacher:any = this;
     actionConfig = this._getActionConfig(actionConfig);
     var _fn = this._getActionFunction(actionConfig);
     if (_.isFunction(_fn)) {
-      this[actionName] = () => {
+      attacher[actionName] = () => {
         if (this.getOption('authorizeAnAction').call(this, actionName, actionConfig)) {
           try {
             return _fn.apply(this, arguments);

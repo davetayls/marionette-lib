@@ -6,5 +6,5 @@ export declare class List<T extends Backbone.Model> extends Marionette.Composite
     name: string;
     template: (data: any) => string;
     className: string;
-    animateOut(cb: any): any;
+    animateOut(cb: () => void): any;
 }

@@ -16,7 +16,7 @@ export interface INoticeViewOptions extends INoticeProperties,Backbone.ViewOptio
 
 export class NoticeViewModel extends Backbone.Model {
 
-  defaults() {
+  defaults():INoticeProperties {
     return {
       header: '',
       body: '',
@@ -84,7 +84,7 @@ export class NoticeView extends ItemView.ItemView<NoticeViewModel> {
       this._loadingView.stop();
     }
     this.ui.buttons.empty();
-    this.model.get('buttons').forEach((btn) => {
+    this.model.get('buttons').forEach((btn:Marionette.View<any>) => {
         btn.render();
         this.listenTo(btn, 'click', this.onButtonClicked);
         this.ui.buttons.append(btn.el);

@@ -24,8 +24,8 @@ export declare class StaticController {
     mixinHash(context: any, hash: any): any;
     getComponentTemplate(): Function;
     getAttributes(hash: any): string;
-    getInnerBody(context: any, fn: any): any;
-    render(options: any): string;
-    renderOuterHtml(context: any, _arg: any): string;
+    getInnerBody(context: any, fn: (data: any) => string): string;
+    render(options?: any): string;
+    renderOuterHtml(context: any, options?: any): string;
     renderContentTemplate(context: any): any;
 }

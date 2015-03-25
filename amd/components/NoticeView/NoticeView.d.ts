@@ -12,12 +12,7 @@ export interface INoticeProperties {
 export interface INoticeViewOptions extends INoticeProperties, Backbone.ViewOptions<NoticeViewModel> {
 }
 export declare class NoticeViewModel extends Backbone.Model {
-    defaults(): {
-        header: string;
-        body: string;
-        buttons: any[];
-        canDismiss: boolean;
-    };
+    defaults(): INoticeProperties;
     header: string;
     body: string;
     buttons: Marionette.View<Backbone.Model>[];

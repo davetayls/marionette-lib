@@ -101,14 +101,10 @@ export class DebouncedDocContainer<T extends IDocContainerItem> {
     var entry = this.entryById(doc.id);
     if (entry) {
       var existingDoc = entry.doc;
-      var changedProperties = [];
+      var changedProperties:string[] = [];
       _.each(keys, (key) => {
-        var value = doc[key];
-        if (!_.isFunction(value)) {
-          if (existingDoc[key] !== value) {
-            existingDoc[key] = value;
-            changedProperties.push(key);
-          }
+        if (this.mergeDocKey(key, existingDoc, doc)) {
+          changedProperties.push(key);
         }
       });
       return {
@@ -125,6 +121,16 @@ export class DebouncedDocContainer<T extends IDocContainerItem> {
         changedProperties: keys,
         doc: doc
       };
+    }
+  }
+
+  private mergeDocKey(key:string, existingDoc:any, doc:any):boolean {
+    var value:any = doc[key];
+    if (!_.isFunction(value)) {
+      if (existingDoc[key] !== value) {
+        existingDoc[key] = value;
+        return true;
+      }
     }
   }
 

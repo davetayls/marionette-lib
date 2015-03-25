@@ -47,5 +47,6 @@ export declare class DebouncedDocContainer<T extends IDocContainerItem> {
      * @param doc
      */
     mergeDoc(doc: T): IMergeDocResult<T>;
+    private mergeDocKey(key, existingDoc, doc);
     mergeMultiple(docs: T[]): IMergeDocResult<T>[];
 }

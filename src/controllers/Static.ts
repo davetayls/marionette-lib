@@ -77,15 +77,14 @@ export class StaticController {
     return this.model;
   }
 
-  mixinHash(context, hash) {
-    var contextProps, properties, propertyKeys;
+  mixinHash(context:any, hash:any) {
     if (hash == null) {
       hash = {};
     }
-    contextProps = _.result(this, 'contextProperties');
+    var contextProps = _.result(this, 'contextProperties');
     if (_.isObject(contextProps)) {
-      propertyKeys = _.keys(contextProps);
-      properties = _.pick(hash, propertyKeys);
+      var propertyKeys = _.keys(contextProps);
+      var properties = _.pick(hash, propertyKeys);
       return _.extend(context, contextProps, properties);
     }
   }
@@ -98,7 +97,7 @@ export class StaticController {
     }
   }
 
-  getAttributes(hash) {
+  getAttributes(hash:any) {
     var attributes = this.attributes(hash);
     if (attributes) {
       attributes = _.omit(attributes, 'class');
@@ -121,16 +120,13 @@ export class StaticController {
     }
   }
 
-  getInnerBody(context, fn) {
+  getInnerBody(context:any, fn:(data:any) => string):string {
     if (_.isFunction(fn)) {
       return fn(context);
     }
   }
 
-  render(options) {
-    if (options == null) {
-      options = {};
-    }
+  render(options:any = {}) {
     this.context = this.getContext();
     this.mixinHash(this.context, options.hash);
     this.context.className = this.className(options.hash);
@@ -142,16 +138,15 @@ export class StaticController {
     });
   }
 
-  renderOuterHtml(context, _arg) {
-    var attributes, className, tagName, _ref;
-    _ref = _arg != null ? _arg : {}, className = _ref.className, attributes = _ref.attributes;
-    tagName = _.result(this, 'tagName');
+  renderOuterHtml(context:any, options:any = {}) {
+    var className = options.className;
+    var attributes = options.attributes;
+    var tagName = _.result(this, 'tagName');
     return ["<" + tagName, attributes, " class=\"" + className + "\"", ">\n", this.renderContentTemplate(context), "</" + tagName + ">"].join('');
   }
 
-  renderContentTemplate(context) {
-    var tmpl;
-    tmpl = this.getComponentTemplate();
+  renderContentTemplate(context:any) {
+    var tmpl = this.getComponentTemplate();
     return tmpl(context);
   }
 

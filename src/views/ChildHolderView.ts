@@ -6,8 +6,9 @@ import View = require('./View');
 
 export class ChildHolderView<T extends Backbone.Model> extends View.View<T> {
 
-  initialize(options) {
+  constructor(options?: Backbone.ViewOptions<T>) {
     this.children = new Backbone.ChildViewContainer<T>();
+    super(options);
   }
 
   children:Backbone.ChildViewContainer<T>;
@@ -31,7 +32,7 @@ export class ChildHolderView<T extends Backbone.Model> extends View.View<T> {
     this.attachHtml(view, index);
   }
 
-  protected viewDestroyed(view):void {
+  protected viewDestroyed(view:Backbone.View<T>):void {
     this.children.remove(view);
   }
 
@@ -52,7 +53,7 @@ export class ChildHolderView<T extends Backbone.Model> extends View.View<T> {
     this.empty();
   }
 
-  animateOut(cb) {
+  animateOut(cb:()=>void) {
     return cb.call(this);
   }
   

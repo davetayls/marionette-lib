@@ -31,12 +31,11 @@ function init() {
      * Translation in a block context
      */
     config.config.handlebars.registerHelper("tr", function (context, options) {
-        var opts, result;
-        opts = i18next.functions.extend(options.hash, context);
+        var opts = i18next.functions.extend(options.hash, context);
         if (options.fn) {
             opts.defaultValue = options.fn(context);
         }
-        result = i18next.t(opts.key, opts);
+        var result = i18next.t(opts.key, opts);
         return new Handlebars.SafeString(result);
     });
 }

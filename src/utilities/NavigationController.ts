@@ -12,7 +12,7 @@ export class NavigationController extends Marionette.Controller {
 
   historyIsStarted:boolean;
 
-  to(route, options:any = {}) {
+  to(route:string, options:any = {}) {
     Backbone.history.navigate(route, options);
     this.trigger('navigated', route);
   }
