@@ -38,6 +38,7 @@ declare module 'marionette_lib' {
     export import navigation = require('__marionette_lib/utilities/navigation');
     export import registry = require('__marionette_lib/utilities/registry');
     export import urlUtils = require('__marionette_lib/utilities/url');
+    export import preventSelectionCallout = require('__marionette_lib/utilities/preventSelectionCallout');
     export import views = require('__marionette_lib/views/index');
 }
 
@@ -431,6 +432,10 @@ declare module '__marionette_lib/utilities/url' {
         */
     export function joinPaths(...urls: string[]): string;
     export function param(obj: Object, separator?: string, joiner?: string): string;
+}
+
+declare module '__marionette_lib/utilities/preventSelectionCallout' {
+    export function preventGlobally(): void;
 }
 
 declare module '__marionette_lib/views/index' {
