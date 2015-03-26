@@ -54,8 +54,14 @@ var ScrollablesBehavior = (function (_super) {
             initGlobalScrollableState();
         }
         _.each(this.options, function (val, key) {
-            var $el = _this.$(val);
-            if ($el.length)
+            var $el;
+            if (val === 'el') {
+                $el = _this.$el;
+            }
+            else {
+                $el = _this.$(val);
+            }
+            if ($el && $el.length)
                 $el.addClass(SCROLLABLE_CLASS);
         });
     };
