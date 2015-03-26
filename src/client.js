@@ -39,5 +39,6 @@ exports.whenFetched = _whenFetched.whenFetched;
 exports.navigation = require('./utilities/navigation');
 exports.registry = require('./utilities/registry');
 exports.urlUtils = require('./utilities/url');
+exports.preventSelectionCallout = require('./utilities/preventSelectionCallout');
 exports.views = require('./views/index');
 //# sourceMappingURL=client.js.map
