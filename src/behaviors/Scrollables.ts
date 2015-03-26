@@ -4,7 +4,8 @@ import _ = require('underscore');
 import Marionette = require('backbone.marionette');
 import $ = require('jquery');
 
-export interface IScrollablesOptions {[key:string]:string}
+export interface IScrollablesOptions {[key:string]:string
+}
 
 var globalStateInitialized = false;
 var SCROLLABLE_CLASS = 'Scrollables__container';
@@ -55,8 +56,13 @@ export class ScrollablesBehavior extends Marionette.Behavior {
       initGlobalScrollableState();
     }
     _.each(this.options, (val, key) => {
-      var $el = this.$(val);
-      if ($el.length) $el.addClass(SCROLLABLE_CLASS);
+      var $el:JQuery;
+      if (val === 'el') {
+        $el = this.$el;
+      } else {
+        $el = this.$(val);
+      }
+      if ($el && $el.length) $el.addClass(SCROLLABLE_CLASS);
     });
   }
 
