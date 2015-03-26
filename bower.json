@@ -5,7 +5,15 @@
   "authors": [
     "davetayls <dave@the-taylors.org>"
   ],
-  "main": "amd/client.js",
+  "main": [
+    "amd/**/*.js",
+    "amd/**/*.js.map",
+    "amd/**/*.d.ts",
+    "amd/**/*.hbs",
+    "amd/**/*.json",
+    "src/**/*.less",
+    "src/**/*.css"
+  ],
   "description": "A reusable library for Marionette apps",
   "moduleType": [
     "amd"
@@ -16,6 +24,7 @@
   "license": "MIT",
   "ignore": [
     "**/.*",
+    "grunt",
     "node_modules",
     "bower_components",
     "src/**/*.coffee",
@@ -23,7 +32,8 @@
     "test-client",
     "tests",
     "karma.conf.js",
-    "test-main.js"
+    "test-main.js",
+    "Gruntfile.*"
   ],
   "dependencies": {
     "async": "~0.9.0",
