@@ -63,9 +63,9 @@ export class ScrollablesBehavior extends Marionette.Behavior {
   options:IScrollablesOptions;
 
   onShow() {
-    if (!globalStateInitialized) {
-      initGlobalScrollableState();
-    }
+    //if (!globalStateInitialized) {
+    //  initGlobalScrollableState();
+    //}
     _.each(this.options, (val, key) => {
       var $el:JQuery;
       if (val === 'el') {

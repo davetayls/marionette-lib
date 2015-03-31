@@ -24,16 +24,17 @@
   "license": "MIT",
   "ignore": [
     "**/.*",
-    "grunt",
-    "node_modules",
     "bower_components",
+    "grunt",
+    "Gruntfile.*",
+    "karma.conf.js",
+    "node_modules",
+    "src/**/*.ts",
     "src/**/*.coffee",
     "test",
     "test-client",
-    "tests",
-    "karma.conf.js",
     "test-main.js",
-    "Gruntfile.*"
+    "tests"
   ],
   "dependencies": {
     "async": "~0.9.0",
