@@ -54,9 +54,9 @@ var ScrollablesBehavior = (function (_super) {
     }
     ScrollablesBehavior.prototype.onShow = function () {
         var _this = this;
-        if (!globalStateInitialized) {
-            initGlobalScrollableState();
-        }
+        //if (!globalStateInitialized) {
+        //  initGlobalScrollableState();
+        //}
         _.each(this.options, function (val, key) {
             var $el;
             if (val === 'el') {
