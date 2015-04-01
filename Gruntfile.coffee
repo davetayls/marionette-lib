@@ -9,6 +9,8 @@ module.exports = (grunt) ->
     'coffee'
     'typescript'
     'amdwrap'
+    'less'
+    'autoprefixer'
     'copy'
     'dts_bundle'
   ]
