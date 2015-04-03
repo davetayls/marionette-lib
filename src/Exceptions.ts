@@ -11,6 +11,7 @@ export class Exception {
 
   constructor(error:Error) {
     this.error = error;
+    console.warn('EXCEPTION', this);
   }
 
   error:Error;

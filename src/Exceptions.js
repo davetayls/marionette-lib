@@ -7,6 +7,7 @@ var __extends = this.__extends || function (d, b) {
 var Exception = (function () {
     function Exception(error) {
         this.error = error;
+        console.warn('EXCEPTION', this);
     }
     Object.defineProperty(Exception.prototype, "name", {
         get: function () {

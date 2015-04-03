@@ -7,6 +7,7 @@ define(function (require, exports, module) {var __extends = this.__extends || fu
 var Exception = (function () {
     function Exception(error) {
         this.error = error;
+        console.warn('EXCEPTION', this);
     }
     Object.defineProperty(Exception.prototype, "name", {
         get: function () {
