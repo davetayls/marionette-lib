@@ -448,9 +448,14 @@ declare module '__marionette_lib/views/index' {
 
 declare module '__marionette_lib/components/AnimatedRegion/AnimatedRegion' {
     import Marionette = require('backbone.marionette');
+    export interface IAnimatableView extends Marionette.View<Backbone.Model> {
+        animateOut(cb: () => void): void;
+    }
     export class AnimatedRegion extends Marionette.Region {
-        currentView: Backbone.View<Backbone.Model>;
-        _nextView: Backbone.View<Backbone.Model>;
+        currentView: IAnimatableView;
+        _nextView: IAnimatableView;
+        animateOut(cb: () => void): void;
+        animateEmpty(cb: () => void): void;
     }
 }
 

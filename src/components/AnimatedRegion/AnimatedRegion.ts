@@ -3,7 +3,7 @@
 import _ = require('underscore');
 import Marionette = require('backbone.marionette');
 
-export interface IAnimatableView extends Backbone.View<Backbone.Model> {
+export interface IAnimatableView extends Marionette.View<Backbone.Model> {
   animateOut(cb:()=>void):void;
 }
 
