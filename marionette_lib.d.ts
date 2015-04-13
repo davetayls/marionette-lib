@@ -560,9 +560,10 @@ declare module '__marionette_lib/components/Button/Button' {
     }
     export interface IButtonOptions extends Backbone.ViewOptions<ButtonModel> {
         name: string;
-        icon: string;
-        text: string;
+        icon?: string;
+        text?: string;
         block?: boolean;
+        submit?: boolean;
         theme?: BUTTON_THEME;
         size?: BUTTON_SIZE;
     }
