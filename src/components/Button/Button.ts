@@ -58,9 +58,10 @@ export class ButtonModel extends Backbone.Model {
 
 export interface IButtonOptions extends Backbone.ViewOptions<ButtonModel> {
   name:string;
-  icon:string;
-  text:string;
+  icon?:string;
+  text?:string;
   block?:boolean;
+  submit?:boolean;
   theme?:BUTTON_THEME;
   size?:BUTTON_SIZE;
 }
@@ -70,14 +71,18 @@ export class Button extends ItemView.ItemView<ButtonModel> {
   constructor(options?:IButtonOptions) {
     this.model = options.model || new ButtonModel(this.defaults());
     this.name = options.name || this.model.name || 'base-button';
-    if (options) this.setProperties(options);
     this.template = require('hbs!./Button');
-    this.tagName = 'a';
+    if (options.submit) {
+      this.tagName = 'button';
+    } else {
+      this.tagName = 'a';
+    }
     this.triggers = {
       'click': 'click'
     };
     this.on('click', this.navigate);
     super(options);
+    if (options) this.setProperties(options);
     this.setClassNames();
   }
 
@@ -109,6 +114,7 @@ export class Button extends ItemView.ItemView<ButtonModel> {
     if (_.isBoolean(options.block)) this.model.block = options.block;
     if (options.theme) this.model.theme = options.theme;
     if (options.size) this.model.size = options.size;
+    if (options.submit) this.$el.attr('type', 'submit');
   }
 
   unsetClassNames():void {

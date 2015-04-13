@@ -125,15 +125,20 @@ var Button = (function (_super) {
     function Button(options) {
         this.model = options.model || new ButtonModel(this.defaults());
         this.name = options.name || this.model.name || 'base-button';
-        if (options)
-            this.setProperties(options);
         this.template = require('hbs!./Button');
-        this.tagName = 'a';
+        if (options.submit) {
+            this.tagName = 'button';
+        }
+        else {
+            this.tagName = 'a';
+        }
         this.triggers = {
             'click': 'click'
         };
         this.on('click', this.navigate);
         _super.call(this, options);
+        if (options)
+            this.setProperties(options);
         this.setClassNames();
     }
     Object.defineProperty(Button.prototype, "className", {
@@ -176,6 +181,8 @@ var Button = (function (_super) {
             this.model.theme = options.theme;
         if (options.size)
             this.model.size = options.size;
+        if (options.submit)
+            this.$el.attr('type', 'submit');
     };
     Button.prototype.unsetClassNames = function () {
         if (!this.$el)
