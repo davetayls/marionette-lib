@@ -14,10 +14,21 @@ require.config({
   paths: {
     'backbone': '../bower_components/backbone/backbone',
     'backbone.marionette': '../bower_components/backbone.marionette/lib/backbone.marionette',
+    'handlebars': '../bower_components/handlebars/handlebars',
     'jquery': '../bower_components/jquery/dist/jquery',
-    'underscore': '../bower_components/underscore/underscore',
-    'q': '../bower_components/q/q'
+    'q': '../bower_components/q/q',
+    'spin': '../bower_components/spin.js/spin',
+    'text': '../bower_components/requirejs-text/text',
+    'underscore': '../bower_components/underscore/underscore'
   },
+
+  packages: [
+    {
+      name: "hbs",
+      location: "../bower_components/requirejs-hbs",
+      main: "hbs"
+    }
+  ],
 
   // dynamically load all test files
   deps: allTestFiles,
