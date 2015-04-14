@@ -3,6 +3,7 @@ var _Loading = require('./LoadingComponent/LoadingController');
 exports.Alert = _Alert.AlertComponent;
 exports.AnimatedRegion = require('./AnimatedRegion/AnimatedRegion');
 exports.Button = require('./Button/Button');
+exports.FormView = require('./FormView/FormView');
 exports.SpinnerView = require('./SpinnerView/SpinnerView');
 exports.Loading = _Loading.LoadingController;
 exports.NoticeView = require('./NoticeView/NoticeView');

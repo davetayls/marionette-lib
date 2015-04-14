@@ -5,9 +5,9 @@ import $ = require('jquery');
 import BackboneForms = require('backbone-forms');
 import templates = require('./templates');
 
-import marionette_lib = require('marionette_lib');
-import Layout = marionette_lib.views.Layout;
-import ChildHolderView = marionette_lib.views.ChildHolderView;
+import views = require('../../views/index');
+import Layout = views.Layout;
+import ChildHolderView = views.ChildHolderView;
 
 templates.init();
 

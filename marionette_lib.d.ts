@@ -3,6 +3,7 @@
 //   ../typings/marionette/marionette.d.ts
 //   ../typings/q/Q.d.ts
 //   ../typings/backbone/backbone.d.ts
+//   ../typings/backbone-forms/backbone-forms.d.ts
 //   ../typings/spin/spin.d.ts
 //   ../typings/flux/flux.d.ts
 
@@ -74,6 +75,7 @@ declare module '__marionette_lib/components/index' {
     export import Alert = _Alert.AlertComponent;
     export import AnimatedRegion = require('__marionette_lib/components/AnimatedRegion/AnimatedRegion');
     export import Button = require('__marionette_lib/components/Button/Button');
+    export import FormView = require('__marionette_lib/components/FormView/FormView');
     export import SpinnerView = require('__marionette_lib/components/SpinnerView/SpinnerView');
     export import Loading = _Loading.LoadingController;
     export import NoticeView = require('__marionette_lib/components/NoticeView/NoticeView');
@@ -577,6 +579,38 @@ declare module '__marionette_lib/components/Button/Button' {
         setProperties(options: IButtonOptions): void;
         unsetClassNames(): void;
         setClassNames(): void;
+    }
+}
+
+declare module '__marionette_lib/components/FormView/FormView' {
+    import BackboneForms = require('backbone-forms');
+    import views = require('__marionette_lib/views/index');
+    import Layout = views.Layout;
+    import ChildHolderView = views.ChildHolderView;
+    export interface IFormSchemaItem extends Backbone.IFormSchemaItem {
+        icon?: string;
+    }
+    export interface IFormSchema {
+        [property: string]: IFormSchemaItem;
+    }
+    export interface IFormOptions extends Backbone.IFormOptions {
+        schema: IFormSchema;
+    }
+    export class FormView extends Layout.Layout<Backbone.Model> {
+        constructor(options: IFormOptions);
+        onDestroy(): void;
+        static DISABLED_CLASS: string;
+        fields: BackboneForms;
+        protected fieldsRegion: Marionette.Region;
+        protected buttonsRegion: Marionette.Region;
+        buttonsHolder: ChildHolderView.GenericChildHolderView;
+        onShow(): void;
+        protected parseIconProperties(schema: Backbone.IFormSchema): void;
+        disableForm(): void;
+        enableForm(): void;
+        validate(): Backbone.IFormErrors;
+        getValue(property?: string): any;
+        setValue(properties?: any): any;
     }
 }
 

@@ -8,9 +8,10 @@ var __extends = this.__extends || function (d, b) {
 var _ = require('underscore');
 var BackboneForms = require('backbone-forms');
 var templates = require('./templates');
-var marionette_lib = require('marionette_lib');
-var Layout = marionette_lib.views.Layout;
-var ChildHolderView = marionette_lib.views.ChildHolderView;
+var views = require('../../views/index');
+var Layout = views.Layout;
+var ChildHolderView = views.ChildHolderView;
+templates.init();
 var FormView = (function (_super) {
     __extends(FormView, _super);
     function FormView(options) {

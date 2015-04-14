@@ -59,11 +59,14 @@ declare module 'backbone-forms' {
 
   module Form {
     export class Fieldset extends Backbone.View<Backbone.Model> {
-      static template:string|(data:any)=>string;
+      static template:(data:any)=>string;
     }
     export class Field extends Backbone.View<Backbone.Model> {
+      static template:(data:any)=>string;
+      static errorClassName:string;
     }
     export class NestedField extends Backbone.View<Backbone.Model> {
+      static template:(data:any)=>string;
     }
     export module editors {
       /**
@@ -74,6 +77,20 @@ declare module 'backbone-forms' {
         defaultValue:any;
         hasFocus:boolean;
         schema:Backbone.IFormSchemaItem;
+      }
+      export class List extends Backbone.View<Backbone.Model> {
+        static template:(data:any)=>string;
+      }
+      module List {
+        export class Item extends Backbone.View<Backbone.Model> {
+          static template:(data:any)=>string;
+        }
+        export class Object extends Backbone.View<Backbone.Model> {
+          static template:(data:any)=>string;
+        }
+        export class NestedModel extends Backbone.View<Backbone.Model> {
+          static template:(data:any)=>string;
+        }
       }
     }
   }
