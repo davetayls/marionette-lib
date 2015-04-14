@@ -1,0 +1,43 @@
+
+.FormView {
+  position: relative;
+
+  fieldset {
+    border: 0;
+    border-bottom: solid 1px #444;
+    margin: 0;
+    padding: 0;
+  }
+
+  .input-row {
+    height: auto;
+    min-height: 35px;
+
+    [data-editor] {
+      display: block;
+
+      ul {
+        display: block;
+        clear: left;
+      }
+    }
+  }
+
+  &__disable {
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 100%;
+    background-color: #fff;
+    opacity: 0;
+    transition: opacity .3s ease;
+  }
+
+  &--disabled &__disable {
+    z-index: 1;
+    left: 0;
+    opacity: 0.8;
+  }
+}

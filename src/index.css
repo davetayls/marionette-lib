@@ -104,6 +104,143 @@ a.btn-main:visited
     background-color #fff
 
 */
+.FormView {
+  position: relative;
+}
+.FormView fieldset {
+  border: 0;
+  border-bottom: solid 1px #444;
+  margin: 0;
+  padding: 0;
+}
+.FormView .input-row {
+  height: auto;
+  min-height: 35px;
+}
+.FormView .input-row [data-editor] {
+  display: block;
+}
+.FormView .input-row [data-editor] ul {
+  display: block;
+  clear: left;
+}
+.FormView__disable {
+  z-index: 1;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 100%;
+  background-color: #fff;
+  opacity: 0;
+  transition: opacity .3s ease;
+}
+.FormView--disabled .FormView__disable {
+  z-index: 1;
+  left: 0;
+  opacity: 0.8;
+}
+.FormGroup {
+  background: #fff;
+  font-size: 0;
+  margin: 1px 0;
+}
+.FormGroup__label {
+  display: inline-block;
+  font-size: 17px;
+  vertical-align: top;
+  text-align: center;
+  width: 13%;
+  padding: 4px 0 0 10px;
+  line-height: 35px;
+}
+.FormGroup__label .fa {
+  font-size: 19px;
+  vertical-align: middle;
+}
+.FormGroup__control {
+  display: inline-block;
+  font-size: 17px;
+  vertical-align: top;
+  width: 87%;
+  padding: 4px 2px 4px 0;
+}
+.FormGroup__control input,
+.FormGroup__control textarea {
+  color: #444444;
+}
+.FormGroup__control select,
+.FormGroup__control input,
+.FormGroup__control textarea {
+  margin: 0;
+}
+.FormGroup__control textarea {
+  display: block;
+  min-height: 100px;
+}
+.FormGroup__control select {
+  height: 35px;
+  border-color: transparent;
+  background: rgba(204, 204, 204, 0.1);
+}
+.FormGroup__control input[type="text"],
+.FormGroup__control input[type="number"],
+.FormGroup__control input[type="search"],
+.FormGroup__control input[type="email"],
+.FormGroup__control input[type="password"],
+.FormGroup__control textarea,
+.FormGroup__control textarea.form-control {
+  border: 0;
+  border-radius: 0;
+  background-color: transparent;
+}
+.FormGroup__control ul {
+  margin: 0;
+  padding: 0;
+  list-style: none outside none;
+}
+.FormGroup__control ul label {
+  padding-left: 10px;
+  line-height: 35px;
+}
+.FormGroup__helpMessage,
+.FormGroup__errorMessage {
+  display: block;
+  font-size: 10px;
+  padding: 5px 10px;
+  margin: 0;
+}
+.FormGroup__helpMessage {
+  font-style: italic;
+}
+.FormGroup__errorMessage {
+  display: none;
+}
+.FormGroup--hasError .FormGroup__errorMessage {
+  display: block;
+}
+.FormGroup--hasError .FormGroup__label {
+  color: #990000;
+}
+.FormGroup__errorMessage {
+  color: #fff;
+  background-color: #990000;
+}
+.FormGroup__errorMessage p {
+  color: inherit;
+}
+.FormGroup--block .FormGroup__label,
+.FormGroup--block .FormGroup__control {
+  display: block;
+  width: auto;
+}
+.FormGroup--block .FormGroup__label {
+  text-align: left;
+}
+.FormGroup.FormGroup--inlineList ul li {
+  display: inline-block;
+  padding-right: 20px;
+}
 .SpinnerView {
   position: relative;
   height: 0;

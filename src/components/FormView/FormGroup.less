@@ -1,0 +1,128 @@
+@FormGroup__labelWidth: 13%;
+
+.FormGroup {
+  background: #fff;
+  font-size: 0;
+  margin: 1px 0;
+
+  &__label {
+    display: inline-block;
+    font-size: @fontSize--base;
+    vertical-align: top;
+    text-align: center;
+    width: @FormGroup__labelWidth;
+    padding: 4px 0 0 @spacing--base;
+    line-height: 35px;
+
+    .fa {
+      font-size: @fontSize--base + 2;
+      vertical-align: middle;
+    }
+  }
+
+  &__control {
+    display: inline-block;
+    font-size: @fontSize--base;
+    vertical-align: top;
+    width: 100% - @FormGroup__labelWidth;
+    padding: 4px 2px 4px 0;
+
+    input,
+    textarea {
+      color: @color--base;
+    }
+
+    select,
+    input,
+    textarea {
+      margin: 0;
+    }
+
+    textarea {
+      display: block;
+      min-height: 100px;
+    }
+
+    select {
+      height: 35px;
+      border-color: transparent;
+      background: fade(#ccc, 10%);
+    }
+
+    input[type="text"],
+    input[type="number"],
+    input[type="search"],
+    input[type="email"],
+    input[type="password"],
+    textarea,
+    textarea.form-control {
+      border: 0;
+      border-radius: 0;
+      background-color: transparent;
+    }
+
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style: none outside none;
+
+      label {
+        padding-left: @spacing--base;
+        line-height: 35px;
+      }
+    }
+  }
+
+  &__helpMessage,
+  &__errorMessage {
+    display: block;
+    font-size: @fontSize--sm;
+    padding: @spacing--half @spacing--base;
+    margin: 0;
+  }
+
+  &__helpMessage {
+    font-style: italic;
+  }
+
+  &__errorMessage {
+    display: none;
+  }
+
+  &--hasError &__errorMessage {
+    display: block;
+  }
+
+  &--hasError &__label {
+    color: @color--error;
+  }
+
+  &__errorMessage {
+    color: #fff;
+    background-color: @color--error;
+    p {
+      color: inherit;
+    }
+  }
+
+  .FormGroup--block & {
+    &__label,
+    &__control {
+      display: block;
+      width: auto;
+    }
+
+    &__label {
+      text-align: left;
+    }
+  }
+
+  &.FormGroup--inlineList {
+    ul li {
+      display: inline-block;
+      padding-right: @spacing--base * 2;
+    }
+  }
+}
+
+

@@ -16,6 +16,7 @@
     "grunt-contrib-coffee": "~0.10.1",
     "grunt-contrib-copy": "^0.5.0",
     "grunt-contrib-less": "^1.0.0",
+    "grunt-contrib-requirejs": "^0.4.4",
     "grunt-contrib-watch": "^0.6.1",
     "grunt-dts-bundle": "^0.2.0",
     "grunt-karma": "^0.10.1",
