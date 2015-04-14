@@ -10,7 +10,7 @@ import Form = require('backbone-forms');
 
 export function init() {
 
-  Form.template = '<div data-fieldsets></div>';
+  Form.template = _.template('<div data-fieldsets></div>');
 
 
   Form.Fieldset.template = _.template('\

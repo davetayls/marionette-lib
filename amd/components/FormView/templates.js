@@ -6,7 +6,7 @@ define(function (require, exports, module) {///<reference path="../../../typings
  */
 var Form = require('backbone-forms');
 function init() {
-    Form.template = '<div data-fieldsets></div>';
+    Form.template = _.template('<div data-fieldsets></div>');
     Form.Fieldset.template = _.template('\
   <fieldset data-fields>\
     <% if (legend) { %>\

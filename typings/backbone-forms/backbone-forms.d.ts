@@ -49,7 +49,7 @@ declare module 'backbone-forms' {
 
   class Form extends Backbone.View<Backbone.Model> {
     constructor(options:Backbone.IFormOptions);
-    static template:string;
+    static template:(data:any)=>string;
 
     validate():Backbone.IFormErrors;
     commit(options:Backbone.IFormCommitOptions):Backbone.IFormErrors;
