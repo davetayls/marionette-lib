@@ -3,11 +3,13 @@
 import _ = require('underscore');
 import $ = require('jquery');
 import BackboneForms = require('backbone-forms');
-var templates = require('./templates');
+import templates = require('./templates');
 
 import marionette_lib = require('marionette_lib');
 import Layout = marionette_lib.views.Layout;
 import ChildHolderView = marionette_lib.views.ChildHolderView;
+
+templates.init();
 
 export interface IFormSchemaItem extends Backbone.IFormSchemaItem {
   icon?:string;

@@ -59,6 +59,7 @@ declare module 'backbone-forms' {
 
   module Form {
     export class Fieldset extends Backbone.View<Backbone.Model> {
+      static template:string|(data:any)=>string;
     }
     export class Field extends Backbone.View<Backbone.Model> {
     }
