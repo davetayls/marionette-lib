@@ -9,4 +9,5 @@ module.exports =
       '**/*.js.map'
       '**/*.hbs'
       '**/*.styl'
+      'modernizr/**/*.js'
     ]
