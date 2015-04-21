@@ -173,6 +173,8 @@ a.btn-main:visited
 .FormGroup__control input,
 .FormGroup__control textarea {
   margin: 0;
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+  -webkit-tap-highlight-color: transparent;
 }
 .FormGroup__control textarea {
   display: block;
