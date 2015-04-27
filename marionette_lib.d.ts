@@ -811,6 +811,8 @@ declare module '__marionette_lib/views/View' {
         name: string;
         className: string;
         getUi(key: string): JQuery;
+        hideView(): void;
+        showView(show?: boolean): void;
     }
 }
 
@@ -825,6 +827,8 @@ declare module '__marionette_lib/views/ItemView' {
         ui: any;
         template: any;
         className: string;
+        hideView(): void;
+        showView(show?: boolean): void;
     }
 }
 
@@ -839,6 +843,8 @@ declare module '__marionette_lib/views/Layout' {
             [key: string]: any;
         };
         className: string;
+        hideView(): void;
+        showView(show?: boolean): void;
     }
 }
 
@@ -851,6 +857,8 @@ declare module '__marionette_lib/views/List' {
         template: (data: any) => string;
         className: string;
         animateOut(cb: () => void): any;
+        hideView(): void;
+        showView(show?: boolean): void;
     }
 }
 

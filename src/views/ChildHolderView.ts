@@ -12,7 +12,6 @@ export class ChildHolderView<T extends Backbone.Model> extends View.View<T> {
   }
 
   children:Backbone.ChildViewContainer<T>;
-  private isHidden:boolean;
 
   add(view:Backbone.View<T>, index?:number) {
     this.triggerMethod('before:add:child', view);
@@ -56,22 +55,6 @@ export class ChildHolderView<T extends Backbone.Model> extends View.View<T> {
 
   animateOut(cb:()=>void) {
     return cb.call(this);
-  }
-
-  hideView():void {
-    if (this.isHidden) return;
-    this.$el.hide();
-    this.isHidden = true;
-  }
-
-  showView(show = true):void {
-    if (show === false) {
-      this.hideView();
-    } else {
-      if (!this.isHidden) return;
-      this.$el.show();
-      this.isHidden = false;
-    }
   }
 
 }

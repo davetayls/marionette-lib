@@ -51,24 +51,6 @@ var ChildHolderView = (function (_super) {
     ChildHolderView.prototype.animateOut = function (cb) {
         return cb.call(this);
     };
-    ChildHolderView.prototype.hideView = function () {
-        if (this.isHidden)
-            return;
-        this.$el.hide();
-        this.isHidden = true;
-    };
-    ChildHolderView.prototype.showView = function (show) {
-        if (show === void 0) { show = true; }
-        if (show === false) {
-            this.hideView();
-        }
-        else {
-            if (!this.isHidden)
-                return;
-            this.$el.show();
-            this.isHidden = false;
-        }
-    };
     return ChildHolderView;
 })(View.View);
 exports.ChildHolderView = ChildHolderView;
