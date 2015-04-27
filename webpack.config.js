@@ -8,7 +8,8 @@ module.exports = {
     path: path.join(__dirname, 'amd'),
     filename: 'client.js',
     library: 'marionette_lib',
-    libraryTarget: 'amd'
+    libraryTarget: 'amd',
+    sourceMapFilename: '[file].js.map'
   },
 
   module: {
@@ -31,6 +32,8 @@ module.exports = {
       new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('bower.json', ['main'])
     )
   ],
+
+  devtool: '#inline-source-map',
 
   externals: [
     {

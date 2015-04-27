@@ -1,1 +1,0 @@
-{"version":3,"file":"preventSelectionCallout.js","sourceRoot":"","sources":["preventSelectionCallout.ts"],"names":["preventGlobally"],"mappings":"AACA,SAAgB,eAAe;IAC7BA,IAAIA,KAAKA,GAAOA,QAAQA,CAACA,eAAeA,CAACA,KAAKA,CAACA;IAC/CA,KAAKA,CAACA,kBAAkBA,GAAGA,MAAMA,CAACA;IAClCA,KAAKA,CAACA,gBAAgBA,GAAGA,MAAMA,CAACA;AAClCA,CAACA;AAJe,uBAAe,GAAf,eAIf,CAAA"}

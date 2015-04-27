@@ -5,7 +5,5 @@ module.exports =
     cwd: 'src'
     dest: 'amd'
     src: [
-      '**/*.js.map'
-      '**/*.hbs'
       'modernizr/**/*.js'
     ]
