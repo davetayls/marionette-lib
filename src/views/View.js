@@ -23,6 +23,24 @@ var View = (function (_super) {
     View.prototype.getUi = function (key) {
         return this.ui[key];
     };
+    View.prototype.hideView = function () {
+        if (this.isHidden)
+            return;
+        this.$el.hide();
+        this.isHidden = true;
+    };
+    View.prototype.showView = function (show) {
+        if (show === void 0) { show = true; }
+        if (show === false) {
+            this.hideView();
+        }
+        else {
+            if (!this.isHidden)
+                return;
+            this.$el.show();
+            this.isHidden = false;
+        }
+    };
     return View;
 })(Marionette.View);
 exports.View = View;

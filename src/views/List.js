@@ -23,6 +23,24 @@ var List = (function (_super) {
     List.prototype.animateOut = function (cb) {
         return cb.call(this);
     };
+    List.prototype.hideView = function () {
+        if (this.isHidden)
+            return;
+        this.$el.hide();
+        this.isHidden = true;
+    };
+    List.prototype.showView = function (show) {
+        if (show === void 0) { show = true; }
+        if (show === false) {
+            this.hideView();
+        }
+        else {
+            if (!this.isHidden)
+                return;
+            this.$el.show();
+            this.isHidden = false;
+        }
+    };
     return List;
 })(Marionette.CompositeView);
 exports.List = List;

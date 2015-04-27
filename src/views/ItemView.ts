@@ -23,9 +23,26 @@ export class ItemView<T extends Backbone.Model> extends Marionette.ItemView<T> {
   options:any;
   ui:any;
   template:any;
+  private isHidden:boolean;
 
   get className():string {
     return this.name;
+  }
+
+  hideView():void {
+    if (this.isHidden) return;
+    this.$el.hide();
+    this.isHidden = true;
+  }
+
+  showView(show = true):void {
+    if (show === false) {
+      this.hideView();
+    } else {
+      if (!this.isHidden) return;
+      this.$el.show();
+      this.isHidden = false;
+    }
   }
 
 

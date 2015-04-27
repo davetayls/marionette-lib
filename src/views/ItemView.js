@@ -22,6 +22,24 @@ var ItemView = (function (_super) {
         enumerable: true,
         configurable: true
     });
+    ItemView.prototype.hideView = function () {
+        if (this.isHidden)
+            return;
+        this.$el.hide();
+        this.isHidden = true;
+    };
+    ItemView.prototype.showView = function (show) {
+        if (show === void 0) { show = true; }
+        if (show === false) {
+            this.hideView();
+        }
+        else {
+            if (!this.isHidden)
+                return;
+            this.$el.show();
+            this.isHidden = false;
+        }
+    };
     return ItemView;
 })(Marionette.ItemView);
 exports.ItemView = ItemView;
