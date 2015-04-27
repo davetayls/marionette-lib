@@ -45,7 +45,7 @@ export class NoticeView extends ItemView.ItemView<NoticeViewModel> {
 
   constructor(options:INoticeViewOptions = {}) {
     this.name = 'NoticeView';
-    this.template = require('hbs!./notice');
+    this.template = require('./notice.hbs');
     this.tagName = 'section';
     this.ui = {
       buttons: '.NoticeView__btns'

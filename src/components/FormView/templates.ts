@@ -22,7 +22,7 @@ export function init() {
 ');
 
 
-  Form.Field.template = require('hbs!./FormField');
+  Form.Field.template = require('./FormField.hbs');
 
   Form.NestedField.template = _.template('\
   <div class="field-<%= key %>">\

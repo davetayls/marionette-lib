@@ -1,6 +1,6 @@
 {
   "name": "marionette_lib",
-  "version": "3.2.28",
+  "version": "3.2.30",
   "description": "marionette_lib",
   "main": "server/index.coffee",
   "dependencies": {},
@@ -22,6 +22,9 @@
     "grunt-karma": "^0.10.1",
     "grunt-mocha-test": "^0.12.1",
     "grunt-typescript": "^0.6.1",
+    "grunt-webpack": "^1.0.8",
+    "handlebars": "^3.0.2",
+    "handlebars-loader": "^1.0.2",
     "karma": "^0.12.24",
     "karma-coverage": "^0.2.6",
     "karma-mocha": "^0.1.9",
@@ -34,7 +37,9 @@
     "sinon": "^1.10.3",
     "sinon-chai": "^2.6.0",
     "typescript": "^1.4.1",
-    "underscore": "^1.7.0"
+    "underscore": "^1.7.0",
+    "webpack": "^1.8.10",
+    "webpack-dev-server": "^1.8.2"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

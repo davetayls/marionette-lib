@@ -12,7 +12,7 @@ export class AlertComponent extends ItemView.ItemView<Backbone.Model> {
 
   constructor(options:IAlertOptions) {
     this.name = 'alert';
-    this.template = require('hbs!./alert');
+    this.template = require('./alert.hbs');
     super(options);
   }
 

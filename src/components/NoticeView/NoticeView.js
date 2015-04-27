@@ -76,7 +76,7 @@ var NoticeView = (function (_super) {
     function NoticeView(options) {
         if (options === void 0) { options = {}; }
         this.name = 'NoticeView';
-        this.template = require('hbs!./notice');
+        this.template = require('./notice.hbs');
         this.tagName = 'section';
         this.ui = {
             buttons: '.NoticeView__btns'

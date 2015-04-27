@@ -8,7 +8,7 @@ module.exports = (grunt) ->
     'clean:amd'
     'coffee'
     'typescript'
-    'amdwrap'
+    'webpack'
     'less'
     'autoprefixer'
     'copy'
@@ -20,7 +20,7 @@ module.exports = (grunt) ->
     grunt.task.run [
       "bump-only:#{release}"
       'build'
-      'test'
+#      'test'
       "bump-commit"
     ]
 

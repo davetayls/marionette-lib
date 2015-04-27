@@ -28,7 +28,7 @@ export class FormView extends Layout.Layout<Backbone.Model> {
     this.name = 'FormView';
     this.tagName = 'form';
     this.attributes = { role: 'form' };
-    this.template = require('hbs!./FormView');
+    this.template = require('./FormView.hbs');
     this.regions = {
       fieldsRegion: '.FormView__fieldsRegion',
       buttonsRegion: '.FormView__buttonsRegion'

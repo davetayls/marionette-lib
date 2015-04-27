@@ -10,7 +10,7 @@ var AlertComponent = (function (_super) {
     __extends(AlertComponent, _super);
     function AlertComponent(options) {
         this.name = 'alert';
-        this.template = require('hbs!./alert');
+        this.template = require('./alert.hbs');
         _super.call(this, options);
     }
     AlertComponent.prototype.templateHelpers = function () {

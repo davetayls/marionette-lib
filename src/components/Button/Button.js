@@ -125,7 +125,7 @@ var Button = (function (_super) {
     function Button(options) {
         this.model = options.model || new ButtonModel(this.defaults());
         this.name = options.name || this.model.name || 'base-button';
-        this.template = require('hbs!./Button');
+        this.template = require('./Button.hbs');
         if (options.submit) {
             this.tagName = 'button';
         }

@@ -1,6 +1,6 @@
 {
   "name": "marionette_lib",
-  "version": "3.2.28",
+  "version": "3.2.30",
   "homepage": "https://github.com/davetayls/marionette_lib",
   "authors": [
     "davetayls <dave@the-taylors.org>"
@@ -40,6 +40,7 @@
     "async": "~0.9.0",
     "backbone": "~1.1.2",
     "backbone.marionette": "~2.0.1",
+    "backbone-forms": "powmedia/backbone-forms#master",
     "fastclick": "~1.0.2",
     "handlebars": "~1.3.0",
     "i18next": "~1.7.3",

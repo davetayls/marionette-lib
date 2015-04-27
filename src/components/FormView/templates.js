@@ -14,7 +14,7 @@ function init() {
     <% } %>\
   </fieldset>\
 ');
-    Form.Field.template = require('hbs!./FormField');
+    Form.Field.template = require('./FormField.hbs');
     Form.NestedField.template = _.template('\
   <div class="field-<%= key %>">\
     <div title="<%= title %>" class="input-xlarge">\
