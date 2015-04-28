@@ -87,6 +87,9 @@ declare module '__marionette_lib/constants' {
         constructor(val: string);
         toString(): string;
         matches(value: string): boolean;
+        static allConstants<T extends StringConstant>(): T[];
+        static fromKey<T extends StringConstant>(key: string): T;
+        static fromValue<T extends StringConstant>(key: string): T;
     }
     export class EVENT_TYPES extends StringConstant {
         static Change: EVENT_TYPES;
