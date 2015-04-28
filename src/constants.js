@@ -1,9 +1,11 @@
+///<reference path="../typings/tsd.d.ts"/>
 var __extends = this.__extends || function (d, b) {
     for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
     function __() { this.constructor = d; }
     __.prototype = b.prototype;
     d.prototype = new __();
 };
+var _ = require('underscore');
 var StringConstant = (function () {
     function StringConstant(val) {
         this.val = val;
@@ -13,6 +15,33 @@ var StringConstant = (function () {
     };
     StringConstant.prototype.matches = function (value) {
         return this.toString() === value;
+    };
+    StringConstant.allConstants = function () {
+        var t = this;
+        var all = [];
+        _.each(_.keys(this), function (propertyKey) {
+            if (t[propertyKey] instanceof t) {
+                var constant = t[propertyKey];
+                all.push(constant);
+            }
+        });
+        return all;
+    };
+    StringConstant.fromKey = function (key) {
+        var all = this.allConstants();
+        for (var i = 0; i < all.length; i += 1) {
+            if (all[i].matches(key)) {
+                return all[i];
+            }
+        }
+    };
+    StringConstant.fromValue = function (key) {
+        var all = this.allConstants();
+        for (var i = 0; i < all.length; i += 1) {
+            if (all[i].matches(key)) {
+                return all[i];
+            }
+        }
     };
     return StringConstant;
 })();

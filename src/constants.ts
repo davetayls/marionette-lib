@@ -1,9 +1,42 @@
+///<reference path="../typings/tsd.d.ts"/>
+
+import _ = require('underscore');
 
 export class StringConstant {
   constructor(public val:string) {}
   toString() { return this.val; }
   matches(value:string):boolean {
     return this.toString() === value;
+  }
+
+  static allConstants<T extends StringConstant>():T[] {
+    var t:typeof StringConstant = this;
+    var all:T[] = [];
+    _.each(_.keys(this), (propertyKey) => {
+      if ((<any>t)[propertyKey] instanceof t) {
+        var constant:T = (<any>t)[propertyKey];
+        all.push(constant);
+      }
+    });
+    return all;
+  }
+
+  static fromKey<T extends StringConstant>(key:string):T {
+    var all = this.allConstants<T>();
+    for (var i=0;i<all.length;i+=1) {
+      if (all[i].matches(key)) {
+        return all[i];
+      }
+    }
+  }
+
+  static fromValue<T extends StringConstant>(key:string):T {
+    var all = this.allConstants<T>();
+    for (var i=0;i<all.length;i+=1) {
+      if (all[i].matches(key)) {
+        return all[i];
+      }
+    }
   }
 }
 
