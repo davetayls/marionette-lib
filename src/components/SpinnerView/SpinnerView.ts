@@ -13,6 +13,10 @@ export class SpinnerView extends View.View<Backbone.Model> {
     super(options);
   }
 
+  onDestroy():void {
+    this.stop();
+  }
+
   loadingDelay:number;
   loadingClass:string;
   loadingTimeout:number;

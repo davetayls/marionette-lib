@@ -15,6 +15,9 @@ var SpinnerView = (function (_super) {
         this.loadingClass = 'SpinnerView--spinning';
         _super.call(this, options);
     }
+    SpinnerView.prototype.onDestroy = function () {
+        this.stop();
+    };
     SpinnerView.prototype.start = function () {
         var _this = this;
         this.stop();
