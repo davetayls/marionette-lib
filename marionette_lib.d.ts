@@ -548,6 +548,7 @@ declare module '__marionette_lib/components/Button/Button' {
         static large: BUTTON_SIZE;
     }
     export class ButtonModel extends Backbone.Model {
+        constructor(attributes?: any, options?: any);
         defaults(): {
             name: string;
             icon: string;
