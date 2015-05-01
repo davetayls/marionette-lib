@@ -24,6 +24,12 @@ export class BUTTON_SIZE extends constants.StringConstant {
 }
 
 export class ButtonModel extends Backbone.Model {
+
+  constructor(attributes?: any, options?: any) {
+    this.idAttribute = 'name';
+    super(attributes, options);
+  }
+
   defaults() {
     return {
       name: '',

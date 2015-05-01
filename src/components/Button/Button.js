@@ -44,8 +44,9 @@ var BUTTON_SIZE = (function (_super) {
 exports.BUTTON_SIZE = BUTTON_SIZE;
 var ButtonModel = (function (_super) {
     __extends(ButtonModel, _super);
-    function ButtonModel() {
-        _super.apply(this, arguments);
+    function ButtonModel(attributes, options) {
+        this.idAttribute = 'name';
+        _super.call(this, attributes, options);
     }
     ButtonModel.prototype.defaults = function () {
         return {
