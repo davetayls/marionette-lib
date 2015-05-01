@@ -622,6 +622,7 @@ declare module '__marionette_lib/components/SpinnerView/SpinnerView' {
     import Spin = require('spin');
     export class SpinnerView extends View.View<Backbone.Model> {
         constructor(options?: Backbone.ViewOptions<Backbone.Model>);
+        onDestroy(): void;
         loadingDelay: number;
         loadingClass: string;
         loadingTimeout: number;
