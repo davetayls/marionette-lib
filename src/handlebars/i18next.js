@@ -31,7 +31,7 @@ function init() {
     /**
      * Translation in a block context
      */
-    config.config.handlebars.registerHelper("tr", function (context, options) {
+    handlebars.registerHelper("tr", function (context, options) {
         var opts = i18next.functions.extend(options.hash, context);
         if (options.fn) {
             opts.defaultValue = options.fn(context);
