@@ -3,12 +3,13 @@ var i18next = require('i18next');
 var _ = require('underscore');
 var config = require('../config/client');
 function init() {
+    var handlebars = config.config.handlebars;
     /**
      * Get translation for a given key, passing the options hash to i18next
      * to allow for variable replacement
      * {{k header myVar="hello"}}
      */
-    config.config.handlebars.registerHelper("t", function (i18n_key, options) {
+    handlebars.registerHelper("t", function (i18n_key, options) {
         var opts = {
             wrapWithKey: true
         };
@@ -21,10 +22,10 @@ function init() {
             }
         });
         if (opts['wrapWithKey']) {
-            return "<span " + (attrs.join(' ')) + ">" + (new Handlebars.SafeString(result)) + "</span>";
+            return "<span " + (attrs.join(' ')) + ">" + (new handlebars.SafeString(result)) + "</span>";
         }
         else {
-            return new Handlebars.SafeString(result);
+            return new handlebars.SafeString(result);
         }
     });
     /**
@@ -36,7 +37,7 @@ function init() {
             opts.defaultValue = options.fn(context);
         }
         var result = i18next.t(opts.key, opts);
-        return new Handlebars.SafeString(result);
+        return new handlebars.SafeString(result);
     });
 }
 exports.init = init;
