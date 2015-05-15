@@ -588,9 +588,13 @@ declare module '__marionette_lib/components/Button/Button' {
 
 declare module '__marionette_lib/components/FormView/FormView' {
     import BackboneForms = require('backbone-forms');
+    import constants = require('__marionette_lib/constants');
     import views = require('__marionette_lib/views/index');
     import Layout = views.Layout;
     import ChildHolderView = views.ChildHolderView;
+    export class FORMVIEW_EVENTS extends constants.StringConstant {
+        static submitted: FORMVIEW_EVENTS;
+    }
     export interface IFormSchemaItem extends Backbone.IFormSchemaItem {
         icon?: string;
     }
@@ -610,6 +614,7 @@ declare module '__marionette_lib/components/FormView/FormView' {
         buttonsHolder: ChildHolderView.GenericChildHolderView;
         onShow(): void;
         protected parseIconProperties(schema: Backbone.IFormSchema): void;
+        protected onFormSubmit(e: JQueryEventObject): boolean;
         disableForm(): void;
         enableForm(): void;
         validate(): Backbone.IFormErrors;

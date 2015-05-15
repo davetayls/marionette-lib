@@ -103,7 +103,7 @@ export class Button extends ItemView.ItemView<ButtonModel> {
   get text():string { return this.model.text; }
   set text(value:string) { this.model.text = value; }
 
-  protected serializeData():any {
+  serializeData():any {
     var data:any = this.model.toJSON();
     data.iconClass =this.getIconClass(this.model.icon);
     return data;
