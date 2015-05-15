@@ -43,6 +43,7 @@ export class FormView extends Layout.Layout<Backbone.Model> {
     this.$el.addClass('FormStacked');
     this.fields = new BackboneForms(options);
     this.buttonsHolder = new ChildHolderView.GenericChildHolderView();
+    this.setListeners();
   }
 
   onDestroy():void {

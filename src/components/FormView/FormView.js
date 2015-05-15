@@ -38,6 +38,7 @@ var FormView = (function (_super) {
         this.$el.addClass('FormStacked');
         this.fields = new BackboneForms(options);
         this.buttonsHolder = new ChildHolderView.GenericChildHolderView();
+        this.setListeners();
     }
     FormView.prototype.onDestroy = function () {
         this.$el.off();
