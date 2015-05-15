@@ -5,11 +5,16 @@ import $ = require('jquery');
 import BackboneForms = require('backbone-forms');
 import templates = require('./templates');
 
+import constants = require('../../constants');
 import views = require('../../views/index');
 import Layout = views.Layout;
 import ChildHolderView = views.ChildHolderView;
 
 templates.init();
+
+export class FORMVIEW_EVENTS extends constants.StringConstant {
+  static submitted = new FORMVIEW_EVENTS('submitted');
+}
 
 export interface IFormSchemaItem extends Backbone.IFormSchemaItem {
   icon?:string;
@@ -41,6 +46,7 @@ export class FormView extends Layout.Layout<Backbone.Model> {
   }
 
   onDestroy():void {
+    this.$el.off();
     this.fields.stopListening();
     this.fields = null;
   }
@@ -50,6 +56,10 @@ export class FormView extends Layout.Layout<Backbone.Model> {
   protected fieldsRegion:Marionette.Region;
   protected buttonsRegion:Marionette.Region;
   buttonsHolder:ChildHolderView.GenericChildHolderView;
+
+  private setListeners():void {
+    this.$el.on('submit', this.onFormSubmit.bind(this));
+  }
 
   onShow():void {
     this.fieldsRegion.show(this.fields);
@@ -62,6 +72,13 @@ export class FormView extends Layout.Layout<Backbone.Model> {
         schemaItem.title = '<i class="fa fa-' + schemaItem.icon + '"></i>';
       }
     });
+  }
+
+  protected onFormSubmit(e:JQueryEventObject) {
+    this.trigger(FORMVIEW_EVENTS.submitted.toString());
+    e.preventDefault();
+    e.stopImmediatePropagation();
+    return false;
   }
 
   disableForm():void {

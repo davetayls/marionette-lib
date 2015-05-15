@@ -8,10 +8,20 @@ var __extends = this.__extends || function (d, b) {
 var _ = require('underscore');
 var BackboneForms = require('backbone-forms');
 var templates = require('./templates');
+var constants = require('../../constants');
 var views = require('../../views/index');
 var Layout = views.Layout;
 var ChildHolderView = views.ChildHolderView;
 templates.init();
+var FORMVIEW_EVENTS = (function (_super) {
+    __extends(FORMVIEW_EVENTS, _super);
+    function FORMVIEW_EVENTS() {
+        _super.apply(this, arguments);
+    }
+    FORMVIEW_EVENTS.submitted = new FORMVIEW_EVENTS('submitted');
+    return FORMVIEW_EVENTS;
+})(constants.StringConstant);
+exports.FORMVIEW_EVENTS = FORMVIEW_EVENTS;
 var FormView = (function (_super) {
     __extends(FormView, _super);
     function FormView(options) {
@@ -30,8 +40,12 @@ var FormView = (function (_super) {
         this.buttonsHolder = new ChildHolderView.GenericChildHolderView();
     }
     FormView.prototype.onDestroy = function () {
+        this.$el.off();
         this.fields.stopListening();
         this.fields = null;
+    };
+    FormView.prototype.setListeners = function () {
+        this.$el.on('submit', this.onFormSubmit.bind(this));
     };
     FormView.prototype.onShow = function () {
         this.fieldsRegion.show(this.fields);
@@ -43,6 +57,12 @@ var FormView = (function (_super) {
                 schemaItem.title = '<i class="fa fa-' + schemaItem.icon + '"></i>';
             }
         });
+    };
+    FormView.prototype.onFormSubmit = function (e) {
+        this.trigger(FORMVIEW_EVENTS.submitted.toString());
+        e.preventDefault();
+        e.stopImmediatePropagation();
+        return false;
     };
     FormView.prototype.disableForm = function () {
         this.$el.addClass(FormView.DISABLED_CLASS);
