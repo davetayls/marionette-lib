@@ -78,6 +78,45 @@ declare module 'backbone-forms' {
         hasFocus:boolean;
         schema:Backbone.IFormSchemaItem;
       }
+      export class Checkbox extends Base {
+        static template:(data:any)=>string;
+      }
+      export class Date extends Base {
+        static template:(data:any)=>string;
+      }
+      export class DateTime extends Base {
+        static template:(data:any)=>string;
+      }
+      export class Hidden extends Base {
+        static template:(data:any)=>string;
+      }
+      export class Number extends Base {
+        static template:(data:any)=>string;
+      }
+      export class Object extends Base {
+        static template:(data:any)=>string;
+      }
+      export class NestedModel extends Object {
+        static template:(data:any)=>string;
+      }
+      export class Password extends Base {
+        static template:(data:any)=>string;
+      }
+      export class Select extends Base {
+        static template:(data:any)=>string;
+      }
+      export class Checkboxes extends Select {
+        static template:(data:any)=>string;
+      }
+      export class Radio extends Select {
+        static template:(data:any)=>string;
+      }
+      export class Text extends Base {
+        static template:(data:any)=>string;
+      }
+      export class TextArea extends Base {
+        static template:(data:any)=>string;
+      }
       export class List extends Backbone.View<Backbone.Model> {
         static template:(data:any)=>string;
       }
