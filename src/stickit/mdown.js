@@ -1,6 +1,6 @@
 /// <reference path="../../typings/tsd.d.ts" />
 var Showdown = require('showdown');
-var mdown = new Showdown.converter();
+var mdown = new Showdown.Converter();
 exports.selector = '[data-mdown]';
 exports.updateMethod = 'html';
 function onGet(val) {
