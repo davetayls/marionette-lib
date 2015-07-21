@@ -22,14 +22,15 @@ export class BaseController extends Marionette.Controller {
   }
 
   proxyEvents(instance:any, prefix?:string) {
-    this.listenTo(instance, "all", () => {
+    var _t = this;
+    this.listenTo(instance, "all", function() {
       var args = Array.prototype.slice.call(arguments);
       var rootEvent = args[0];
       if (prefix) {
         args[0] = prefix + ":" + rootEvent;
       }
       args.push(instance);
-      Marionette.triggerMethod.apply(this, args);
+      Marionette.triggerMethod.apply(_t, args);
     })
   }
 

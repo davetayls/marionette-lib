@@ -13,8 +13,7 @@ var ItemView = (function (_super) {
         this.behaviors['Modifiers'] = {};
         _super.call(this, options);
     }
-    ItemView.prototype.defaults = function () {
-    };
+    ItemView.prototype.defaults = function () { };
     Object.defineProperty(ItemView.prototype, "className", {
         get: function () {
             return this.name;

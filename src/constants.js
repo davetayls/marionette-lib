@@ -10,9 +10,7 @@ var StringConstant = (function () {
     function StringConstant(val) {
         this.val = val;
     }
-    StringConstant.prototype.toString = function () {
-        return this.val;
-    };
+    StringConstant.prototype.toString = function () { return this.val; };
     StringConstant.prototype.matches = function (value) {
         return this.toString() === value;
     };

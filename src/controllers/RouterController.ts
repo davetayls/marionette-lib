@@ -101,7 +101,7 @@ export class RouterController extends BaseController.BaseController {
     actionConfig = this._getActionConfig(actionConfig);
     var _fn = this._getActionFunction(actionConfig);
     if (_.isFunction(_fn)) {
-      attacher[actionName] = () => {
+      attacher[actionName] = function() {
         if (this.getOption('authorizeAnAction').call(this, actionName, actionConfig)) {
           try {
             return _fn.apply(this, arguments);
@@ -116,7 +116,7 @@ export class RouterController extends BaseController.BaseController {
         } else {
           return this.callActionUnauthorized(actionName, actionConfig);
         }
-      }
+      }.bind(this);
     } else {
       throw new Error('Proxying through an authorize method requires a function');
     }

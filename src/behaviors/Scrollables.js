@@ -16,7 +16,9 @@ function initGlobalScrollableState() {
     $(document).on("touchmove", function (e) {
         e.preventDefault();
     });
-    $(document.body).addClass('Scrollables--attached').on("touchstart", "." + SCROLLABLE_CLASS, function (e) {
+    $(document.body)
+        .addClass('Scrollables--attached')
+        .on("touchstart", "." + SCROLLABLE_CLASS, function (e) {
         // If the element is scrollable (content overflows), then...
         if (this.scrollHeight !== this.clientHeight) {
             // If we're at the top, scroll down one pixel to allow scrolling up
@@ -32,7 +34,8 @@ function initGlobalScrollableState() {
         this.allowUp = this.scrollTop > 0;
         this.allowDown = this.scrollTop < (this.scrollHeight - this.clientHeight);
         this.lastY = e.originalEvent.pageY;
-    }).on("touchmove", "." + SCROLLABLE_CLASS, function (e) {
+    })
+        .on("touchmove", "." + SCROLLABLE_CLASS, function (e) {
         var event = e.originalEvent;
         var up = event.pageY > this.lastY;
         var down = !up;

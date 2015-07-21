@@ -22,49 +22,31 @@ var NoticeViewModel = (function (_super) {
         };
     };
     Object.defineProperty(NoticeViewModel.prototype, "header", {
-        get: function () {
-            return this.get('header');
-        },
-        set: function (value) {
-            this.set('header', value);
-        },
+        get: function () { return this.get('header'); },
+        set: function (value) { this.set('header', value); },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(NoticeViewModel.prototype, "body", {
-        get: function () {
-            return this.get('body');
-        },
-        set: function (value) {
-            this.set('body', value);
-        },
+        get: function () { return this.get('body'); },
+        set: function (value) { this.set('body', value); },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(NoticeViewModel.prototype, "buttons", {
-        get: function () {
-            return this.get('buttons');
-        },
+        get: function () { return this.get('buttons'); },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(NoticeViewModel.prototype, "canDismiss", {
-        get: function () {
-            return this.get('canDismiss');
-        },
-        set: function (value) {
-            this.set('canDismiss', value);
-        },
+        get: function () { return this.get('canDismiss'); },
+        set: function (value) { this.set('canDismiss', value); },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(NoticeViewModel.prototype, "loading", {
-        get: function () {
-            return this.get('loading');
-        },
-        set: function (value) {
-            this.set('loading', value);
-        },
+        get: function () { return this.get('loading'); },
+        set: function (value) { this.set('loading', value); },
         enumerable: true,
         configurable: true
     });

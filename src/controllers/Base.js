@@ -20,7 +20,7 @@ var BaseController = (function (_super) {
         _super.prototype.destroy.call(this);
     };
     BaseController.prototype.proxyEvents = function (instance, prefix) {
-        var _this = this;
+        var _t = this;
         this.listenTo(instance, "all", function () {
             var args = Array.prototype.slice.call(arguments);
             var rootEvent = args[0];
@@ -28,7 +28,7 @@ var BaseController = (function (_super) {
                 args[0] = prefix + ":" + rootEvent;
             }
             args.push(instance);
-            Marionette.triggerMethod.apply(_this, args);
+            Marionette.triggerMethod.apply(_t, args);
         });
     };
     return BaseController;

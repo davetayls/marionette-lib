@@ -47,8 +47,7 @@ var RouterController = (function (_super) {
     RouterController.prototype._getActionConfig = function (actionConfig) {
         if (actionConfig == null) {
             actionConfig = {
-                fn: function () {
-                }
+                fn: function () { }
             };
         }
         if (_.isFunction(actionConfig)) {
@@ -84,20 +83,19 @@ var RouterController = (function (_super) {
         }
     };
     RouterController.prototype.addAction = function (actionName, actionConfig) {
-        var _this = this;
         var attacher = this;
         actionConfig = this._getActionConfig(actionConfig);
         var _fn = this._getActionFunction(actionConfig);
         if (_.isFunction(_fn)) {
             attacher[actionName] = function () {
-                if (_this.getOption('authorizeAnAction').call(_this, actionName, actionConfig)) {
+                if (this.getOption('authorizeAnAction').call(this, actionName, actionConfig)) {
                     try {
-                        return _fn.apply(_this, arguments);
+                        return _fn.apply(this, arguments);
                     }
                     catch (error) {
                         if (error.name === 'ActionUnauthorized') {
                             actionConfig.internalActionError = error;
-                            return _this.callActionUnauthorized(actionName, actionConfig);
+                            return this.callActionUnauthorized(actionName, actionConfig);
                         }
                         else {
                             throw error;
@@ -105,9 +103,9 @@ var RouterController = (function (_super) {
                     }
                 }
                 else {
-                    return _this.callActionUnauthorized(actionName, actionConfig);
+                    return this.callActionUnauthorized(actionName, actionConfig);
                 }
-            };
+            }.bind(this);
         }
         else {
             throw new Error('Proxying through an authorize method requires a function');

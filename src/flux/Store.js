@@ -14,8 +14,7 @@ var Store = (function (_super) {
         this.dispatcher = dispatcher;
         this.dispatchToken = dispatcher.registerStore(this);
     }
-    Store.prototype.dispatch = function (payload) {
-    };
+    Store.prototype.dispatch = function (payload) { };
     Store.prototype.stateChanged = function () {
         this.stateHasChanged = true;
     };

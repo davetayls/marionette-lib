@@ -59,62 +59,38 @@ var ButtonModel = (function (_super) {
         };
     };
     Object.defineProperty(ButtonModel.prototype, "name", {
-        get: function () {
-            return this.get('name');
-        },
-        set: function (value) {
-            this.set('name', value);
-        },
+        get: function () { return this.get('name'); },
+        set: function (value) { this.set('name', value); },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(ButtonModel.prototype, "icon", {
-        get: function () {
-            return this.get('icon');
-        },
-        set: function (value) {
-            this.set('icon', value);
-        },
+        get: function () { return this.get('icon'); },
+        set: function (value) { this.set('icon', value); },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(ButtonModel.prototype, "text", {
-        get: function () {
-            return this.get('text');
-        },
-        set: function (value) {
-            this.set('text', value);
-        },
+        get: function () { return this.get('text'); },
+        set: function (value) { this.set('text', value); },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(ButtonModel.prototype, "block", {
-        get: function () {
-            return this.get('block');
-        },
-        set: function (value) {
-            this.set('block', value);
-        },
+        get: function () { return this.get('block'); },
+        set: function (value) { this.set('block', value); },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(ButtonModel.prototype, "theme", {
-        get: function () {
-            return this.get('theme');
-        },
-        set: function (value) {
-            this.set('theme', value);
-        },
+        get: function () { return this.get('theme'); },
+        set: function (value) { this.set('theme', value); },
         enumerable: true,
         configurable: true
     });
     Object.defineProperty(ButtonModel.prototype, "size", {
-        get: function () {
-            return this.get('size');
-        },
-        set: function (value) {
-            this.set('size', value);
-        },
+        get: function () { return this.get('size'); },
+        set: function (value) { this.set('size', value); },
         enumerable: true,
         configurable: true
     });
@@ -153,12 +129,8 @@ var Button = (function (_super) {
         return 'Icon Icon--' + iconName;
     };
     Object.defineProperty(Button.prototype, "text", {
-        get: function () {
-            return this.model.text;
-        },
-        set: function (value) {
-            this.model.text = value;
-        },
+        get: function () { return this.model.text; },
+        set: function (value) { this.model.text = value; },
         enumerable: true,
         configurable: true
     });
@@ -188,11 +160,16 @@ var Button = (function (_super) {
     Button.prototype.unsetClassNames = function () {
         if (!this.$el)
             return;
-        this.$el.removeClass('btn-link').removeClass('Button--' + this.model.theme).removeClass('Button--' + this.model.size);
+        this.$el
+            .removeClass('btn-link')
+            .removeClass('Button--' + this.model.theme)
+            .removeClass('Button--' + this.model.size);
         this.$el.removeClass('btn-block');
     };
     Button.prototype.setClassNames = function () {
-        this.$el.addClass('Button--' + this.model.theme).addClass('Button--' + this.model.size + 'Size');
+        this.$el
+            .addClass('Button--' + this.model.theme)
+            .addClass('Button--' + this.model.size + 'Size');
         if (this.model.theme === BUTTON_THEME.link) {
             this.$el.addClass('btn-link');
         }
