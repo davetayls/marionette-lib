@@ -218,6 +218,7 @@ declare module '__marionette_lib/controllers/Component' {
 declare module '__marionette_lib/controllers/RouterController' {
     import BaseController = require('__marionette_lib/controllers/Base');
     export interface IRouterOptions {
+        authorizeAnAction?: (actionName: string, actionConfig: IActionConfig) => boolean;
         actions: {
             [key: string]: IActionConfig;
         };
