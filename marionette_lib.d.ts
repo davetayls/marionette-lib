@@ -10,7 +10,8 @@
 declare module 'marionette_lib' {
     export import config = require('__marionette_lib/config/client');
     export function configure(options: config.IConfigureOptions): void;
-    export import behaviors = require('__marionette_lib/behaviors/index');
+    import behaviorsLookup = require('__marionette_lib/behaviors/behaviorsLookup');
+    export import behaviors = behaviorsLookup.behaviors;
     export import components = require('__marionette_lib/components/index');
     export import constants = require('__marionette_lib/constants');
     export import Exceptions = require('__marionette_lib/Exceptions');
@@ -62,11 +63,8 @@ declare module '__marionette_lib/config/client' {
     export var config: MarionetteLibConfiguration;
 }
 
-declare module '__marionette_lib/behaviors/index' {
-    import _Modifiers = require('__marionette_lib/behaviors/Modifiers');
-    import _Scrollables = require('__marionette_lib/behaviors/Scrollables');
-    export import Modifiers = _Modifiers.ModifiersBehavior;
-    export import Scrollables = _Scrollables.ScrollablesBehavior;
+declare module '__marionette_lib/behaviors/behaviorsLookup' {
+    export import behaviors = require('__marionette_lib/behaviors/index');
 }
 
 declare module '__marionette_lib/components/index' {
@@ -465,29 +463,11 @@ declare module '__marionette_lib/components/AnimatedRegion/AnimatedRegion' {
     }
 }
 
-declare module '__marionette_lib/behaviors/Modifiers' {
-    import Marionette = require('backbone.marionette');
-    export interface IModifiedOptions {
-        remove?: boolean;
-        toggle?: boolean;
-    }
-    export class ModifiersBehavior extends Marionette.Behavior {
-        addModifier(modifier: string): boolean;
-        removeModifier(modifier: string): boolean;
-        toggleModifier(modifier: string): boolean;
-        onModified(modifier: string, options?: IModifiedOptions): void;
-    }
-}
-
-declare module '__marionette_lib/behaviors/Scrollables' {
-    import Marionette = require('backbone.marionette');
-    export interface IScrollablesOptions {
-        [key: string]: string;
-    }
-    export class ScrollablesBehavior extends Marionette.Behavior {
-        options: IScrollablesOptions;
-        onShow(): void;
-    }
+declare module '__marionette_lib/behaviors/index' {
+    import _Modifiers = require('__marionette_lib/behaviors/Modifiers');
+    import _Scrollables = require('__marionette_lib/behaviors/Scrollables');
+    export import Modifiers = _Modifiers.ModifiersBehavior;
+    export import Scrollables = _Scrollables.ScrollablesBehavior;
 }
 
 declare module '__marionette_lib/components/alert/Alert' {
@@ -870,6 +850,31 @@ declare module '__marionette_lib/views/List' {
         animateOut(cb: () => void): any;
         hideView(): void;
         showView(show?: boolean): void;
+    }
+}
+
+declare module '__marionette_lib/behaviors/Modifiers' {
+    import Marionette = require('backbone.marionette');
+    export interface IModifiedOptions {
+        remove?: boolean;
+        toggle?: boolean;
+    }
+    export class ModifiersBehavior extends Marionette.Behavior {
+        addModifier(modifier: string): boolean;
+        removeModifier(modifier: string): boolean;
+        toggleModifier(modifier: string): boolean;
+        onModified(modifier: string, options?: IModifiedOptions): void;
+    }
+}
+
+declare module '__marionette_lib/behaviors/Scrollables' {
+    import Marionette = require('backbone.marionette');
+    export interface IScrollablesOptions {
+        [key: string]: string;
+    }
+    export class ScrollablesBehavior extends Marionette.Behavior {
+        options: IScrollablesOptions;
+        onShow(): void;
     }
 }
 
