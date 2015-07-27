@@ -7,11 +7,8 @@ export function configure(options:config.IConfigureOptions) {
   return config.config.configure(options);
 };
 
-export import behaviors = require('./behaviors/index');
-
-Marionette.Behaviors.behaviorsLookup = function() {
-  return behaviors;
-};
+import behaviorsLookup = require('./behaviors/behaviorsLookup');
+export import behaviors = behaviorsLookup.behaviors;
 
 export import components = require('./components/index');
 export import constants = require('./constants');

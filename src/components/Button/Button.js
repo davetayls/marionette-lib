@@ -5,6 +5,7 @@ var __extends = this.__extends || function (d, b) {
     __.prototype = b.prototype;
     d.prototype = new __();
 };
+var _ = require('underscore');
 var Backbone = require('backbone');
 var constants = require('../../constants');
 var ItemView = require('../../views/ItemView');

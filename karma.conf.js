@@ -1,6 +1,8 @@
 // Karma configuration
 // Generated on Fri Nov 07 2014 12:02:58 GMT+0000 (GMT)
 
+var path = require('path');
+
 module.exports = function(config) {
   config.set({
 
@@ -32,6 +34,14 @@ module.exports = function(config) {
         loaders: [
           {test: /\.hbs$/, loader: 'handlebars-loader'}
         ]
+      },
+      resolve: {
+        root: [
+          path.join(__dirname, 'bower_components')
+        ],
+        alias: {
+          spin: path.join(__dirname, 'bower_components/spin.js/spin.js')
+        }
       }
     },
     webpackServer: {

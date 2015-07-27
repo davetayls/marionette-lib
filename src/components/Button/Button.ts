@@ -1,5 +1,6 @@
 /// <reference path="../../../typings/tsd.d.ts" />
 
+import _ = require('underscore');
 import Backbone = require('backbone');
 import constants = require('../../constants');
 import ItemView = require('../../views/ItemView');

@@ -1,15 +1,12 @@
 /// <reference path="../typings/tsd.d.ts" />
-var Marionette = require('backbone.marionette');
 exports.config = require('./config/client');
 function configure(options) {
     return exports.config.config.configure(options);
 }
 exports.configure = configure;
 ;
-exports.behaviors = require('./behaviors/index');
-Marionette.Behaviors.behaviorsLookup = function () {
-    return exports.behaviors;
-};
+var behaviorsLookup = require('./behaviors/behaviorsLookup');
+exports.behaviors = behaviorsLookup.behaviors;
 exports.components = require('./components/index');
 exports.constants = require('./constants');
 exports.Exceptions = require('./Exceptions');
