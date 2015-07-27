@@ -5,6 +5,7 @@
  * 'data-*' attributes control where elements are placed
  */
 var Form = require('backbone-forms');
+var _ = require('underscore');
 function init() {
     Form.template = _.template('<div data-fieldsets></div>');
     Form.Fieldset.template = _.template('\

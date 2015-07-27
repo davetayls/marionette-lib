@@ -1,5 +1,5 @@
-define(function (require, exports, module) {/// <reference path="../../typings/tsd.d.ts" />
-var DebouncedDocContainer = require('../../amd/utilities/DebouncedDocContainer');
+/// <reference path="../../typings/tsd.d.ts" />
+var DebouncedDocContainer = require('../../src/utilities/DebouncedDocContainer');
 describe('DebouncedDocContainer', function () {
     it('can create a new instance', function () {
         var docs = new DebouncedDocContainer.DebouncedDocContainer();
@@ -72,4 +72,3 @@ describe('DebouncedDocContainer', function () {
     });
 });
 //# sourceMappingURL=DebouncedDocContainer-spec.js.map
-});

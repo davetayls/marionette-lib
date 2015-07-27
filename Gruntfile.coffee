@@ -20,7 +20,7 @@ module.exports = (grunt) ->
     grunt.task.run [
       "bump-only:#{release}"
       'build'
-#      'test'
+      'test'
       "bump-commit"
     ]
 

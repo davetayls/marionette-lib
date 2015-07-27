@@ -7,34 +7,36 @@ module.exports = function(config) {
     // base path that will be used to resolve all patterns (eg. files, exclude)
     basePath: '',
 
-
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['requirejs', 'mocha', 'sinon-chai'],
-
+    frameworks: ['mocha', 'sinon-chai'],
 
     // list of files / patterns to load in the browser
     files: [
-      'test-main.js',
-      {pattern: 'amd/**/*.js', included: false},
-      {pattern: 'amd/**/*.js.map', included: false},
-      {pattern: 'bower_components/**/*.js', included: false},
-      {pattern: 'test-client/**/*-spec.js', included: false}
+      'test-main.js'
     ],
 
 
     // list of files to exclude
-    exclude: [
-      'bower_components/**/*.spec.js'
-    ],
-
+    exclude: [],
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
-      'amd/**/*.js': ['coverage']
+      'test-main.js': ['webpack', 'sourcemap']
     },
 
+    webpack: { //kind of a copy of your webpack config
+      devtool: 'inline-source-map', //just do inline source maps instead of the default
+      module: {
+        loaders: [
+          {test: /\.hbs$/, loader: 'handlebars-loader'}
+        ]
+      }
+    },
+    webpackServer: {
+      noInfo: true //please don't spam the console when running in karma!
+    },
 
     // test results reporter to use
     // possible values: 'dots', 'progress'

@@ -7,6 +7,7 @@
  */
 
 import Form = require('backbone-forms');
+import _ = require('underscore');
 
 export function init() {
 

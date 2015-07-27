@@ -4,6 +4,7 @@ import _ = require('underscore');
 import BaseController = require('./Base');
 
 export interface IRouterOptions {
+  authorizeAnAction?:(actionName:string, actionConfig:IActionConfig) => boolean;
   actions:{[key:string]:IActionConfig};
 }
 
@@ -27,7 +28,7 @@ export class RouterController extends BaseController.BaseController {
     }
   }
 
-  authorizeAnAction(actionName:string, actionConfig:IActionConfig) {
+  authorizeAnAction(actionName:string, actionConfig:IActionConfig):boolean {
     return this._getActionPolicy(actionConfig).isAuthorized(actionName, actionConfig);
   }
 

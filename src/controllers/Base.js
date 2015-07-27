@@ -5,6 +5,7 @@ var __extends = this.__extends || function (d, b) {
     __.prototype = b.prototype;
     d.prototype = new __();
 };
+var _ = require('underscore');
 var registry = require('../utilities/registry');
 var Marionette = require('backbone.marionette');
 var BaseController = (function (_super) {

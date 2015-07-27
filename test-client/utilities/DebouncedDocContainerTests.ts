@@ -1,6 +1,6 @@
 /// <reference path="../../typings/tsd.d.ts" />
 
-import DebouncedDocContainer = require('../../amd/utilities/DebouncedDocContainer');
+import DebouncedDocContainer = require('../../src/utilities/DebouncedDocContainer');
 
 describe('DebouncedDocContainer', function() {
 

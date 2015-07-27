@@ -1,5 +1,6 @@
 /// <reference path="../../typings/tsd.d.ts" />
 
+import _ = require('underscore');
 import registry = require('../utilities/registry');
 import Marionette = require('backbone.marionette');
 import AnimatedRegion = require('../components/AnimatedRegion/AnimatedRegion');
