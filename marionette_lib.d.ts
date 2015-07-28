@@ -4,7 +4,7 @@
 //   ../typings/q/Q.d.ts
 //   ../typings/backbone/backbone.d.ts
 //   ../typings/backbone-forms/backbone-forms.d.ts
-//   ../typings/spin/spin.d.ts
+//   ../typings/spin.js/spin.d.ts
 //   ../typings/flux/flux.d.ts
 
 declare module 'marionette_lib' {
@@ -606,7 +606,7 @@ declare module '__marionette_lib/components/FormView/FormView' {
 
 declare module '__marionette_lib/components/SpinnerView/SpinnerView' {
     import View = require('__marionette_lib/views/View');
-    import Spin = require('spin');
+    import Spin = require('spin.js');
     export class SpinnerView extends View.View<Backbone.Model> {
         constructor(options?: Backbone.ViewOptions<Backbone.Model>);
         onDestroy(): void;
