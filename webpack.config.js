@@ -18,21 +18,6 @@ module.exports = {
     ]
   },
 
-  resolve: {
-    root: [
-      path.join(__dirname, 'bower_components')
-    ],
-    alias: {
-      spin: path.join(__dirname, 'bower_components/spin.js/spin.js')
-    }
-  },
-
-  plugins: [
-    new webpack.ResolverPlugin(
-      new webpack.ResolverPlugin.DirectoryDescriptionFilePlugin('bower.json', ['main'])
-    )
-  ],
-
   devtool: '#inline-source-map',
 
   externals: [

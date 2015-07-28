@@ -6,7 +6,7 @@ var __extends = this.__extends || function (d, b) {
     d.prototype = new __();
 };
 var View = require('../../views/View');
-var Spin = require('spin');
+var Spin = require('spin.js');
 var SpinnerView = (function (_super) {
     __extends(SpinnerView, _super);
     function SpinnerView(options) {

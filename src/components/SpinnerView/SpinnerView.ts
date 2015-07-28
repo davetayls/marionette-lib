@@ -2,7 +2,7 @@
 
 import Marionette = require('backbone.marionette');
 import View = require('../../views/View');
-import Spin = require('spin');
+import Spin = require('spin.js');
 
 export class SpinnerView extends View.View<Backbone.Model> {
 

@@ -1,5 +1,5 @@
 
-declare module 'spin' {
+declare module 'spin.js' {
   class Spin {
     constructor(options?:any);
     stop():void;

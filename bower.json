@@ -46,7 +46,6 @@
     "i18next": "1.9.x",
     "modernizr": "~2.8.2",
     "requirejs": "~2.1.14",
-    "requirejs-hbs": "~0.1.1",
     "requirejs-plugins": "~1.0.2",
     "requirejs-text": "~2.0.12",
     "showdown": "1.x.x",
