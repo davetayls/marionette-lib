@@ -6,20 +6,19 @@
   "dependencies": {
     "async": "~0.9.0",
     "backbone": "1.x.x",
-    "backbone-forms": "git+ssh://github.com/powmedia/backbone-forms#master",
+    "backbone-forms": "git+https://github.com/powmedia/backbone-forms.git#master",
     "backbone.marionette": "2.4.x",
     "fastclick": "~1.0.2",
     "flux": "~2.0.2",
     "handlebars": "3.x.x",
     "i18next-client": "1.10.x",
     "jquery": "^2.1.4",
-    "modernizr": "3.0.0-alpha.4",
     "q": "1.x.x",
     "requirejs": "~2.1.14",
     "requirejs-plugins": "~1.0.2",
     "requirejs-text": "~2.0.12",
     "showdown": "1.x.x",
-    "snapjs": "git+ssh://github.com/jakiestfu/Snap.js#v2.0",
+    "snapjs": "git+https://github.com/jakiestfu/Snap.js.git#v2.0",
     "spin.js": "2.x.x"
   },
   "devDependencies": {
