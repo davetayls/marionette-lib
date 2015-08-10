@@ -18,7 +18,7 @@
     "requirejs-plugins": "~1.0.2",
     "requirejs-text": "~2.0.12",
     "showdown": "1.x.x",
-    "snapjs": "git+https://github.com/jakiestfu/Snap.js.git#v2.0",
+    "Snap.js": "git+https://github.com/jakiestfu/Snap.js.git#v2.0",
     "spin.js": "2.x.x"
   },
   "devDependencies": {
