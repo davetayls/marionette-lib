@@ -63,6 +63,8 @@ export class ButtonModel extends Backbone.Model {
 
 }
 
+ButtonModel.prototype.idAttribute = 'name';
+
 export interface IButtonOptions extends Backbone.ViewOptions<ButtonModel> {
   name:string;
   icon?:string;
