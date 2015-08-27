@@ -98,6 +98,7 @@ var ButtonModel = (function (_super) {
     return ButtonModel;
 })(Backbone.Model);
 exports.ButtonModel = ButtonModel;
+ButtonModel.prototype.idAttribute = 'name';
 var Button = (function (_super) {
     __extends(Button, _super);
     function Button(options) {
