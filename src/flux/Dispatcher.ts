@@ -46,33 +46,34 @@ export class Dispatcher extends flux.Dispatcher<IPayload> {
 
   handlePayload(payload:IPayload):void {
     this.payloadQueue.push(payload);
+    log('Dispatcher: handle', payload);
     if (!this.dispatching) this.dispatchPayload();
   }
 
   handleServerAction(action:actions.Action){
     var payload = {
       source: constants.ACTION_SOURCES.ServerAction,
-      action: action
+      action: action,
+      caller: arguments.callee.caller
     };
-    log('Dispatcher: handle', payload, arguments.callee.caller);
     this.handlePayload(payload);
   }
 
   handleDeviceAction(action:actions.Action){
     var payload = {
       source: constants.ACTION_SOURCES.DeviceAction,
-      action: action
+      action: action,
+      caller: arguments.callee.caller
     };
-    log('Dispatcher: handle', payload, arguments.callee.caller);
     this.handlePayload(payload);
   }
 
   handleViewAction(action:actions.Action){
     var payload = {
       source: constants.ACTION_SOURCES.ViewAction,
-      action: action
+      action: action,
+      caller: arguments.callee.caller
     };
-    log('Dispatcher: handle', payload, arguments.callee.caller);
     this.handlePayload(payload);
   }
 
