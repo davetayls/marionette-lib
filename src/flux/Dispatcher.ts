@@ -7,6 +7,8 @@ import IPayload = fluxInterfaces.IPayload;
 import actions = require('./actions');
 import Store = require('./Store');
 
+var log = console.log.bind(console);
+
 export class Dispatcher extends flux.Dispatcher<IPayload> {
 
   constructor() {
@@ -28,7 +30,7 @@ export class Dispatcher extends flux.Dispatcher<IPayload> {
     var payload = this.payloadQueue.shift();
     if (payload) {
       this.dispatching = true;
-      console.log('Dispatching:', payload);
+      log('Dispatching:', payload);
       this.dispatch(payload);
       this.notifyStoreListeners();
       this.dispatching = false;
@@ -44,7 +46,6 @@ export class Dispatcher extends flux.Dispatcher<IPayload> {
 
   handlePayload(payload:IPayload):void {
     this.payloadQueue.push(payload);
-    console.log('Dispatcher: Handling', payload);
     if (!this.dispatching) this.dispatchPayload();
   }
 
@@ -53,6 +54,7 @@ export class Dispatcher extends flux.Dispatcher<IPayload> {
       source: constants.ACTION_SOURCES.ServerAction,
       action: action
     };
+    log('Dispatcher: handle', payload, arguments.callee.caller);
     this.handlePayload(payload);
   }
 
@@ -61,6 +63,7 @@ export class Dispatcher extends flux.Dispatcher<IPayload> {
       source: constants.ACTION_SOURCES.DeviceAction,
       action: action
     };
+    log('Dispatcher: handle', payload, arguments.callee.caller);
     this.handlePayload(payload);
   }
 
@@ -69,6 +72,7 @@ export class Dispatcher extends flux.Dispatcher<IPayload> {
       source: constants.ACTION_SOURCES.ViewAction,
       action: action
     };
+    log('Dispatcher: handle', payload, arguments.callee.caller);
     this.handlePayload(payload);
   }
 

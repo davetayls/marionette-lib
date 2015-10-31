@@ -30,6 +30,8 @@ module.exports = function(config) {
 
     webpack: { //kind of a copy of your webpack config
       devtool: 'inline-source-map', //just do inline source maps instead of the default
+      debug: true,
+      watch: true,
       module: {
         loaders: [
           {test: /\.hbs$/, loader: 'handlebars-loader'}
@@ -45,7 +47,10 @@ module.exports = function(config) {
       }
     },
     webpackServer: {
-      noInfo: true //please don't spam the console when running in karma!
+      noInfo: true, //please don't spam the console when running in karma!
+      devtool: 'eval',
+      debug: true,
+      watch: true
     },
 
     // test results reporter to use

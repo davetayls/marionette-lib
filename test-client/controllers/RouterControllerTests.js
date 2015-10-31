@@ -181,4 +181,4 @@ describe('RouterController', function () {
         });
     });
 });
-//# sourceMappingURL=RouterController-spec.js.map
+//# sourceMappingURL=RouterControllerTests.js.map
