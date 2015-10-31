@@ -7,7 +7,7 @@ import IPayload = fluxInterfaces.IPayload;
 import actions = require('./actions');
 import Store = require('./Store');
 
-var log = console.log.bind(console);
+var log = console.log.bind ? console.log.bind(console) : console.log;
 
 export class Dispatcher extends flux.Dispatcher<IPayload> {
 

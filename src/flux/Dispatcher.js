@@ -7,7 +7,7 @@ var __extends = this.__extends || function (d, b) {
 };
 var flux = require('flux');
 var constants = require('../constants');
-var log = console.log.bind(console);
+var log = console.log.bind ? console.log.bind(console) : console.log;
 var Dispatcher = (function (_super) {
     __extends(Dispatcher, _super);
     function Dispatcher() {
