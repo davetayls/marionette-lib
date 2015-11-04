@@ -60,7 +60,6 @@ export class ButtonModel extends Backbone.Model {
   get size():BUTTON_SIZE { return this.get('size'); }
   set size(value:BUTTON_SIZE) { this.set('size', value); }
 
-
 }
 
 ButtonModel.prototype.idAttribute = 'name';
@@ -89,7 +88,7 @@ export class Button extends ItemView.ItemView<ButtonModel> {
     this.triggers = {
       'click': 'click'
     };
-    this.on('click', this.navigate);
+    this.on('click', _.throttle(this.navigate, 500));
     super(options);
     if (options) this.setProperties(options);
     this.setClassNames();
@@ -113,7 +112,7 @@ export class Button extends ItemView.ItemView<ButtonModel> {
   }
 
   navigate():void {
-    this.trigger(BUTTON_EVENTS.navigate.val, this.name);
+    this.trigger(BUTTON_EVENTS.navigate.toString(), this.name);
   }
 
   setProperties(options:IButtonOptions) {

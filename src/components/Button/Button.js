@@ -114,7 +114,7 @@ var Button = (function (_super) {
         this.triggers = {
             'click': 'click'
         };
-        this.on('click', this.navigate);
+        this.on('click', _.throttle(this.navigate, 500));
         _super.call(this, options);
         if (options)
             this.setProperties(options);
@@ -142,7 +142,7 @@ var Button = (function (_super) {
         return data;
     };
     Button.prototype.navigate = function () {
-        this.trigger(BUTTON_EVENTS.navigate.val, this.name);
+        this.trigger(BUTTON_EVENTS.navigate.toString(), this.name);
     };
     Button.prototype.setProperties = function (options) {
         this.unsetClassNames();
