@@ -114,7 +114,7 @@ var Button = (function (_super) {
         this.triggers = {
             'click': 'click'
         };
-        this.on('click', _.throttle(this.navigate, 500));
+        this.on('click', _.throttle(this.navigate, 500, { trailing: false }));
         _super.call(this, options);
         if (options)
             this.setProperties(options);

@@ -88,7 +88,7 @@ export class Button extends ItemView.ItemView<ButtonModel> {
     this.triggers = {
       'click': 'click'
     };
-    this.on('click', _.throttle(this.navigate, 500));
+    this.on('click', _.throttle(this.navigate, 500, { trailing: false }));
     super(options);
     if (options) this.setProperties(options);
     this.setClassNames();
