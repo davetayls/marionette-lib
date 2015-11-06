@@ -6,7 +6,7 @@ import View = require('./View');
 
 export class ChildHolderView<T extends Backbone.Model> extends View.View<T> {
 
-  constructor(options?: Backbone.ViewOptions<T>) {
+  constructor(options?:Backbone.ViewOptions<T>) {
     this.children = new Backbone.ChildViewContainer<T>();
     super(options);
   }
@@ -36,8 +36,24 @@ export class ChildHolderView<T extends Backbone.Model> extends View.View<T> {
     this.children.remove(view);
   }
 
-  protected attachHtml(view:Backbone.View<T>, index?:number) {
-    this.$el.append(view.el);
+  protected attachHtml(view:Backbone.View<T>, index?:number):void {
+    var childAtIndex:JQuery;
+
+    if (!_.isFinite(index)) {
+      // no index so add to end
+      this.$el.append(view.el);
+    } else if (index === 0) {
+      // could just quickly use prepend
+      this.$el.prepend(view.el);
+    } else {
+      // see if there is already a child at the index
+      childAtIndex = this.$el.children().eq(index);
+      if (childAtIndex.length) {
+        childAtIndex.before(view.el);
+      } else {
+        this.$el.append(view.el);
+      }
+    }
   }
 
   render() {
@@ -59,4 +75,5 @@ export class ChildHolderView<T extends Backbone.Model> extends View.View<T> {
 
 }
 
-export class GenericChildHolderView extends ChildHolderView<Backbone.Model> {}
+export class GenericChildHolderView extends ChildHolderView<Backbone.Model> {
+}

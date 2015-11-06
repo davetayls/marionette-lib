@@ -36,7 +36,25 @@ var ChildHolderView = (function (_super) {
         this.children.remove(view);
     };
     ChildHolderView.prototype.attachHtml = function (view, index) {
-        this.$el.append(view.el);
+        var childAtIndex;
+        if (!_.isFinite(index)) {
+            // no index so add to end
+            this.$el.append(view.el);
+        }
+        else if (index === 0) {
+            // could just quickly use prepend
+            this.$el.prepend(view.el);
+        }
+        else {
+            // see if there is already a child at the index
+            childAtIndex = this.$el.children().eq(index);
+            if (childAtIndex.length) {
+                childAtIndex.before(view.el);
+            }
+            else {
+                this.$el.append(view.el);
+            }
+        }
     };
     ChildHolderView.prototype.render = function () {
         this.children.call('render');
