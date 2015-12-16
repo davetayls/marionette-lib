@@ -105,13 +105,16 @@ var NoticeView = (function (_super) {
         return this.model.get('canDismiss');
     };
     NoticeView.prototype.hide = function () {
-        this.$el.hide();
+        this.hideView();
+    };
+    NoticeView.prototype.hideView = function () {
+        _super.prototype.hideView.call(this);
         if (this._loadingView) {
-            return this._loadingView.stop();
+            this._loadingView.stop();
         }
     };
     NoticeView.prototype.show = function () {
-        return this.$el.show();
+        this.showView();
     };
     NoticeView.prototype.set = function (properties) {
         this.model.set(properties);

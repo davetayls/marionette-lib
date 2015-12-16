@@ -95,15 +95,19 @@ export class NoticeView extends ItemView.ItemView<NoticeViewModel> {
     return this.model.get('canDismiss');
   }
 
-  hide() {
-    this.$el.hide();
+  hide():void {
+    this.hideView();
+  }
+
+  hideView():void {
+    super.hideView();
     if (this._loadingView) {
-      return this._loadingView.stop();
+      this._loadingView.stop();
     }
   }
 
-  show() {
-    return this.$el.show();
+  show():void {
+    this.showView();
   }
 
   set(properties:INoticeProperties) {
