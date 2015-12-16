@@ -116,9 +116,12 @@ var Button = (function (_super) {
         };
         this.on('click', _.throttle(this.navigate, 500, { trailing: false }));
         _super.call(this, options);
-        if (options)
+        if (options) {
             this.setProperties(options);
-        this.setClassNames();
+        }
+        else {
+            this.setClassNames();
+        }
     }
     Object.defineProperty(Button.prototype, "className", {
         get: function () {
@@ -160,6 +163,7 @@ var Button = (function (_super) {
             this.model.size = options.size;
         if (options.submit)
             this.$el.attr('type', 'submit');
+        this.setClassNames();
     };
     Button.prototype.unsetClassNames = function () {
         if (!this.$el)

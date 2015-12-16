@@ -90,8 +90,11 @@ export class Button extends ItemView.ItemView<ButtonModel> {
     };
     this.on('click', _.throttle(this.navigate, 500, { trailing: false }));
     super(options);
-    if (options) this.setProperties(options);
-    this.setClassNames();
+    if (options) {
+      this.setProperties(options);
+    } else {
+      this.setClassNames();
+    }
   }
 
   get className():string {
@@ -124,6 +127,7 @@ export class Button extends ItemView.ItemView<ButtonModel> {
     if (options.theme) this.model.theme = options.theme;
     if (options.size) this.model.size = options.size;
     if (options.submit) this.$el.attr('type', 'submit');
+    this.setClassNames();
   }
 
   unsetClassNames():void {
