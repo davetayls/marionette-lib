@@ -117,6 +117,7 @@ export class Button extends ItemView.ItemView<ButtonModel> {
 
   setProperties(options:IButtonOptions) {
     this.unsetClassNames();
+    if (options.name) this.model.name = options.name;
     if (options.icon) this.model.icon = options.icon;
     if (options.text) this.model.text = options.text;
     if (_.isBoolean(options.block)) this.model.block = options.block;

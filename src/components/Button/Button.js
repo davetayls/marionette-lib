@@ -146,6 +146,8 @@ var Button = (function (_super) {
     };
     Button.prototype.setProperties = function (options) {
         this.unsetClassNames();
+        if (options.name)
+            this.model.name = options.name;
         if (options.icon)
             this.model.icon = options.icon;
         if (options.text)
