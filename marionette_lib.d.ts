@@ -664,9 +664,10 @@ declare module '__marionette_lib/components/NoticeView/NoticeView' {
         options: INoticeViewOptions;
         onRender(): void;
         canDismiss(): any;
-        hide(): JQuery;
-        show(): JQuery;
-        set(properties: INoticeProperties): JQuery;
+        hide(): void;
+        hideView(): void;
+        show(): void;
+        set(properties: INoticeProperties): void;
         destroyButtons(): void;
         onButtonClicked(): any;
     }
@@ -705,11 +706,11 @@ declare module '__marionette_lib/stickit/mdown' {
 }
 
 declare module '__marionette_lib/flux/actions' {
-    import constants = require('__marionette_lib/constants');
     import Dispatcher = require('__marionette_lib/flux/Dispatcher');
     export class Action {
-        constructor(type?: constants.StringConstant);
-        type: constants.StringConstant;
+        constructor(type?: any);
+        type: any;
+        is(ActionClass: typeof Action): boolean;
     }
     export class ActionCreator {
         constructor(dispatcher: Dispatcher.Dispatcher);
