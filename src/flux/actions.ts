@@ -3,12 +3,15 @@ import constants = require('../constants');
 import Dispatcher = require('./Dispatcher');
 
 export class Action {
-  constructor(type?:constants.StringConstant) {
+  constructor(type?:any) {
     this.type = type;
   }
 
-  type:constants.StringConstant;
-  //async:boolean;
+  type:any;
+
+  is(ActionClass:typeof Action):boolean {
+    return this instanceof ActionClass;
+  }
 }
 
 export class ActionCreator {
